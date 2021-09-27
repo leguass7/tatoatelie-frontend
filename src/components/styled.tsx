@@ -38,8 +38,7 @@ export const FlexOne = styled.div<WebFlexProps>`
     verticalSpaced && !topMargin ? theme.spacing.l : topMargin}px;
   margin-bottom: ${({ theme, bottomMargin = 0, verticalSpaced }) =>
     verticalSpaced ? theme.spacing.l : bottomMargin}px;
-  margin-left: ${({ theme, leftMargin = 0, horizontalSpaced }) =>
-    horizontalSpaced ? theme.spacing.l : leftMargin}px;
+  margin-left: ${({ theme, leftMargin = 0, horizontalSpaced }) => (horizontalSpaced ? theme.spacing.l : leftMargin)}px;
   margin-right: ${({ theme, rightMargin = 0, horizontalSpaced }) =>
     horizontalSpaced ? theme.spacing.l : rightMargin}px;
   padding-right: ${({ horizontalPad }) => horizontalPad || 0}px;
@@ -55,4 +54,11 @@ export const FlexOne = styled.div<WebFlexProps>`
           flex: ${grow};
         `
       : null};
+`
+
+export const ContentLimit = styled.div<{ widthLimit?: number }>`
+  max-width: 100%;
+  width: ${({ widthLimit = 900 }) => widthLimit}px;
+  padding: 0;
+  margin: 0 auto;
 `
