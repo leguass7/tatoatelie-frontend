@@ -1,12 +1,6 @@
 import { VariantColorsTypes } from '~/components/AppThemeProvider/types'
 
-export type FlexJustify =
-  | 'space-between'
-  | 'flex-start'
-  | 'flex-end'
-  | 'space-around'
-  | 'center'
-  | 'space-evenly'
+export type FlexJustify = 'space-between' | 'flex-start' | 'flex-end' | 'space-around' | 'center' | 'space-evenly'
 export type FlexAlign = 'center' | 'stretch' | 'baseline' | 'flex-start' | 'flex-end'
 
 export type MarginProps = {

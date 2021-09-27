@@ -56,9 +56,10 @@ export const FlexOne = styled.div<WebFlexProps>`
       : null};
 `
 
-export const ContentLimit = styled.div<{ widthLimit?: number }>`
+export const ContentLimit = styled.div<{ widthLimit?: number; horizontalPad?: number }>`
   max-width: 100%;
   width: ${({ widthLimit = 900 }) => widthLimit}px;
   padding: 0;
   margin: 0 auto;
+  padding: 0 ${({ horizontalPad = 0 }) => horizontalPad}px;
 `
