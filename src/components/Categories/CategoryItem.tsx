@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 import { useAppTheme } from '../AppThemeProvider/useAppTheme'
@@ -8,12 +9,14 @@ import { ICategory } from './types'
 export const CategoryItem: React.FC<ICategory> = ({ label, image }) => {
   const { theme } = useAppTheme()
   return (
-    <CategoryItemContainer>
-      <CategoryIcon>
-        <LogoCircleSvg size={64} />
-        <img src={image} alt={label} />
-      </CategoryIcon>
-      <CategoryDescription colorLabel={theme.colors.primary}>{label}</CategoryDescription>
-    </CategoryItemContainer>
+    <Link passHref={true} href="/categories">
+      <CategoryItemContainer>
+        <CategoryIcon>
+          <LogoCircleSvg size={64} />
+          <img src={image} alt={label} />
+        </CategoryIcon>
+        <CategoryDescription colorLabel={theme.colors.primary}>{label}</CategoryDescription>
+      </CategoryItemContainer>
+    </Link>
   )
 }

@@ -18,10 +18,12 @@ export const CategoriesContainer = styled.div`
   }
 `
 
-export const CategoryItemContainer = styled.div`
+export const CategoryItemContainer = styled.a`
+  display: block;
   border: 0;
   padding: 0 3px;
   width: 80px;
+  max-width: 80px;
 `
 
 export const CategoryIcon = styled.div`
