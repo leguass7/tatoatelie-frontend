@@ -1,6 +1,6 @@
 import 'styled-components'
-import type { ITheme } from '../styles/theme'
+import { IAppTheme } from '~/components/AppThemeProvider/types'
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends ITheme {}
+  export interface DefaultTheme extends IAppTheme {}
 }

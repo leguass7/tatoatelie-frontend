@@ -31,6 +31,7 @@ export function install(): void {
   window.dataLayer = window.dataLayer || []
 
   gtag('js', new Date())
+  //@ts-ignore
   gtag('config', trackingId)
 }
 

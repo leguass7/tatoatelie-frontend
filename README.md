@@ -1,5 +1,7 @@
 <p><img src="./docs/images/logo-face.png" width="180" height="180"/></p>
+
 # tatoatelie-frontend
+
 Desenvolvido com [Next.js](https://nextjs.org/)
 
 ## Desenvolvimento
