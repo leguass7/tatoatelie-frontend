@@ -79,9 +79,9 @@ export const ImageContainer = styled.div<{ color: string }>`
   img {
     display: block;
     max-width: 100%;
-    width: 180px;
+    width: 160px;
     margin: 0 auto;
-    margin-top: -14px;
+    margin-top: -38px;
   }
   p {
     text-align: center;
@@ -126,3 +126,17 @@ export const Icon = styled.div`
 
   position: relative;
 `
+
+export const AppBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-self: center;
+  align-content: center;
+  margin: 0 auto;
+
+  padding: ${({ theme }) => theme.spacing.l || 10}px;
+`
+
+export const ItemBar = styled.div``

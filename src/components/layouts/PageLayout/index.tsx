@@ -2,7 +2,9 @@ import React from 'react'
 
 import logo from '~/assets/images/logo-face.png'
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
+import { CartSvg } from '~/components/Images/CartSvg'
 import { LogoCircleSvg } from '~/components/Images/LogoCircleSvg'
+import { MenuSvg } from '~/components/Images/MenuSvg'
 import { ContentLimit } from '~/components/styled'
 import { alpha } from '~/helpers/colors'
 
@@ -17,7 +19,9 @@ import {
   SpanObs,
   Line,
   Text,
-  Icon
+  Icon,
+  AppBar,
+  ItemBar
 } from './styled'
 
 export const PageLayout: React.FC = ({ children }) => {
@@ -25,7 +29,16 @@ export const PageLayout: React.FC = ({ children }) => {
   return (
     <LayoutContainer>
       <LayoutHeader>
-        header
+        <ContentLimit>
+          <AppBar>
+            <ItemBar>
+              <MenuSvg />
+            </ItemBar>
+            <ItemBar>
+              <CartSvg />
+            </ItemBar>
+          </AppBar>
+        </ContentLimit>
         <ImageContainer color={theme.colors.primary}>
           <img src={logo} alt="Tato Ateliê" />
         </ImageContainer>
