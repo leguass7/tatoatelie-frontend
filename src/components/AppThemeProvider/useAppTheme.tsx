@@ -27,8 +27,8 @@ export function useAppTheme(): IUseAppTheme {
 }
 
 function findMatches(rules: MatchingRules, value: VariantColorsTypes, defaultValue = ''): string {
-  const [themeColor] = rules
-    .find(word => !!(word && word.slice(0, word.length - 1)?.includes(value)))
-    ?.slice(-1) || [defaultValue]
+  const [themeColor] = rules.find(word => !!(word && word.slice(0, word.length - 1)?.includes(value)))?.slice(-1) || [
+    defaultValue
+  ]
   return themeColor
 }
