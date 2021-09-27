@@ -36,3 +36,5 @@ yarn-error.log*
 #custom
 *_remove*.*
 .env
+*Cópia_*
+*Copy_*
