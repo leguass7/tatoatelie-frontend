@@ -123,8 +123,16 @@ export const Icon = styled.div`
   justify-content: center;
   align-self: center;
   align-content: center;
-
   position: relative;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    max-width: 80%;
+    margin: 50% 50%;
+    transform: translate(-50%, -50%);
+  }
 `
 
 export const AppBar = styled.div`

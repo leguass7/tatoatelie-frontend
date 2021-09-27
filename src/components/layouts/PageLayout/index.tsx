@@ -1,5 +1,8 @@
 import React from 'react'
 
+import emailImg from '~/assets/icons/email.png'
+import instagramImg from '~/assets/icons/instagram.png'
+import zapImg from '~/assets/icons/zap.png'
 import logo from '~/assets/images/logo-face.png'
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { CartSvg } from '~/components/Images/CartSvg'
@@ -65,6 +68,7 @@ export const PageLayout: React.FC = ({ children }) => {
                 <Text>(85) 98713-8347</Text>
                 <Icon>
                   <LogoCircleSvg size={32} />
+                  <img src={zapImg} alt="whatsapp" />
                 </Icon>
               </Line>
               <Line>
@@ -73,12 +77,14 @@ export const PageLayout: React.FC = ({ children }) => {
                 </Text>
                 <Icon>
                   <LogoCircleSvg size={32} />
+                  <img src={emailImg} alt="email" />
                 </Icon>
               </Line>
               <Line>
                 <Text>@tato_atelie</Text>
                 <Icon>
                   <LogoCircleSvg size={32} />
+                  <img src={instagramImg} alt="intagram" />
                 </Icon>
               </Line>
             </FooterItem>
