@@ -9,4 +9,5 @@ export interface IProduct {
   slug: string
   title: string
   price: number
+  imageUrl?: string
 }

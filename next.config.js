@@ -3,7 +3,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    disableStaticImages: true // para funcionar o plugin `next-fonts`
+    disableStaticImages: true, // para funcionar o plugin `next-fonts`
+    domains: ['next.tatoatelie.com.br', 'tatoatelie.com.br']
   },
   api: {
     bodyParser: {
