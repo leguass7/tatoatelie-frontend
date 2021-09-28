@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
 
-import { getHello } from '~/controllers/hello'
+import { getHello } from '~/serverSide/controllers/hello'
 
 const handlerController = nc<NextApiRequest, NextApiResponse>()
 handlerController.get(getHello)

@@ -31,11 +31,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @media (orientation: landscape) {
-    body { background-image: ${({ theme }) => renderBackground('landscape', brighten(theme.colors.secondary, 0.5))}; }
+    body { background-image: ${({ theme }) => renderBackground('landscape', brighten(theme.colors.secondary, 1.2))}; }
   }
 
   @media (orientation: portrait) {
-    body { background-image: ${({ theme }) => renderBackground('portrait', brighten(theme.colors.secondary, 0.5))}; }
+    body { background-image: ${({ theme }) => renderBackground('portrait', brighten(theme.colors.secondary, 1.2))}; }
   }
 
   #__next{

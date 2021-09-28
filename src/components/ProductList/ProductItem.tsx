@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { IProduct } from '~/services/gtag/makeData/mock'
+import type { IProduct } from '~/serverSide/repositories/types'
 
 import { useAppTheme } from '../AppThemeProvider/useAppTheme'
 import { ProductItemContainer, ProductLink } from './styles'

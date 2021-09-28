@@ -9,7 +9,6 @@ const PageHome: NextPage = () => {
     <PageLayout>
       <ContentLimit horizontalPad={10}>
         <Categories />
-        <p>growing</p>
       </ContentLimit>
     </PageLayout>
   )

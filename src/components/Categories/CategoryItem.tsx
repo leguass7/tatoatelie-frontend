@@ -6,10 +6,11 @@ import { LogoCircleSvg } from '../Images/LogoCircleSvg'
 import { CategoryDescription, CategoryIcon, CategoryItemContainer } from './styles'
 import { ICategory } from './types'
 
-export const CategoryItem: React.FC<ICategory> = ({ label, image }) => {
+export const CategoryItem: React.FC<ICategory> = ({ label, image, customPage, slug }) => {
   const { theme } = useAppTheme()
+  const link = customPage ? `/${slug}` : `/categories/${slug}`
   return (
-    <Link passHref={true} href="/categories">
+    <Link passHref={true} href={link}>
       <CategoryItemContainer>
         <CategoryIcon>
           <LogoCircleSvg size={64} />

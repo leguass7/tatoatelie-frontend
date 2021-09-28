@@ -14,7 +14,7 @@ export const ProductItemContainer = styled.div<{ space?: number }>`
   flex-flow: column nowrap;
   padding: ${({ space }) => space || 0}px;
   width: 50%;
-  border: 1px solid #000;
+  border: 1px dashed #ccc;
   @media (min-width: 500px) {
     width: auto;
   }

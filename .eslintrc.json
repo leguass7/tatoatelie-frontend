@@ -19,6 +19,7 @@
     "import/no-unresolved": "error",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react/prop-types": "off",
     "import-helpers/order-imports": ["warn",{
         "newlinesBetween": "always",
         "alphabetize": { "order": "asc", "ignoreCase": true },

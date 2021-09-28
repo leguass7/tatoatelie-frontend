@@ -5,29 +5,29 @@ import caixasImg from '~/assets/icons/caixas.png'
 import cakeboardsImg from '~/assets/icons/cakeboards.png'
 import coreImg from '~/assets/icons/core.png'
 import estencilImg from '~/assets/icons/estencil.png'
-import spatulaImg from '~/assets/icons/spatulas.png'
+import espatulaImg from '~/assets/icons/spatulas.png'
 
 import { CategoryItem } from './CategoryItem'
 import { CategoriesContainer } from './styles'
 import { ICategory } from './types'
 
-const categoriesTemp: ICategory[] = [
-  { id: 1, label: 'Espátulas', image: spatulaImg },
-  { id: 2, label: 'Estêncil', image: estencilImg },
-  { id: 3, label: 'Organizador', image: coreImg },
-  { id: 4, label: 'Caixas', image: caixasImg },
-  { id: 5, label: 'Bandejas', image: bandejasImg },
-  { id: 6, label: 'Cakeboards', image: cakeboardsImg }
+const defaultCategories: ICategory[] = [
+  { id: 1, slug: 'espatulas', label: 'Espátulas', image: espatulaImg, customPage: true },
+  { id: 2, slug: 'estencil', label: 'Estêncil', image: estencilImg },
+  { id: 3, slug: 'organizador', label: 'Organizador', image: coreImg },
+  { id: 4, slug: 'caixas', label: 'Caixas', image: caixasImg },
+  { id: 5, slug: 'bandejas', label: 'Bandejas', image: bandejasImg },
+  { id: 6, slug: 'cakeboards', label: 'Cakeboards', image: cakeboardsImg }
 ]
 type Props = {
   categories?: ICategory[]
 }
 
-export const Categories: React.FC<Props> = ({ categories = categoriesTemp }) => {
+export const Categories: React.FC<Props> = ({ categories = defaultCategories }) => {
   return (
     <CategoriesContainer>
-      {categories.map(({ id, label, image }) => {
-        return <CategoryItem key={id} id={id} label={label} image={image} />
+      {categories.map(category => {
+        return <CategoryItem key={`category-${category.id}`} {...category} />
       })}
     </CategoriesContainer>
   )
