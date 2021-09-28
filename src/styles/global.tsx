@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 
 import { BackgroundSvg } from '~/components/Images/BackgroundSvg'
 import { brighten } from '~/helpers/colors'
+import { maiandraGd } from '~/styles/fonts'
 
 const renderBackground = (orientation: 'portrait' | 'landscape', color?: string) => {
   const svgString = encodeURIComponent(renderToStaticMarkup(<BackgroundSvg orientation={orientation} color={color} />))
@@ -11,6 +12,19 @@ const renderBackground = (orientation: 'portrait' | 'landscape', color?: string)
 }
 
 const GlobalStyle = createGlobalStyle`
+
+  @font-face {
+    font-family: 'Maiandra GD';
+    src: local("Maiandra GD"),
+      url('${maiandraGd.maiandraGdWOFF2}') format('woff2'),    
+      url('${maiandraGd.maiandraGdWOFF}') format('woff'),
+      url('${maiandraGd.maiandraGdEOT}'),
+      url('${maiandraGd.maiandraGdEOT}?#iefix') format('embedded-opentype'),
+      url('${maiandraGd.maiandraGdSVG}') format('svg');
+    font-weight: 300;
+    font-style: normal;
+  }
+  
   * {
      box-sizing: border-box;
   }
@@ -28,6 +42,8 @@ const GlobalStyle = createGlobalStyle`
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    font-family: "Maiandra GD", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
 
   @media (orientation: landscape) {
