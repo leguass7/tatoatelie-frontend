@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 
+import { svgProps } from './commonSvg'
 import { pathLandscape, pathPortrait } from './paths'
 
 type Props = {
@@ -22,22 +23,7 @@ export const BackgroundSvg: React.FC<Props> = ({
   }, [orientation, height, width])
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      xmlSpace="preserve"
-      version="1.1"
-      style={{
-        shapeRendering: 'geometricPrecision',
-        textRendering: 'geometricPrecision',
-        fillRule: 'evenodd',
-        clipRule: 'evenodd',
-        imageRendering: 'auto'
-      }}
-      width={`${w}px`}
-      height={`${h}px`}
-      viewBox={viewBox}
-    >
+    <svg {...svgProps} width={`${w}px`} height={`${h}px`} viewBox={viewBox}>
       <g id={`${orientation}_2533842516336`}>
         {paths.map((path, i) => {
           const key = `path-${i}`

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { svgProps } from './commonSvg'
+
 type Props = {
   bgColor?: string
   circleColor?: string
@@ -7,20 +9,7 @@ type Props = {
 }
 export const LogoCircleSvg: React.FC<Props> = ({ bgColor = '#B07B80', circleColor = '#FBE4DE', size = 27 }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      xmlSpace="preserve"
-      version="1.1"
-      shapeRendering="geometricPrecision"
-      textRendering="geometricPrecision"
-      imageRendering="optimizeQuality"
-      fillRule="evenodd"
-      clipRule="evenodd"
-      viewBox="0 0 25.4 25.4"
-      width={`${size}px`}
-      height={`${size}px`}
-    >
+    <svg {...svgProps} viewBox="0 0 25.4 25.4" width={`${size}px`} height={`${size}px`}>
       <g id={`logo-circle_1960371294000`}>
         <path
           id="tinty"

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { svgProps } from './commonSvg'
+
 type Props = {
   size?: number
   bgColor?: string
@@ -7,20 +9,7 @@ type Props = {
 }
 export const CartSvg: React.FC<Props> = ({ size = 32, bgColor = '#FBE4DE', lineColor = '#B07B80' }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      xmlSpace="preserve"
-      version="1.1"
-      shapeRendering="geometricPrecision"
-      textRendering="geometricPrecision"
-      imageRendering="optimizeQuality"
-      fillRule="evenodd"
-      clipRule="evenodd"
-      width={`${size}px`}
-      height={`${size}px`}
-      viewBox="0 0 13.28 13.28"
-    >
+    <svg {...svgProps} width={`${size}px`} height={`${size}px`} viewBox="0 0 13.28 13.28">
       <g id="_1960378977200">
         <rect id="square" fill="none" width="13.28" height="13.28" />
         <g>
