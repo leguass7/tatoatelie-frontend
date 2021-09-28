@@ -13,15 +13,21 @@ const PageTitleContainer = styled.div`
     margin: 0 auto;
     font-size: 20px;
   }
+  p {
+    padding: 0;
+    margin: 0;
+  }
 `
 
 type Props = {
   title: string
+  description?: string
 }
-export const PageTitle: React.FC<Props> = ({ title }) => {
+export const PageTitle: React.FC<Props> = ({ title, description }) => {
   return (
     <PageTitleContainer>
       <h1>{title}</h1>
+      {description ? <p>{description}</p> : null}
     </PageTitleContainer>
   )
 }

@@ -17,7 +17,7 @@ const PageEspatulas: NextPage<PageEspatulasProps> = ({ products }) => {
     <PageLayout>
       <ContentLimit horizontalPad={10}>
         <Categories />
-        <PageTitle title="Espátulas" />
+        <PageTitle title="Espátulas" description="Estpatulas para decoração de bolos" />
         <ProductList list={products} />
         <br />
       </ContentLimit>
