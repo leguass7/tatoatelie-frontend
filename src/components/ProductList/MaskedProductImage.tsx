@@ -8,7 +8,7 @@ import { useAppTheme } from '../AppThemeProvider/useAppTheme'
 import { MaskBackgroundSvg } from '../Images/BackgroundMaskSvg'
 import { CoreArabescSvg } from '../Images/CoreArabescSvg'
 
-const CoreContainer = styled.div`
+const CoreContainer = styled.div<{ scale?: number }>`
   display: block;
   margin: 0;
   padding: 0;
@@ -17,23 +17,32 @@ const CoreContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  transition: all ease-in-out 0.2s;
+  transform: scale(${({ scale }) => scale});
 
   svg {
     margin: 0;
     padding: 0;
     display: block;
     max-width: 100%;
+    transform: scale(${({ scale }) => scale});
+    transition: all ease-in-out 0.2s;
   }
 `
 
 const MaskContainer = styled.div`
   position: relative;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  transition: all ease-in-out 0.2s;
+
   svg {
     margin: 0;
     padding: 0;
     display: block;
     max-width: 100%;
+    transition: all ease-in-out 0.2s;
   }
 `
 
@@ -45,17 +54,20 @@ const MaskContainerImage = styled.div<{ internalWidth?: number; color: string; i
   height: auto;
   top: ${({ internalMargin }) => internalMargin}px;
   left: ${({ internalMargin }) => internalMargin}px;
+  transition: all ease-in-out 0.2s;
   img {
     border-width: 2px;
     border-style: solid;
     border-color: ${({ color }) => color};
     max-width: 100%;
+    transition: all ease-in-out 0.2s;
   }
 `
 type Props = {
   width?: number
+  actived?: boolean
 }
-export const MaskedProductImage: React.FC<Props> = ({ children, width = 254 }) => {
+export const MaskedProductImage: React.FC<Props> = ({ children, width = 254, actived }) => {
   const [initialWidth, setInitialWidth] = useState(width)
   const { theme } = useAppTheme()
 
@@ -84,7 +96,7 @@ export const MaskedProductImage: React.FC<Props> = ({ children, width = 254 }) =
         {children}
       </MaskContainerImage>
       <CoreContainer>
-        <CoreArabescSvg width={coreWidth} color={theme.colors.primary} />
+        <CoreArabescSvg width={actived ? coreWidth * 1.1 : coreWidth} color={theme.colors.primary} />
       </CoreContainer>
     </MaskContainer>
   )
