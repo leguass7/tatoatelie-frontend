@@ -1,0 +1,283 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            Int       @id @default(autoincrement())
+  slug          String    @unique(map: "slug") @db.VarChar(100)
+  name          String?   @db.VarChar(96)
+  description   String?   @db.Text
+  tags          String?   @db.LongText
+  price         Decimal   @default(0.00) @db.Decimal(10, 2)
+  size          Float     @db.Float
+  idkind        Int       @default(0) @db.UnsignedInt
+  idcat         Int       @default(0) @db.UnsignedInt
+  idsubcat      Int       @default(0) @db.UnsignedInt
+  idgroup       Int       @default(0) @db.UnsignedInt
+  unavailable   Boolean?  @default(false) 
+  actived       Boolean?  @default(true) 
+  hits          Int?      @default(0) @db.UnsignedInt
+  meta          String?   @db.LongText
+  createdBy     Int?             
+  updatedBy     Int?             
+  createdAt     DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt     DateTime  @db.DateTime(0) @updatedAt
+
+  @@index([actived], map: "actived")
+  @@index([createdBy], map: "createdBy")
+  @@index([idcat], map: "idcat")
+  @@index([idgroup], map: "idgroup")
+  @@index([idkind], map: "idkind")
+  @@map(name: "products")
+}
+
+model Image {
+  id          Int       @id @default(autoincrement())
+  groupId     Int?
+  productId   Int?
+  label       String?   @db.VarChar(100)
+  description String?   @db.Text
+  path        String?   @db.VarChar(254)
+  main        Boolean   @default(false)
+  ext         String?   @db.VarChar(6)
+  meta        String?   @db.LongText
+  actived     Boolean   @default(true)
+  hash        String    @db.VarChar(32)
+  createdBy   Int       @default(0)
+  createdAt   DateTime? @default(now()) @db.Timestamp(0)
+  hits        Int       @default(0) @db.UnsignedInt
+
+  @@index([actived], map: "actived")
+  @@index([productId], map: "groupId")
+  @@index([main], map: "main")
+  @@index([productId], map: "productId")
+  @@map(name: "images")
+}
+
+// model adresses {
+//   id          Int       @id @default(autoincrement())
+//   userId      Int       @default(0)
+//   label       String?   @db.VarChar(64)
+//   stateId     Int       @default(0) @db.UnsignedInt
+//   cityId      Int       @default(0) @db.UnsignedInt
+//   cepId       Int       @default(0) @db.UnsignedInt
+//   cep         String    @db.VarChar(10)
+//   street      String    @db.Text
+//   district    String    @db.Text
+//   houseNumber String    @db.Text
+//   meta        String?   @db.LongText
+//   actived     Boolean   @default(true)
+//   createdAt   DateTime? @default(now()) @db.Timestamp(0)
+//   updatedBy   Int       @default(0)
+//   updatedAt   DateTime? @db.DateTime(0)
+
+//   @@index([actived], map: "actived")
+//   @@index([cepId], map: "cepId")
+//   @@index([cityId], map: "cityId")
+//   @@index([stateId], map: "stateId")
+//   @@index([userId], map: "userId")
+// }
+
+// model app_config {
+//   id      Int     @id @default(autoincrement())
+//   key     String  @unique(map: "key") @db.VarChar(32)
+//   value   String? @db.VarChar(254)
+//   meta    String? @db.LongText
+//   actived Boolean @default(false)
+
+//   @@index([actived], map: "actived")
+// }
+
+// model categories {
+//   id          Int     @id @default(autoincrement())
+//   slug        String  @unique(map: "slug") @db.VarChar(100)
+//   icon        String? @db.VarChar(254)
+//   name        String? @db.VarChar(96)
+//   description String? @db.LongText
+//   meta        String? @db.LongText
+//   actived     Boolean @default(true)
+//   hits        Int     @default(0) @db.UnsignedInt
+
+//   @@index([actived], map: "actived")
+// }
+
+// model cities {
+//   id      Int      @id @default(autoincrement())
+//   stateId Int?     @default(23)
+//   name    String?  @db.VarChar(90)
+//   capital Boolean? @default(false)
+//   actived Boolean  @default(false)
+
+//   @@index([actived], map: "actived")
+//   @@index([stateId], map: "stateId")
+// }
+
+// model items {
+//   id         Int     @id @default(autoincrement())
+//   name       String  @db.VarChar(90)
+//   price      Decimal @default(0) @db.Decimal(10, 0)
+//   productId  Int
+//   purchaseId Int
+//   quantity   Int
+//   meta       String? @db.LongText
+//   actived    Boolean @default(false)
+
+//   @@index([productId], map: "productId")
+//   @@index([purchaseId], map: "purchaseId")
+// }
+
+// model payments {
+//   id         Int       @id @default(autoincrement())
+//   uuid       String?   @unique(map: "uuid") @db.VarChar(40)
+//   purchaseId Int       @default(0) @db.UnsignedInt
+//   method     String    @db.VarChar(10)
+//   value      Float     @default(0.00)
+//   paid       Boolean   @default(false)
+//   payday     DateTime? @db.DateTime(0)
+//   txid       String?   @unique(map: "txid") @db.VarChar(35)
+//   overdue    DateTime? @db.Date
+//   createdBy  Int       @default(0)
+//   createdAt  DateTime? @default(now()) @db.Timestamp(0)
+//   updatedBy  Int       @default(0)
+//   updatedAt  DateTime? @db.DateTime(0)
+//   meta       String?   @db.LongText
+//   actived    Boolean   @default(true)
+
+//   @@index([method], map: "method")
+//   @@index([paid], map: "paid")
+//   @@index([purchaseId], map: "purchaseId")
+// }
+
+// model product_groups {
+//   id        Int       @id @default(autoincrement())
+//   label     String?   @unique(map: "label") @db.VarChar(90)
+//   image     String?   @db.VarChar(254)
+//   actived   Boolean   @default(true)
+//   meta      String?   @db.LongText
+//   createdBy Int       @default(0)
+//   createdAt DateTime? @default(now()) @db.Timestamp(0)
+//   updatedBy Int       @default(0)
+//   updatedAt DateTime? @db.DateTime(0)
+// }
+
+// model product_images {
+//   id          Int       @id @default(autoincrement())
+//   productId   Int
+//   label       String?   @db.VarChar(100)
+//   description String?   @db.Text
+//   path        String?   @db.VarChar(254)
+//   main        Boolean   @default(false)
+//   ext         String?   @db.VarChar(6)
+//   meta        String?   @db.LongText
+//   actived     Boolean   @default(true)
+//   hash        String    @db.VarChar(32)
+//   createdBy   Int       @default(0)
+//   createdAt   DateTime? @default(now()) @db.Timestamp(0)
+//   hits        Int       @default(0) @db.UnsignedInt
+
+//   @@index([actived], map: "actived")
+//   @@index([main], map: "main")
+//   @@index([productId], map: "productId")
+// }
+
+// model product_kinds {
+//   id      Int     @id @default(autoincrement())
+//   label   String? @db.VarChar(90)
+//   actived Boolean @default(true)
+//   meta    String? @db.LongText
+
+//   @@index([actived], map: "actived")
+// }
+
+
+
+
+// model purchase_items {
+//   id         Int       @id @default(autoincrement())
+//   productId  Int
+//   purchaseId Int       @default(0) @db.UnsignedInt
+//   name       String?   @db.VarChar(90)
+//   size       Float     @db.Float
+//   price      Decimal   @default(0) @db.Decimal(10, 0)
+//   quantity   Int
+//   meta       String?   @db.LongText
+//   actived    Boolean   @default(true)
+//   updatedBy  Int       @default(0)
+//   updatedAt  DateTime? @db.DateTime(0)
+
+//   @@unique([purchaseId, productId], map: "uniqueItem")
+// }
+
+// model purchases {
+//   id           Int       @id @default(autoincrement())
+//   userId       Int       @default(0)
+//   fileId       Int       @default(0) @db.UnsignedInt
+//   addrId       Int       @default(0)
+//   discount     Float     @default(0.00)
+//   status       Int       @default(1) @db.UnsignedInt
+//   paid         Boolean   @default(false)
+//   displayValue Decimal   @default(0) @db.Decimal(10, 0)
+//   meta         String?   @db.LongText
+//   actived      Boolean   @default(true)
+//   obs          String?   @db.LongText
+//   createdBy    Int       @default(0)
+//   createdAt    DateTime? @default(now()) @db.Timestamp(0)
+//   updatedBy    Int       @default(0)
+//   updatedAt    DateTime? @db.DateTime(0)
+
+//   @@index([actived], map: "actived")
+//   @@index([fileId], map: "fileId")
+//   @@index([paid], map: "paid")
+//   @@index([status], map: "status")
+//   @@index([userId], map: "userId")
+// }
+
+// model states {
+//   id      Int     @id @default(autoincrement())
+//   name    String? @db.VarChar(90)
+//   abbr    String  @db.VarChar(5)
+//   actived Boolean @default(false)
+
+//   @@index([actived], map: "actived")
+// }
+
+// model user_files {
+//   id          Int       @id @default(autoincrement())
+//   userId      Int       @default(0)
+//   label       String?   @db.VarChar(100)
+//   description String?   @db.Text
+//   path        String?   @db.VarChar(254)
+//   ext         String?   @db.VarChar(6)
+//   size        Int?      @default(0) @db.UnsignedInt
+//   actived     Boolean   @default(true)
+//   price       Decimal   @default(5.00) @db.Decimal(10, 2)
+//   hash        String    @db.VarChar(36)
+//   hits        Int       @default(0) @db.UnsignedInt
+//   meta        String?   @db.LongText
+//   createdBy   Int       @default(0)
+//   createdAt   DateTime? @default(now()) @db.Timestamp(0)
+
+//   @@index([actived], map: "actived")
+//   @@index([hash], map: "hash")
+//   @@index([userId], map: "userId")
+// }
+
+// model users {
+//   id        Int     @id @default(autoincrement())
+//   name      String? @db.VarChar(96)
+//   email     String? @unique(map: "email") @db.VarChar(128)
+//   userHash  String? @unique(map: "userHash") @db.VarChar(32)
+//   password  String  @db.VarChar(64)
+//   cpf       String  @unique(map: "cpf") @db.VarChar(15)
+//   cellPhone String? @db.VarChar(20)
+//   level     Int     @default(1) @db.UnsignedInt
+//   meta      String? @db.LongText
+//   actived   Boolean @default(false)
+
+//   @@index([password], map: "password")
+// }
