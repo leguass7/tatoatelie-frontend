@@ -55,7 +55,12 @@ const MaskContainerImage = styled.div<{ internalWidth?: number; color: string; i
   top: ${({ internalMargin }) => internalMargin}px;
   left: ${({ internalMargin }) => internalMargin}px;
   transition: all ease-in-out 0.2s;
+  background-color: #fff;
+  overflow: hidden;
   img {
+    display: block;
+    margin: 0 auto;
+    box-sizing: border-box;
     border-width: 2px;
     border-style: solid;
     border-color: ${({ color }) => color};
