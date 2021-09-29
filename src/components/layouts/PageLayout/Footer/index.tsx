@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
             </Line>
             <Line>
               <Text>
-                <span>contatotatoateliê@gmail.com</span>
+                <span>contatotatoatelie@gmail.com</span>
               </Text>
               <Icon>
                 <LogoCircleSvg size={32} />
