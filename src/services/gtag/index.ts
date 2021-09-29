@@ -9,7 +9,10 @@ export const scriptProps = {
 
 export const preInnerHtml = `
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);console.log('pre gtag')}
+    function gtag(){
+      dataLayer.push(arguments);
+      // console.log('pre gtag')
+    };
     gtag('js', new Date());
     gtag('config', '${trackingId}', { page_path: window.location.pathname });
 `
