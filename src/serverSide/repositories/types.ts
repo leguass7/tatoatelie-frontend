@@ -1,3 +1,5 @@
+import { Image } from '.prisma/client'
+
 export interface QueryPagination {
   size?: number
   page?: number
@@ -7,7 +9,9 @@ export interface QueryPagination {
 export interface IProduct {
   id: number
   slug: string
-  title: string
+  name: string
   price: number
   imageUrl?: string
 }
+
+export type ProductsListType = IProduct & { images: Image[] }

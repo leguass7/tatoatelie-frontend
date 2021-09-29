@@ -19,14 +19,16 @@ model Product {
   idcat         Int       @default(0) @db.UnsignedInt
   idsubcat      Int       @default(0) @db.UnsignedInt
   idgroup       Int       @default(0) @db.UnsignedInt
+  segmentId     Int?      @db.UnsignedInt
   unavailable   Boolean?  @default(false) 
   actived       Boolean?  @default(true) 
   hits          Int?      @default(0) @db.UnsignedInt
   meta          String?   @db.LongText
   createdBy     Int?             
   updatedBy     Int?             
-  createdAt     DateTime  @default(now()) @db.Timestamp(0)
-  updatedAt     DateTime  @db.DateTime(0) @updatedAt
+  createdAt     DateTime   @default(now()) @db.Timestamp(0)
+  updatedAt     DateTime?  @db.DateTime(0) @updatedAt
+  images        Image[]
 
   @@index([actived], map: "actived")
   @@index([createdBy], map: "createdBy")
@@ -51,6 +53,7 @@ model Image {
   createdBy   Int       @default(0)
   createdAt   DateTime? @default(now()) @db.Timestamp(0)
   hits        Int       @default(0) @db.UnsignedInt
+  product     Product?  @relation(fields: [productId], references: [id])
 
   @@index([actived], map: "actived")
   @@index([productId], map: "groupId")
