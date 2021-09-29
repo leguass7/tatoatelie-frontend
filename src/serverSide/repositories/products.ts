@@ -4,7 +4,6 @@ import { wait } from '~/helpers'
 import { prismaPaginate, Pagination } from '~/serverSide/database/prisma-paginate'
 
 import { productDto } from './dto/productDto'
-import { products } from './makeData/mock'
 import type { IProduct, ProductsListType, QueryPagination } from './types'
 
 type ProductInclude = Prisma.ProductInclude
@@ -17,7 +16,7 @@ type ProductRequestFilter = {
 
 export async function productsFindAll() {
   await wait(2000)
-  return products
+  return []
 }
 
 export async function productsPaginate(
