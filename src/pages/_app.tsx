@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import '~/services/gtag'
 import type { AppProps } from 'next/app'
 
 import { AppThemeProvider } from '~/components/AppThemeProvider'

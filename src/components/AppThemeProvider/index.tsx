@@ -4,9 +4,9 @@ import ThemeProvider from './Provider'
 import { StyledProvider } from './StyledProvider'
 import { ThemeProviderProps } from './types'
 
-export const AppThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme }) => {
+export const AppThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <StyledProvider>{children}</StyledProvider>
     </ThemeProvider>
   )

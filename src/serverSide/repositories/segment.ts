@@ -2,7 +2,11 @@ export interface ISegment {
   id: number
   slug: string
   label: string
+  image?: string
+  customPage?: boolean
+  actived?: boolean
 }
+
 const mockSegments: ISegment[] = [
   { id: 1, slug: 'espatulas', label: 'Espátulas' },
   { id: 2, slug: 'estencil', label: 'Estêncil' },

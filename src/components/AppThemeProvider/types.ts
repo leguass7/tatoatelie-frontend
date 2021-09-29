@@ -30,7 +30,7 @@ export interface IThemeContext {
   isDark: boolean
   setIsDark: Dispatch<SetStateAction<boolean>>
   theme: IAppTheme
-  setTheme: Dispatch<SetStateAction<IAppTheme>>
+  // setTheme: Dispatch<SetStateAction<IAppTheme>>
   matchRules: MatchingRules
 }
 
