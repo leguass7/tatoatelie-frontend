@@ -2,7 +2,6 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 
 import { PageLayout } from '~/components/layouts/PageLayout'
-import { PageTitle } from '~/components/PageTitle'
 import { ProductPresentation } from '~/components/Product/ProductPresentation'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
@@ -34,6 +33,7 @@ export default PageProduct
 
 export const getServerSideProps: GetServerSideProps<PageSegmentProps, { slug: string }> = async ({ params }) => {
   const slug = params?.slug
+
   const product = await productsFindOne(slug)
 
   return { props: { product } }

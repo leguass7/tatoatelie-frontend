@@ -9,20 +9,29 @@ export const Container = styled.div`
   flex-wrap: wrap;
 
   margin-top: ${({ theme }) => theme.spacing.l}px;
-  border: 1px dashed #000;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `
 
 export const ProductImage = styled.div<{ imageWidth: number }>`
   width: ${({ imageWidth }) => imageWidth}px;
   max-width: 100%;
-  border: 1px dashed #00f;
 `
 
-export const Description = styled.div<{ themeColor: VariantColorsTypes }>`
+export const Description = styled.div<{ themeColor: VariantColorsTypes; align?: 'left' | 'right' | 'center' }>`
   flex: 1;
   padding: ${({ theme }) => theme.spacing.l}px;
-  border: 1px dashed #0f0;
   color: ${({ theme, themeColor }) => theme.colors[themeColor]};
+  text-align: ${({ align = 'left' }) => align};
+  p {
+    padding: ${({ theme }) => theme.spacing.m}px 0;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
 `
 
 export const Text = styled.p<{ align?: 'left' | 'right' | 'center' }>`

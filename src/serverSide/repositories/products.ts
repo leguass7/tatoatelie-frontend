@@ -23,8 +23,8 @@ export async function productsFindAll() {
 export async function productsFindOne(idOrSlug: number | string) {
   const where: Prisma.ProductWhereInput = {}
 
-  if (typeof idOrSlug === 'number') where.id === idOrSlug
-  else if (typeof idOrSlug === 'string') where.slug === idOrSlug
+  if (typeof idOrSlug === 'number') where.id = idOrSlug
+  if (typeof idOrSlug === 'string') where.slug = idOrSlug
 
   const product = await prisma.product.findFirst({
     where,
