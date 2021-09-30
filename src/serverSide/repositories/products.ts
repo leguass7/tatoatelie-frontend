@@ -1,6 +1,5 @@
 import { Prisma } from '@prisma/client'
 
-import { wait } from '~/helpers'
 import prisma from '~/serverSide/database/prisma'
 import { prismaPaginate, Pagination } from '~/serverSide/database/prisma-paginate'
 
@@ -16,8 +15,8 @@ type ProductRequestFilter = {
 }
 
 export async function productsFindAll() {
-  await wait(2000)
-  return []
+  const products = await prisma.product.findMany({ where: { actived: true } })
+  return products.map(product => productDto(product))
 }
 
 export async function productsFindOne(idOrSlug: number | string) {
