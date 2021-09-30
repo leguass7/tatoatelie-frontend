@@ -2,6 +2,7 @@ import { VariantColorsTypes } from '~/components/AppThemeProvider/types'
 
 export type FlexJustify = 'space-between' | 'flex-start' | 'flex-end' | 'space-around' | 'center' | 'space-evenly'
 export type FlexAlign = 'center' | 'stretch' | 'baseline' | 'flex-start' | 'flex-end'
+export type AlignType = { align?: 'center' | 'left' | 'right' | 'justify' }
 
 export type MarginProps = {
   topMargin?: number
@@ -17,7 +18,7 @@ export type SimpleTextProps = MarginProps & {
   themeColor?: VariantColorsTypes
   size?: number
   color?: string
-  align?: 'center' | 'left' | 'right' | 'justify'
+  align?: AlignType
 }
 
 export type FlexOneProps = MarginProps & {

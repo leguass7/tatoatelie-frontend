@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next'
-import Head from 'next/head'
 
 import { PageLayout } from '~/components/layouts/PageLayout'
+import { ActionBar } from '~/components/Product/ActionBar'
 import { ProductPresentation } from '~/components/Product/ProductPresentation'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
@@ -14,18 +14,14 @@ type PageSegmentProps = {
 
 const PageProduct: NextPage<PageSegmentProps> = ({ product }) => {
   return (
-    <>
-      <Head>
-        <title>{product?.name}</title>
-      </Head>
-      <PageLayout>
-        <ContentLimit horizontalPad={10}>
-          <Segments />
-          <ProductPresentation product={product} />
-          <br />
-        </ContentLimit>
-      </PageLayout>
-    </>
+    <PageLayout pageTitle={product.name}>
+      <ContentLimit horizontalPad={10}>
+        <Segments />
+        <ProductPresentation product={product} />
+        <ActionBar productId={product.id} price={product.price} />
+        <br />
+      </ContentLimit>
+    </PageLayout>
   )
 }
 

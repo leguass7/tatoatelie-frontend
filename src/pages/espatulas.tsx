@@ -1,8 +1,8 @@
 import type { NextPage, GetServerSideProps } from 'next'
-import Head from 'next/head'
 
 import { PageLayout } from '~/components/layouts/PageLayout'
 import { PageTitle } from '~/components/PageTitle'
+import { NoProducts } from '~/components/Product/NoProducts'
 import { ProductList } from '~/components/ProductList'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
@@ -19,21 +19,14 @@ type PageEspatulasProps = {
 
 const PageEspatulas: NextPage<PageEspatulasProps> = ({ paginatedProducts, segment }) => {
   return (
-    <>
-      <Head>
-        <title>{segment.label}</title>
-      </Head>
-      <PageLayout>
-        <ContentLimit horizontalPad={10}>
-          <Segments
-          //hideId={segment.id}
-          />
-          <PageTitle title={segment.label} description="Estpatulas para decoração de bolos" />
-          <ProductList list={paginatedProducts?.data || []} />
-          <br />
-        </ContentLimit>
-      </PageLayout>
-    </>
+    <PageLayout pageTitle={segment?.label} pageDescription={segment?.description}>
+      <ContentLimit horizontalPad={10}>
+        <Segments />
+        <PageTitle title={segment.label} description="Estpatulas para decoração de bolos" />
+        {paginatedProducts?.data.length ? <ProductList list={paginatedProducts.data || []} /> : <NoProducts />}
+        <br />
+      </ContentLimit>
+    </PageLayout>
   )
 }
 

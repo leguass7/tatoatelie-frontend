@@ -95,6 +95,7 @@ export const FooterContainer = styled.div<{ bgColor: string; color?: string }>`
   h4 {
     padding: 0;
     margin: 0 auto;
+    padding-bottom: ${({ theme }) => theme.spacing.m}px;
     color: ${({ color = 'inherit' }) => color};
   }
 `

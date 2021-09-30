@@ -15,7 +15,7 @@ model Product {
   tags          String?   @db.LongText
   price         Decimal   @default(0.00) @db.Decimal(10, 2)
   size          Float     @db.Float
-  idkind        Int       @default(0) @db.UnsignedInt
+  idkind        Int?      
   idcat         Int       @default(0) @db.UnsignedInt
   idsubcat      Int       @default(0) @db.UnsignedInt
   idgroup       Int       @default(0) @db.UnsignedInt
@@ -29,6 +29,7 @@ model Product {
   createdAt     DateTime   @default(now()) @db.Timestamp(0)
   updatedAt     DateTime?  @db.DateTime(0) @updatedAt
   images        Image[]
+  kind          ProductKind?  @relation(fields: [idkind], references: [id])
 
   @@index([actived], map: "actived")
   @@index([createdBy], map: "createdBy")
@@ -60,6 +61,17 @@ model Image {
   @@index([main], map: "main")
   @@index([productId], map: "productId")
   @@map(name: "images")
+}
+
+model ProductKind {
+  id       Int     @id @default(autoincrement())
+  label    String? @db.VarChar(90)
+  actived  Boolean @default(true)
+  meta     String? @db.LongText
+  products Product[] 
+
+  @@index([actived], map: "actived")
+  @@map(name: "product_kinds")
 }
 
 // model adresses {

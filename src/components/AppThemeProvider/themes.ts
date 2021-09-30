@@ -12,7 +12,7 @@ export const appThemeDark: IAppTheme = {
   colors: {
     primary: '#b07b80',
     secondary: '#F7ABAF',
-    contrast: '#BB1806',
+    contrast: '#FBE5CA',
     text: '#ffffff',
     white: '#FFFFFF',
     black: '#000000',
@@ -30,7 +30,7 @@ export const appThemeLigth: IAppTheme = {
   colors: {
     primary: '#b07b80',
     secondary: '#F7ABAF',
-    contrast: '#BB1806',
+    contrast: '#FBE5CA',
     text: '#ffffff',
     white: '#FFFFFF',
     black: '#000000',
