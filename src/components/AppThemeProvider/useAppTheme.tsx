@@ -4,7 +4,7 @@ import { ThemeContext } from './ThemeContext'
 import { IUseAppTheme, MatchingRules, TextColor, VariantColorsTypes } from './types'
 
 export function useAppTheme(): IUseAppTheme {
-  const { theme, isDark, matchRules, setTheme, setIsDark } = useContext(ThemeContext)
+  const { theme, isDark, matchRules, setIsDark } = useContext(ThemeContext)
 
   /**
    * @function matchingBackgroudText
@@ -23,7 +23,7 @@ export function useAppTheme(): IUseAppTheme {
     [theme, matchRules]
   )
 
-  return { theme, isDark, setIsDark, matchingBackgroudText, setTheme }
+  return { theme, isDark, setIsDark, matchingBackgroudText }
 }
 
 function findMatches(rules: MatchingRules, value: VariantColorsTypes, defaultValue = ''): string {

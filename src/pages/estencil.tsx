@@ -12,12 +12,12 @@ import { segmentsFindOne } from '~/serverSide/repositories/segment'
 import type { ISegment } from '~/serverSide/repositories/segment'
 import type { IProduct } from '~/serverSide/repositories/types'
 
-type PageEspatulasProps = {
+type PageEstencilProps = {
   paginatedProducts: Pagination<IProduct>
   segment?: ISegment
 }
 
-const PageEspatulas: NextPage<PageEspatulasProps> = ({ paginatedProducts, segment }) => {
+const PageEstencil: NextPage<PageEstencilProps> = ({ paginatedProducts, segment }) => {
   return (
     <>
       <Head>
@@ -26,9 +26,9 @@ const PageEspatulas: NextPage<PageEspatulasProps> = ({ paginatedProducts, segmen
       <PageLayout>
         <ContentLimit horizontalPad={10}>
           <Segments
-          //hideId={segment.id}
+          // hideId={segment.id}
           />
-          <PageTitle title={segment.label} description="Estpatulas para decoração de bolos" />
+          <PageTitle title={segment.label} />
           <ProductList list={paginatedProducts?.data || []} />
           <br />
         </ContentLimit>
@@ -37,12 +37,12 @@ const PageEspatulas: NextPage<PageEspatulasProps> = ({ paginatedProducts, segmen
   )
 }
 
-export default PageEspatulas
+export default PageEstencil
 
-export const getServerSideProps: GetServerSideProps<PageEspatulasProps> = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<PageEstencilProps> = async ({ query }) => {
   const size = parseInt(`${query?.size}` || '10', 100) || 10
   const page = parseInt(`${query?.page}` || '1', 10) || 1
-  const segment = await segmentsFindOne({ slug: 'espatulas' })
+  const segment = await segmentsFindOne({ slug: 'estencil' })
   const products = await productsPaginate({ size, page, segmentId: segment?.id })
 
   return { props: { paginatedProducts: products, segment } }

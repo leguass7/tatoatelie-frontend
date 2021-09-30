@@ -4,15 +4,12 @@ import { ThemeContext } from './ThemeContext'
 import { appThemeDark, appThemeLigth } from './themes'
 import type { MatchingRules, ThemeProviderProps } from './types'
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: themeConfig }) => {
+const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDark, setIsDark] = useState(false)
 
-  const localTheme = useMemo(() => {
-    if (themeConfig) return themeConfig
+  const theme = useMemo(() => {
     return isDark ? appThemeDark : appThemeLigth
-  }, [isDark, themeConfig])
-
-  const [theme, setTheme] = useState(localTheme)
+  }, [isDark])
 
   // @ts-ignore
   const matchRules: MatchingRules = useMemo(
@@ -24,11 +21,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, theme: themeCon
     [theme]
   )
 
-  return (
-    <ThemeContext.Provider value={{ isDark, setIsDark, theme: localTheme, setTheme, matchRules }}>
-      {children}
-    </ThemeContext.Provider>
-  )
+  return <ThemeContext.Provider value={{ isDark, setIsDark, theme, matchRules }}>{children}</ThemeContext.Provider>
 }
 
 export default ThemeProvider
