@@ -36,7 +36,7 @@ const Img = styled.img`
 //cpLBaVBMg2Y
 const PageHome: NextPage = ({}) => {
   return (
-    <PageLayout>
+    <PageLayout pageTitle={'Tato Ateliê'} pageDescription={'Conheça nossa linha de produtos'}>
       <ContentLimit horizontalPad={10}>
         <Segments />
         <br />

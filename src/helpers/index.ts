@@ -9,3 +9,8 @@ export function round(number: number, precision = 4): number {
   const roundedTempNumber = Math.round(tempNumber)
   return roundedTempNumber / factor
 }
+
+export const { format: formatPrice } = new Intl.NumberFormat('pt-BR', {
+  style: 'currency',
+  currency: 'BRL'
+})
