@@ -13,7 +13,7 @@ export const ProductDescription: React.FC<Props> = ({ title, price }) => {
     <DescriptionContainer color={theme.colors.primary}>
       <ProductTitle>{title}</ProductTitle>
       <ProductPrice>
-        A partir de: <strong>R$ {price}</strong>
+        <strong>R$ {price}</strong>
       </ProductPrice>
     </DescriptionContainer>
   )

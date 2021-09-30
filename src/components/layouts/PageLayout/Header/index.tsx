@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
       <ContentLimit>
         <AppBar />
       </ContentLimit>
-      <ImageContainer color={theme.colors.primary}>
+      <ImageContainer color={theme?.colors?.primary}>
         <Link href="/" passHref>
           <a>
             <img src={logo} alt="Tato Ateliê" />

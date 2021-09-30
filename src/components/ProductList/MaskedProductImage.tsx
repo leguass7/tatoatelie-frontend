@@ -90,7 +90,7 @@ export const MaskedProductImage: React.FC<Props> = ({ children, width = 254, act
       round(initialWidth / 1.56779, 0),
       round(initialWidth / 2.055555, 0),
       round(initialWidth / 8.40909, 0),
-      round(initialWidth / 92.5, 2)
+      Math.min(round(initialWidth / 92.5, 2), 2.5)
     ]
   }, [initialWidth])
 

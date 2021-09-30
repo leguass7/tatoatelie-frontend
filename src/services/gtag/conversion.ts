@@ -4,6 +4,10 @@ export function sendGTagConversion(conversion: string): void {
   defaultGtag('event', 'conversion', { send_to: `${trackingId}/${conversion}` })
 }
 
+export function sendGTagPageView(title: string, path: string): void {
+  defaultGtag('config', trackingId, { page_title: title, page_path: path })
+}
+
 type ReportCallback = () => void
 
 interface OptionsCallBack {

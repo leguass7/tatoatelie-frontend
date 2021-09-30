@@ -8,6 +8,7 @@ export const AppBarContainer = styled.div`
   align-self: center;
   align-content: center;
   margin: 0 auto;
+  min-height: 44px;
 
   padding: ${({ theme }) => theme.spacing.l || 10}px;
 `

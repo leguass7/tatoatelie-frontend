@@ -10,13 +10,13 @@ import { ProductDescription } from './ProductDescription'
 import { ProductItemContainer, ProductLink } from './styles'
 
 type ProductItemProps = IProduct & {}
-export const ProductItem: React.FC<ProductItemProps> = ({ name, imageUrl, price }) => {
+export const ProductItem: React.FC<ProductItemProps> = ({ name, imageUrl, price, slug }) => {
   const [actived, setActived] = useState(false)
   const { theme } = useAppTheme()
 
   return (
     <ProductItemContainer space={theme.spacing.l}>
-      <Link passHref href="/">
+      <Link passHref href={`/product/${slug}`}>
         <ProductLink onMouseOver={() => setActived(true)} onMouseOut={() => setActived(false)}>
           <MaskedProductImage actived={actived}>
             <img src={imageUrl || ndImage} alt={name} />
