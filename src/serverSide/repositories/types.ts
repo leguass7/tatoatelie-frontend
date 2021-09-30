@@ -13,6 +13,8 @@ export interface IProduct {
   description: string
   price: number
   size: number
+  updatedAt: string
+  createdAt: string
   actived?: boolean
   imageUrl?: string
   images?: Image[]
