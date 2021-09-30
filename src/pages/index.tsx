@@ -33,12 +33,11 @@ const Img = styled.img`
   outline: none;
   margin-bottom: 10px;
 `
-//cpLBaVBMg2Y
 const PageHome: NextPage = ({}) => {
   return (
     <PageLayout pageTitle={'Tato Ateliê'} pageDescription={'Conheça nossa linha de produtos'}>
       <ContentLimit horizontalPad={10}>
-        <Segments />
+        <Segments know />
         <br />
         <Video videoId="3v-PTeM0Ksk" />
         <br />
