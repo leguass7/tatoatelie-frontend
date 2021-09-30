@@ -11,7 +11,9 @@ export interface IProduct {
   slug: string
   name: string
   price: number
+  actived?: boolean
   imageUrl?: string
+  images?: Image[]
 }
 
 export type ProductsListType = IProduct & { images: Image[] }
