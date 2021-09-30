@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import bandejasImg from '~/assets/icons/bandejas.png'
 import caixasImg from '~/assets/icons/caixas.png'
@@ -8,8 +8,9 @@ import estencilImg from '~/assets/icons/estencil.png'
 import espatulaImg from '~/assets/icons/spatulas.png'
 import type { ISegment } from '~/serverSide/repositories/segment'
 
+import { KnowSvg } from '../Images/Know'
 import { SegmentItem } from './SegmentItem'
-import { SegmentsContainer } from './styles'
+import { SegmentsContainer, Container } from './styles'
 
 const defaultCategories: ISegment[] = [
   { id: 1, slug: 'espatulas', label: 'Espátulas', image: espatulaImg, actived: true, customPage: true },
@@ -22,15 +23,20 @@ const defaultCategories: ISegment[] = [
 type Props = {
   list?: ISegment[]
   hideId?: number
+  know?: boolean
 }
 
-export const Segments: React.FC<Props> = ({ list = defaultCategories, hideId }) => {
+export const Segments: React.FC<Props> = ({ list = defaultCategories, hideId, know }) => {
   const listed = list.filter(f => f.actived && f.id !== hideId)
+  const [mouse, setMouse] = useState(false)
   return (
-    <SegmentsContainer center={!!(listed.length <= 4)}>
-      {listed.map(item => {
-        return <SegmentItem key={`segment-${item.id}`} {...item} />
-      })}
-    </SegmentsContainer>
+    <Container mouse={mouse}>
+      <SegmentsContainer center={!!(listed.length <= 4)}>
+        {listed.map(item => {
+          return <SegmentItem key={`segment-${item.id}`} {...item} />
+        })}
+      </SegmentsContainer>
+      {know ? <KnowSvg id="know" onMouseOver={() => setMouse(true)} onMouseOut={() => setMouse(false)} /> : null}
+    </Container>
   )
 }

@@ -2,6 +2,7 @@ export interface ISegment {
   id: number
   slug: string
   label: string
+  description?: string
   image?: string
   customPage?: boolean
   actived?: boolean

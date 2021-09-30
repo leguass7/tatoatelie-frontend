@@ -25,12 +25,20 @@ export const Description = styled.div<{ themeColor: VariantColorsTypes; align?: 
   padding: ${({ theme }) => theme.spacing.l}px;
   color: ${({ theme, themeColor }) => theme.colors[themeColor]};
   text-align: ${({ align = 'left' }) => align};
-  p {
+  p,
+  h1,
+  h2,
+  h3,
+  h4 {
     padding: ${({ theme }) => theme.spacing.m}px 0;
     margin: 0 auto;
     width: 100%;
     max-width: 100%;
     display: block;
+    font-size: 20px;
+  }
+  p {
+    font-size: 16px;
   }
 `
 

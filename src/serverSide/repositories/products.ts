@@ -32,9 +32,13 @@ export async function productsFindOne(idOrSlug: number | string) {
       images: {
         select: { id: true, label: true, main: true, actived: true, path: true },
         where: { actived: true }
+      },
+      kind: {
+        select: { id: true, label: true }
       }
     }
   })
+
   return productDto(product, true)
 }
 

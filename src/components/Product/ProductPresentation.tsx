@@ -13,7 +13,7 @@ type Props = {
 }
 export const ProductPresentation: React.FC<Props> = ({ product }) => {
   const imageWidth = 420
-  const { name, imageUrl, description } = product
+  const { name, imageUrl, description, kind, size } = product
 
   return (
     <Container>
@@ -25,10 +25,18 @@ export const ProductPresentation: React.FC<Props> = ({ product }) => {
       <Description themeColor="primary" align="right">
         <PageTitle title={product?.name} align="right" />
         <Text align="right">
-          Material: <strong> </strong>
-          <br />
-          Tamanho nominal: <strong> </strong>
-          <br />
+          {kind ? (
+            <>
+              Material: <strong>{kind?.label}</strong>
+              <br />
+            </>
+          ) : null}
+          {size ? (
+            <>
+              Tamanho nominal: <strong>{size} cm</strong>
+              <br />
+            </>
+          ) : null}
         </Text>
         {ReactHtmlParser(description)}
       </Description>
