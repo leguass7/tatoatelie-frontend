@@ -17,9 +17,8 @@ export const PageLayout: React.FC<Props> = ({ children, pageTitle, pageDescripti
   const { asPath } = useRouter()
 
   useEffect(() => {
-    const pagetitle = window?.document?.title || 'Home'
-    sendGTagPageView(pagetitle, asPath)
-  }, [asPath])
+    sendGTagPageView(pageTitle, asPath)
+  }, [pageTitle, asPath])
 
   return (
     <>
