@@ -18,9 +18,9 @@ export interface ISegment {
 export const defaultCategories: ISegment[] = [
   { id: 1, slug: 'espatulas', label: 'Espátulas', image: espatulaImg, actived: true, customPage: true },
   { id: 2, slug: 'estencil', label: 'Estêncil', image: estencilImg, actived: true, customPage: true },
-  { id: 3, slug: 'organizador', label: 'Organizador', image: coreImg, actived: false },
+  { id: 3, slug: 'organizador', label: 'Organizador', image: coreImg, actived: true },
   { id: 4, slug: 'caixas', label: 'Caixas', image: caixasImg, actived: true },
-  { id: 5, slug: 'bandejas', label: 'Bandejas', image: bandejasImg, actived: false },
+  { id: 5, slug: 'bandejas', label: 'Bandejas', image: bandejasImg, actived: true },
   { id: 6, slug: 'cakeboards', label: 'Cakeboards', image: cakeboardsImg, actived: false }
 ]
 
