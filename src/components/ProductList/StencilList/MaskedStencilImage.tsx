@@ -2,11 +2,10 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 import styled from 'styled-components'
 
+import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
+import { BackgroundMaskSvg } from '~/components/Images/BackgroundMaskSvg'
+import { CoreArabescSvg } from '~/components/Images/CoreArabescSvg'
 import { round } from '~/helpers'
-
-import { useAppTheme } from '../AppThemeProvider/useAppTheme'
-import { BackgroundMaskSvg } from '../Images/BackgroundMaskSvg'
-import { CoreArabescSvg } from '../Images/CoreArabescSvg'
 
 const CoreContainer = styled.div<{ scale?: number }>`
   display: block;
@@ -72,7 +71,7 @@ type Props = {
   width?: number
   actived?: boolean
 }
-export const MaskedProductImage: React.FC<Props> = ({ children, width = 254, actived }) => {
+export const MaskedStencilImage: React.FC<Props> = ({ children, width = 420, actived }) => {
   const [initialWidth, setInitialWidth] = useState(width)
   const { theme } = useAppTheme()
 
@@ -87,16 +86,21 @@ export const MaskedProductImage: React.FC<Props> = ({ children, width = 254, act
   const [externalWidth, internalWidth, coreWidth, internalMargin, lineWidth] = useMemo(() => {
     return [
       initialWidth,
-      round(initialWidth / 1.56779, 0),
-      round(initialWidth / 2.055555, 0),
-      round(initialWidth / 8.40909, 0),
+      round(initialWidth / 1.23, 0),
+      Math.min(round(initialWidth / 3.119475928044089, 0)),
+      round(initialWidth / 11.1, 0),
       Math.min(round(initialWidth / 92.5, 2), 2.5)
     ]
   }, [initialWidth])
 
   return (
     <MaskContainer ref={resizeRef}>
-      <BackgroundMaskSvg color={theme.colors.primary} size={externalWidth} lineWidth={lineWidth} />
+      <BackgroundMaskSvg
+        color={theme.colors.primary}
+        size={externalWidth}
+        lineWidth={lineWidth}
+        orientation="landscape"
+      />
       <MaskContainerImage internalWidth={internalWidth} internalMargin={internalMargin} color={theme.colors.secondary}>
         {children}
       </MaskContainerImage>
