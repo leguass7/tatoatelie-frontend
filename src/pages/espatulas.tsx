@@ -7,6 +7,7 @@ import { ProductList } from '~/components/ProductList'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { Pagination } from '~/serverSide/database/prisma-paginate'
+import { serverSidePaginateDto } from '~/serverSide/repositories/dto/serverSidePaginateDto'
 import { productsPaginate } from '~/serverSide/repositories/products'
 import { segmentsFindOne } from '~/serverSide/repositories/segment'
 import type { ISegment } from '~/serverSide/repositories/segment'
@@ -33,10 +34,10 @@ const PageEspatulas: NextPage<PageEspatulasProps> = ({ paginatedProducts, segmen
 export default PageEspatulas
 
 export const getServerSideProps: GetServerSideProps<PageEspatulasProps> = async ({ query }) => {
-  const size = parseInt(`${query?.size}` || '10', 100) || 10
-  const page = parseInt(`${query?.page}` || '1', 10) || 1
+  const { size, page, order, orderBy } = serverSidePaginateDto(query)
+
   const segment = await segmentsFindOne({ slug: 'espatulas' })
-  const products = await productsPaginate({ size, page, segmentId: segment?.id })
+  const products = await productsPaginate({ size, page, segmentId: segment?.id, order, orderBy: orderBy || 'name' })
 
   return { props: { paginatedProducts: products, segment } }
 }
