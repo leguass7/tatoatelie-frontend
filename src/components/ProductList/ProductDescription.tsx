@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { formatPrice } from '~/helpers'
+
 import { useAppTheme } from '../AppThemeProvider/useAppTheme'
 import { DescriptionContainer, ProductPrice, ProductTitle } from './styles'
 
@@ -13,7 +15,7 @@ export const ProductDescription: React.FC<Props> = ({ title, price }) => {
     <DescriptionContainer color={theme.colors.primary}>
       <ProductTitle>{title}</ProductTitle>
       <ProductPrice>
-        <strong>R$ {price}</strong>
+        <strong>{formatPrice(+price)}</strong>
       </ProductPrice>
     </DescriptionContainer>
   )
