@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.7 (2021-10-13)
+
+
+### Features
+
+* adicionado descrição do produto ([a608a0a](https://github.com/leguass7/tatoatelie-frontend/commit/a608a0a80272678e49a7807409702f4414d2ef54))
+* adicionado foto dos produtos ([ca9e010](https://github.com/leguass7/tatoatelie-frontend/commit/ca9e010ee6cd12886b4a839085fdefa5ed659169))
+* adicionado icones das categorias ([6711c03](https://github.com/leguass7/tatoatelie-frontend/commit/6711c03511c33e32b26e2c25ee5d2553d2ceccc3))
+* adicionado icones do footer ([6405685](https://github.com/leguass7/tatoatelie-frontend/commit/6405685de582aa2e60d28979ed194449d60c7a9f))
+* adicionado icones do header ([5bf690c](https://github.com/leguass7/tatoatelie-frontend/commit/5bf690c6b9e32e268343bee6ad15004ff7d11c8a))
+* adicionado Item product para stencil ([f72d489](https://github.com/leguass7/tatoatelie-frontend/commit/f72d4892a7fd034b9a07ac7a74ecd3524309f222))
+* adicionado layout padrão ([01ad45b](https://github.com/leguass7/tatoatelie-frontend/commit/01ad45bec6aec08259a3483f0b63f652b6dcea2b))
+* adicionado mock de segmantação ([75e116a](https://github.com/leguass7/tatoatelie-frontend/commit/75e116a6d5358af2fb814e2a99d8cd7c670bcf0e))
+* adicionado NextSeo ([fe627f8](https://github.com/leguass7/tatoatelie-frontend/commit/fe627f8d74b17a3530784baadf55ce9b120248cd))
+* adicionado page title description ([b5f3ad6](https://github.com/leguass7/tatoatelie-frontend/commit/b5f3ad656f684114ee76beaadd897629afb95beb))
+* adicionado prisma schema ([8cd8ece](https://github.com/leguass7/tatoatelie-frontend/commit/8cd8ece372ab483bf24eb30bbd2f0baf17407fa8))
+* adicionado sitemap ([9ff6343](https://github.com/leguass7/tatoatelie-frontend/commit/9ff6343fe713f9502341a6d7a1bec6f1338d09cb))
+* adicionando getServerSideProps ([2c9e8ad](https://github.com/leguass7/tatoatelie-frontend/commit/2c9e8adc4db4af99dd57fee9189347fe02ced180))
+* ajuste de cores do thema ([b396f05](https://github.com/leguass7/tatoatelie-frontend/commit/b396f050ee8328ff9823f448fbd2592a3dcbda2f))
+* **components:** adicionado component Categories ([07caa5d](https://github.com/leguass7/tatoatelie-frontend/commit/07caa5d1e5433f2eee8c8f5b1fa5de13914ae737))
+* **components:** adicionado header ([543c6f3](https://github.com/leguass7/tatoatelie-frontend/commit/543c6f3e9385e7f92138bbc95066a7ae2078af46))
+* construindo lista de produtos ([4a2fed5](https://github.com/leguass7/tatoatelie-frontend/commit/4a2fed53a6cc6e61aa312b2f77a4c8761b5b2bf7))
+* estilos para layout ok ([f6a5694](https://github.com/leguass7/tatoatelie-frontend/commit/f6a56945b3ef7c99571030049fb1d80946f4660d))
+* estrutura de apresentação do produto ([3c94fb6](https://github.com/leguass7/tatoatelie-frontend/commit/3c94fb62f36edf3800e68fd53987d629341062dc))
+* first commit ([f09086a](https://github.com/leguass7/tatoatelie-frontend/commit/f09086ae88a6b82324732bcc18da0ed55e5addc1))
+* **fonts:** adicionado maiandra gd ([5c70396](https://github.com/leguass7/tatoatelie-frontend/commit/5c703961395e4d8414726707486c6a7602ec96ff))
+* gtag conversion ([e0461ec](https://github.com/leguass7/tatoatelie-frontend/commit/e0461ec868054d4e932800ee3fce5c8e7e6924b3))
+* hover product item ([d5105c6](https://github.com/leguass7/tatoatelie-frontend/commit/d5105c6c5d1e7b7f8cbc740feef2adf6524ba6ec))
+* implementado lista de todos produtos ([b4380bf](https://github.com/leguass7/tatoatelie-frontend/commit/b4380bf33f9ca83bf35542fd3a6abab4e2e2debf))
+* lib youtube ([98d74f5](https://github.com/leguass7/tatoatelie-frontend/commit/98d74f526f2293871b2962b141b29fd270ce1504))
+* mask para itens de produtos ([700671a](https://github.com/leguass7/tatoatelie-frontend/commit/700671ad63016a9594b8fc0e0be911531964db2e))
+* pagina do produto ([e41e6c8](https://github.com/leguass7/tatoatelie-frontend/commit/e41e6c87f5f8b88559792b967d278fa6a0e47598))
+* relacionamento para kind ([971a9a7](https://github.com/leguass7/tatoatelie-frontend/commit/971a9a7e716bd1fd3ba7d9ef14d62fd5b3acb976))
+* resize detector para item do produto ([c0eff20](https://github.com/leguass7/tatoatelie-frontend/commit/c0eff20feba677cb9ef1830be99156c7a3a1c475))
+* youtube video ([5abb5a9](https://github.com/leguass7/tatoatelie-frontend/commit/5abb5a92e4d8849dec956b56d601e5c166cea967))
+
+
+### Bug Fixes
+
+* adicionado mais segmentos ([6cb4b2a](https://github.com/leguass7/tatoatelie-frontend/commit/6cb4b2a72e457a39d0d4590f3af8a5aeb91c19eb))
+* ajuste de fundo fixo ([4b159f2](https://github.com/leguass7/tatoatelie-frontend/commit/4b159f2b98ded5acddc79d0e694ef85deb59bcb4))
+* eslint errors ([2f27de4](https://github.com/leguass7/tatoatelie-frontend/commit/2f27de4adc7aa3136ef28ccc2ab4740ff106d386))
+* espaçamento de titulo e paragrafo ([74c4e87](https://github.com/leguass7/tatoatelie-frontend/commit/74c4e8780df7adb6c87c55313f3c3603c59692ac))
+* formato do preço ([924fb97](https://github.com/leguass7/tatoatelie-frontend/commit/924fb97a1b4be237afc52ee57bb1ff3cad1bc3ca))
+* gtag typing error ([a4fdca6](https://github.com/leguass7/tatoatelie-frontend/commit/a4fdca64b3333f7e9754c86cc7afc7cad42e2b5d))
+* mostrar mensagem do segmento ([c5702bb](https://github.com/leguass7/tatoatelie-frontend/commit/c5702bbe69a9c22fd3745efb38b5956f1d3240a0))
+* product props ([1db99c1](https://github.com/leguass7/tatoatelie-frontend/commit/1db99c1cf9b9621e56355fd273b8e53986295a54))
+* sitemap name ([f1db74d](https://github.com/leguass7/tatoatelie-frontend/commit/f1db74d0539a48de094b480eeca5e0e3741906fa))
+
 ### 0.1.6 (2021-10-04)
 
 
