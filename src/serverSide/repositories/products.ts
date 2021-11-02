@@ -54,7 +54,7 @@ export async function productsPaginate(
     where,
     include: {
       images: {
-        select: { path: true },
+        select: { path: true, meta: true },
         where: { actived: true }
       }
     }

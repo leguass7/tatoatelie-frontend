@@ -14,12 +14,14 @@ export const ProductItem: React.FC<ProductItemProps> = ({ name, imageUrl, price,
   const [actived, setActived] = useState(false)
   const { theme } = useAppTheme()
 
+  const image = imageUrl || ndImage
+
   return (
     <ProductItemContainer space={theme.spacing.l}>
       <Link passHref href={`/product/${slug}`}>
         <ProductLink onMouseOver={() => setActived(true)} onMouseOut={() => setActived(false)}>
           <MaskedProductImage actived={actived}>
-            <img src={imageUrl || ndImage} alt={name} />
+            <img src={image} alt={name} />
           </MaskedProductImage>
           <ProductDescription title={name} price={price} />
         </ProductLink>

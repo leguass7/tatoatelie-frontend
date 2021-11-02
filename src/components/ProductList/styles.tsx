@@ -57,3 +57,40 @@ export const ProductPrice = styled.p<Props>`
   font-size: 14px;
   color: ${({ color = 'inherit' }) => color};
 `
+// image product
+export const CoreContainer = styled.div<{ scale?: number }>`
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: all ease-in-out 0.2s;
+  transform: scale(${({ scale }) => scale});
+
+  svg {
+    margin: 0;
+    padding: 0;
+    display: block;
+    max-width: 100%;
+    transform: scale(${({ scale }) => scale});
+    transition: all ease-in-out 0.2s;
+  }
+`
+export const MaskContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  transition: all ease-in-out 0.2s;
+
+  svg {
+    margin: 0;
+    padding: 0;
+    display: block;
+    max-width: 100%;
+    transition: all ease-in-out 0.2s;
+  }
+`

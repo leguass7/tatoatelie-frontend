@@ -8,6 +8,11 @@ export interface QueryPagination {
   order?: 'asc' | 'desc'
 }
 
+export interface IImageMeta {
+  width?: number
+  height?: number
+  size?: number
+}
 export interface IProduct {
   id: number
   slug: string
@@ -19,6 +24,7 @@ export interface IProduct {
   createdAt: string
   actived?: boolean
   imageUrl?: string
+  imageMeta?: IImageMeta
   images?: Image[]
   kind?: ProductKind
 }

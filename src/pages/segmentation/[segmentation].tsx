@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { PageLayout } from '~/components/layouts/PageLayout'
 import { PageTitle } from '~/components/PageTitle'
 import { NoProducts } from '~/components/Product/NoProducts'
-import { ProductList } from '~/components/ProductList'
+import { GenericList } from '~/components/ProductList/GenericList'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { Pagination } from '~/serverSide/database/prisma-paginate'
@@ -23,7 +23,7 @@ const PageSegments: NextPage<PageSegmentProps> = ({ paginatedProducts, segment }
       <ContentLimit horizontalPad={10}>
         <Segments />
         <PageTitle title={segment?.label} />
-        {paginatedProducts?.data.length ? <ProductList list={paginatedProducts.data || []} /> : <NoProducts />}
+        {paginatedProducts?.data?.length ? <GenericList list={paginatedProducts?.data || []} /> : <NoProducts />}
         <br />
       </ContentLimit>
     </PageLayout>

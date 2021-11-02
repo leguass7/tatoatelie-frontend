@@ -7,43 +7,7 @@ import { BackgroundMaskSvg } from '~/components/Images/BackgroundMaskSvg'
 import { CoreArabescSvg } from '~/components/Images/CoreArabescSvg'
 import { round } from '~/helpers'
 
-const CoreContainer = styled.div<{ scale?: number }>`
-  display: block;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  height: auto;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transition: all ease-in-out 0.2s;
-  transform: scale(${({ scale }) => scale});
-
-  svg {
-    margin: 0;
-    padding: 0;
-    display: block;
-    max-width: 100%;
-    transform: scale(${({ scale }) => scale});
-    transition: all ease-in-out 0.2s;
-  }
-`
-
-const MaskContainer = styled.div`
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  transition: all ease-in-out 0.2s;
-
-  svg {
-    margin: 0;
-    padding: 0;
-    display: block;
-    max-width: 100%;
-    transition: all ease-in-out 0.2s;
-  }
-`
+import { CoreContainer, MaskContainer } from '../styles'
 
 const MaskContainerImage = styled.div<{ internalWidth?: number; color: string; internalMargin: number }>`
   position: absolute;
