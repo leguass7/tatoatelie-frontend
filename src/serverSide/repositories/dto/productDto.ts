@@ -1,10 +1,9 @@
 import { Product } from '.prisma/client'
 
+import { imageBaseApi } from '~/config'
 import { serializedDto } from '~/helpers/database'
 
 import { IImageMeta, IProduct, ProductsListType } from '../types'
-
-const baseURLImg = 'https://next.tatoatelie.com.br/api'
 
 function imageMetaDto(data: Partial<IImageMeta>): IImageMeta {
   return data ? { width: data?.width, height: data?.height, size: data?.size } : {}
@@ -20,7 +19,7 @@ export function productDto(product: ProductsListType | Product, listImages?: boo
 
   const result: IProduct = {
     ...rest,
-    imageUrl: (imageUrl && `${baseURLImg}${imageUrl}`) || null,
+    imageUrl: (imageUrl && `${imageBaseApi}${imageUrl}`) || null,
     imageMeta
   }
   if (listImages && images) result.images = images

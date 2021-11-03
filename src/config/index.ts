@@ -5,3 +5,5 @@ const vhost = typeof virtualHost === 'undefined' || virtualHost === 'undefined' 
 const host = dev ? 'localhost:3000' : vhost || ''
 
 export const imageBase = dev ? `http://${host}` : `${host ? `https://${host}` : ''}`
+
+export const imageBaseApi = 'https://server.tatoatelie.com.br/api'
