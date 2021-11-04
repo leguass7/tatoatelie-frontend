@@ -6,9 +6,8 @@ import logo from '~/assets/images/logo-face.png'
 
 import { useAppTheme } from '../AppThemeProvider/useAppTheme'
 import { FlexRow, Paragraph } from '../styled'
-import { AvatarProfile } from './AvatarProfile'
+import { ButtonAuthSignIn } from './ButtonAuthSignIn'
 import { FormLogin } from './FormLogin'
-import { GoogleButtonLogin } from './GoogleButtonLogin'
 
 const LogoContainer = styled.div`
   display: block;
@@ -54,8 +53,12 @@ export const ContentRow: React.FC = () => {
           Faça login utilizando as redes
         </Paragraph>
         <FlexRow verticalSpaced>
-          <GoogleButtonLogin />
+          <ButtonAuthSignIn provider="google" />
         </FlexRow>
+        <FlexRow verticalSpaced>
+          <ButtonAuthSignIn provider="instagram" />
+        </FlexRow>
+
         <Paragraph align="center" textColor={theme.colors.primary} verticalSpaced>
           <Link href="/politica">Política de privacidade</Link> | <Link href="/termos">Termos de uso</Link>
         </Paragraph>

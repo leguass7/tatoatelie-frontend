@@ -85,7 +85,7 @@ model User {
   cellPhone     String?   @db.VarChar(20)
   level         Int?      @db.UnsignedInt
   meta          Json?
-  image         String?
+  image         String?   @db.Text
   actived       Boolean?  @default(false)
   createdAt     DateTime  @default(now()) @db.Timestamp(0)
   updatedAt     DateTime  @updatedAt 
