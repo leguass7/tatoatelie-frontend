@@ -2,8 +2,8 @@ import { NextApiHandler } from 'next'
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Prisma } from 'next-auth/adapters'
 import Providers from 'next-auth/providers'
-import { instagramCallbackSignIn } from '~/serverSide/auth/instagram'
 
+import { instagramCallbackSignIn } from '~/serverSide/auth/instagram'
 import prisma from '~/serverSide/database/prisma'
 
 const secret = process.env.SECRET

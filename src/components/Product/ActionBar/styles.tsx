@@ -10,8 +10,8 @@ export const Container = styled.div`
   align-items: center;
   padding: ${({ theme }) => theme.spacing.l}px;
 `
-export const ActionDescription = styled.div<AlignType & { color?: string }>`
-  text-align: ${({ align }) => align};
+export const ActionDescription = styled.div<{ align?: AlignType; color?: string }>`
+  text-align: ${({ align = 'center' }) => align};
   padding: ${({ theme }) => theme.spacing.l}px;
   color: ${({ theme, color }) => color || theme.colors.primary};
   font-size: 14px;
