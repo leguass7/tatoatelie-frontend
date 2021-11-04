@@ -6,8 +6,8 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "extends": ["next/core-web-vitals", "plugin:react/recommended"],
-  "plugins": ["prettier", "react", "react-hooks", "jsx-a11y", "import-helpers"],
+  "extends": ["next"],
+  "plugins": ["prettier", "react-hooks", "jsx-a11y", "import-helpers"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
