@@ -7,7 +7,13 @@ export const Group = styled.div`
   gap: ${({ theme }) => theme.spacing.m}px;
 `
 
-export const Button = styled.button<{ bgColor: string; variant: string; bold?: boolean; textColor: string }>`
+export const Button = styled.button<{
+  bgColor: string
+  variant: string
+  bold?: boolean
+  textColor: string
+  disabled?: boolean
+}>`
   display: inline-block;
   border-radius: ${({ theme }) => theme.spacing.l}px;
   border-width: 2px;
@@ -19,7 +25,14 @@ export const Button = styled.button<{ bgColor: string; variant: string; bold?: b
   font-family: 'Maiandra GD', '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
-  ${({ variant = 'text', bgColor = 'transparent', textColor }) => {
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          filter: grayscale(100%);
+        `
+      : null}
+
+  ${({ variant = 'text', bgColor = 'transparent', textColor, disabled }) => {
     if (variant === 'text') {
       return css`
         background-color: transparent;
@@ -27,6 +40,7 @@ export const Button = styled.button<{ bgColor: string; variant: string; bold?: b
         color: ${bgColor};
         &:hover {
           background-color: ${alpha(bgColor, 0.2)}};
+          filter: ${disabled ? `grayscale(100%)` : 'none'};
         }
       `
     } else {
@@ -36,16 +50,23 @@ export const Button = styled.button<{ bgColor: string; variant: string; bold?: b
         color: ${textColor};
         &:hover {
           background-color: ${darken(bgColor, 0.5)}};
+          filter: ${disabled ? `grayscale(100%)` : 'none'};
         }
       `
     }
   }}
 `
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div<{ disabled?: boolean }>`
   display: block;
   max-width: 100%;
   padding: ${({ theme }) => `0px 0px ${theme.spacing.m}px 0px`};
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          filter: grayscale(100%);
+        `
+      : null}
 `
 
 export const LabelField = styled.label`

@@ -20,7 +20,8 @@ export const Input: React.FC<InputProps> = ({
   textSize = 16,
   themeColor = 'primary',
   placeholder,
-  type
+  type,
+  disabled
 }) => {
   const { theme } = useAppTheme()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -43,10 +44,17 @@ export const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField])
 
   return (
-    <InputContainer>
+    <InputContainer disabled={!!disabled}>
       <InputContent textSize={textSize} textColor={theme.colors[themeColor]}>
         {label && <LabelField htmlFor={fieldName}>{label}</LabelField>}
-        <InputField id={fieldName} ref={inputRef} defaultValue={defaultValue} placeholder={placeholder} type={type} />
+        <InputField
+          id={fieldName}
+          ref={inputRef}
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          type={type}
+          disabled={!!disabled}
+        />
         {error && <span>{error}</span>}
       </InputContent>
     </InputContainer>
