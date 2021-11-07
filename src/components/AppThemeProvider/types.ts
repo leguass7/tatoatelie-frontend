@@ -18,6 +18,7 @@ export interface ThemeColors {
   shadow: string
   textDark: string
   background: string
+  errors: string
 }
 export interface IAppTheme {
   colors: ThemeColors

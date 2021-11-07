@@ -1,18 +1,19 @@
-// import axios from 'axios'
-import axios from 'axios'
-import { Account, Profile, SignInEventMessage } from 'next-auth'
+import { User } from '.prisma/client'
 
-import { User } from '@prisma/client'
-import prisma from '../database/prisma'
+import {
+  Account,
+  Profile
+  //SignInEventMessage
+} from 'next-auth'
 
-export async function instagramEventSignIn(message: SignInEventMessage): Promise<void> {
-  console.log('instagram signIn message', message)
-}
+// export async function instagramEventSignIn(message: SignInEventMessage): Promise<void> {
+//   console.log('instagram signIn message', message)
+// }
 
-interface InstagramProfile extends Profile {
+export interface InstagramProfile extends Profile {
   id: string
   username: string
-  account_type: 'BUSINESS' | 'MEDIA_CREATOR' | 'PERSONAL',
+  account_type: 'BUSINESS' | 'MEDIA_CREATOR' | 'PERSONAL'
   media: {
     data: any[]
   }
@@ -43,9 +44,9 @@ export interface ResponseInstagram {
 }
 
 export async function instagramCallbackSignIn(
-  user: User,
-  account: Account,
-  profile: InstagramProfile
+  _user: User,
+  _account: Account,
+  _profile: InstagramProfile
 ): Promise<boolean> {
   // console.log('instagramCallbackSignIn profile', profile)
   // try {

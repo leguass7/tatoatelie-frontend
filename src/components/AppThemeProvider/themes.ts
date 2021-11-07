@@ -19,7 +19,8 @@ export const appThemeDark: IAppTheme = {
     border: '#ccc',
     shadow: '#C3C3C3',
     textDark: '#808080',
-    background: '#EDEDED'
+    background: '#EDEDED',
+    errors: '#ff0000'
   },
   spacing,
   rounded,
@@ -37,7 +38,8 @@ export const appThemeLigth: IAppTheme = {
     border: '#ccc',
     shadow: '#C3C3C3',
     textDark: '#808080',
-    background: '#EDEDED'
+    background: '#EDEDED',
+    errors: '#ff0000'
   },
   spacing,
   rounded,
