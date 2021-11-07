@@ -3,6 +3,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Prisma } from 'next-auth/adapters'
 import Providers from 'next-auth/providers'
 
+import { emailAutorizeDto } from '~/serverSide/auth/credential'
 import { instagramCallbackSignIn } from '~/serverSide/auth/instagram'
 import prisma from '~/serverSide/database/prisma'
 
@@ -30,8 +31,17 @@ const options: NextAuthOptions = {
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
       scope: 'user_profile,user_media',
       profileUrl: 'https://graph.instagram.com/me?fields=id,username,account_type,name,media_count,media'
+    }),
+    Providers.Credentials({
+      name: 'credentials',
+      credentials: {
+        username: { label: 'e-mail', type: 'text' },
+        password: { label: 'senha', type: 'password' }
+      },
+      authorize: emailAutorizeDto
     })
   ],
+
   callbacks: {
     signIn: instagramCallbackSignIn
   }
