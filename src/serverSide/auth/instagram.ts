@@ -1,5 +1,7 @@
+import { User } from '.prisma/client'
+
 import {
-  // Account,
+  Account,
   Profile
   //SignInEventMessage
 } from 'next-auth'
@@ -41,20 +43,20 @@ export interface ResponseInstagram {
   }
 }
 
-// export async function instagramCallbackSignIn(
-//   user: User,
-//   account: Account,
-//   profile: InstagramProfile
-// ): Promise<boolean> {
-//   // console.log('instagramCallbackSignIn profile', profile)
-//   // try {
-//   //   const data = profile?.media?.data
-//   //   if(data){
-//   //     data.map(m => console.log('media', m))
-//   //   }
-//   // } catch (error) {
-//   //   console.log('instagramCallbackSignIn error ', error)
-//   // }
+export async function instagramCallbackSignIn(
+  _user: User,
+  _account: Account,
+  _profile: InstagramProfile
+): Promise<boolean> {
+  // console.log('instagramCallbackSignIn profile', profile)
+  // try {
+  //   const data = profile?.media?.data
+  //   if(data){
+  //     data.map(m => console.log('media', m))
+  //   }
+  // } catch (error) {
+  //   console.log('instagramCallbackSignIn error ', error)
+  // }
 
-//   return true
-// }
+  return true
+}
