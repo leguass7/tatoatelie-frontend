@@ -3,7 +3,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Prisma } from 'next-auth/adapters'
 import Providers from 'next-auth/providers'
 
-import { emailAutorizeDto } from '~/serverSide/auth/credential'
+import { emailAuthorizeDto } from '~/serverSide/auth/credential'
 import { instagramCallbackSignIn } from '~/serverSide/auth/instagram'
 import prisma from '~/serverSide/database/prisma'
 
@@ -38,7 +38,7 @@ const options: NextAuthOptions = {
         username: { label: 'e-mail', type: 'text' },
         password: { label: 'senha', type: 'password' }
       },
-      authorize: emailAutorizeDto
+      authorize: emailAuthorizeDto
     })
   ],
 
