@@ -4,7 +4,7 @@ import { NextApiRequest } from 'next'
 
 import { userAutorize } from '../repositories/users.repository'
 
-export async function emailAutorizeDto(
+export async function emailAuthorizeDto(
   credentials: Record<string, string>,
   _req: NextApiRequest
 ): Promise<Partial<User>> {

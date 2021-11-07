@@ -1,18 +1,17 @@
-// import axios from 'axios'
-import axios from 'axios'
-import { Account, Profile, SignInEventMessage } from 'next-auth'
+import {
+  // Account,
+  Profile
+  //SignInEventMessage
+} from 'next-auth'
 
-import { User } from '@prisma/client'
-import prisma from '../database/prisma'
+// export async function instagramEventSignIn(message: SignInEventMessage): Promise<void> {
+//   console.log('instagram signIn message', message)
+// }
 
-export async function instagramEventSignIn(message: SignInEventMessage): Promise<void> {
-  console.log('instagram signIn message', message)
-}
-
-interface InstagramProfile extends Profile {
+export interface InstagramProfile extends Profile {
   id: string
   username: string
-  account_type: 'BUSINESS' | 'MEDIA_CREATOR' | 'PERSONAL',
+  account_type: 'BUSINESS' | 'MEDIA_CREATOR' | 'PERSONAL'
   media: {
     data: any[]
   }
@@ -42,20 +41,20 @@ export interface ResponseInstagram {
   }
 }
 
-export async function instagramCallbackSignIn(
-  user: User,
-  account: Account,
-  profile: InstagramProfile
-): Promise<boolean> {
-  // console.log('instagramCallbackSignIn profile', profile)
-  // try {
-  //   const data = profile?.media?.data
-  //   if(data){
-  //     data.map(m => console.log('media', m))
-  //   }
-  // } catch (error) {
-  //   console.log('instagramCallbackSignIn error ', error)
-  // }
+// export async function instagramCallbackSignIn(
+//   user: User,
+//   account: Account,
+//   profile: InstagramProfile
+// ): Promise<boolean> {
+//   // console.log('instagramCallbackSignIn profile', profile)
+//   // try {
+//   //   const data = profile?.media?.data
+//   //   if(data){
+//   //     data.map(m => console.log('media', m))
+//   //   }
+//   // } catch (error) {
+//   //   console.log('instagramCallbackSignIn error ', error)
+//   // }
 
-  return true
-}
+//   return true
+// }
