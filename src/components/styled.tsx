@@ -56,12 +56,13 @@ export const FlexOne = styled.div<WebFlexProps>`
       : null};
 `
 
-export const ContentLimit = styled.div<{ widthLimit?: number; horizontalPad?: number }>`
+export const ContentLimit = styled.div<{ widthLimit?: number; horizontalPad?: number; horizontalSpaced?: boolean }>`
   max-width: 100%;
   width: ${({ widthLimit = 900 }) => widthLimit}px;
   padding: 0;
   margin: 0 auto;
-  padding: 0 ${({ horizontalPad = 0 }) => horizontalPad}px;
+  padding: 0
+    ${({ horizontalSpaced, horizontalPad = 0, theme }) => (horizontalSpaced ? theme.spacing.l : horizontalPad)}px;
 `
 
 export const Paragraph = styled.p<SimpleTextProps>`

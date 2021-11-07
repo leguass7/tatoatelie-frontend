@@ -28,7 +28,13 @@ const Div = styled.div`
   width: 50%;
   max-width: 100%;
   min-width: 300px;
-  border: 1px dashed #f00;
+  border: 0;
+  padding: ${({ theme }) => `${0}px ${theme.spacing.l}px`};
+
+  @media (max-width: 299px) {
+    width: 100%;
+    min-width: 100%;
+  }
 `
 
 const RowContainer = styled.div`
@@ -39,6 +45,7 @@ const RowContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
+  border: 0;
 `
 
 export const ContentRow: React.FC = () => {
@@ -65,9 +72,6 @@ export const ContentRow: React.FC = () => {
       </Div>
       <Div>
         <FormLogin />
-        <Paragraph align="center" textColor={theme.colors.primary} verticalSpaced>
-          <Link href="/register">Registre-se</Link>
-        </Paragraph>
       </Div>
     </RowContainer>
   )
