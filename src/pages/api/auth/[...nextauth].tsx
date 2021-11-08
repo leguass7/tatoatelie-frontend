@@ -3,8 +3,8 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import { Prisma } from 'next-auth/adapters'
 import Providers from 'next-auth/providers'
 
+import { callbackSignin } from '~/serverSide/auth'
 import { emailAuthorizeDto } from '~/serverSide/auth/credential'
-import { instagramCallbackSignIn } from '~/serverSide/auth/instagram'
 import prisma from '~/serverSide/database/prisma'
 
 const secret = process.env.SECRET
@@ -32,6 +32,9 @@ const options: NextAuthOptions = {
       scope: 'user_profile,user_media',
       profileUrl: 'https://graph.instagram.com/me?fields=id,username,account_type,name,media_count,media'
     }),
+    // Providers.Facebook({
+
+    // }),
     Providers.Credentials({
       name: 'credentials',
       credentials: {
@@ -43,7 +46,7 @@ const options: NextAuthOptions = {
   ],
 
   callbacks: {
-    signIn: instagramCallbackSignIn
+    signIn: callbackSignin
   }
 }
 
