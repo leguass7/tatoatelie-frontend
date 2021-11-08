@@ -21,7 +21,6 @@ const PageTitleContainer = styled.div<{ align?: 'left' | 'right' | 'center' }>`
   h2 {
     font-size: 18px;
   }
-
   p {
     padding: 0;
     margin: 0;
