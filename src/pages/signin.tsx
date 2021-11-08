@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
-
-// import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/client'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 import { CenterLayout } from '~/components/layouts/CenterLayout'
 import { ContentRow } from '~/components/Signin/ContentRow'
@@ -8,8 +9,15 @@ import { ContentRow } from '~/components/Signin/ContentRow'
 type PageSigninProps = {}
 
 const PageSign: NextPage<PageSigninProps> = () => {
-  // const [session] = useSession()
-  // console.log('session', session)
+  const [session] = useSession()
+  const { replace } = useRouter()
+
+  useEffect(() => {
+    if (session && session.user) {
+      replace('/')
+    }
+  }, [session, replace])
+
   return (
     <CenterLayout>
       <ContentRow />
@@ -18,21 +26,3 @@ const PageSign: NextPage<PageSigninProps> = () => {
 }
 
 export default PageSign
-
-// export async function getServerSideProps<PageSigninProps>(context) {
-//   return {
-//     props: {
-//       csrfToken: await getCsrfToken(context)
-//     }
-//   }
-// }
-
-// export const getServerSideProps: GetServerSideProps<PageSigninProps> = async context => {
-//   const csrfToken = await getCsrfToken(context)
-//   console.log('csrfToken', csrfToken)
-//   return {
-//     props: {
-//       // csrfToken: await getCsrfToken(context)
-//     }
-//   }
-// }
