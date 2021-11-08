@@ -80,6 +80,9 @@ export const Paragraph = styled.p<SimpleTextProps>`
   padding-right: ${({ horizontalSpaced, theme, rightMargin = 0 }) =>
     horizontalSpaced ? theme.spacing.l : rightMargin}px;
   padding-left: ${({ horizontalSpaced, theme, leftMargin = 0 }) => (horizontalSpaced ? theme.spacing.l : leftMargin)}px;
+  a {
+    text-decoration: underline;
+  }
 `
 
 export const FlexRow = styled.div<{ justify?: FlexJustify; align?: FlexAlign } & SimpleTextProps>`

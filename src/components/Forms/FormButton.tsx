@@ -10,6 +10,7 @@ type Props = {
   themeColor?: VariantColorsTypes
   bold?: boolean
   disabled?: boolean
+  onClick?: () => void
 }
 export const FormButton: React.FC<Props> = ({
   label,
@@ -17,7 +18,8 @@ export const FormButton: React.FC<Props> = ({
   type = 'button',
   themeColor = 'primary',
   bold,
-  disabled
+  disabled,
+  onClick
 }) => {
   const { theme, matchingBackgroudText } = useAppTheme()
   const textColor = matchingBackgroudText(themeColor)
@@ -30,6 +32,7 @@ export const FormButton: React.FC<Props> = ({
       bold={!!bold}
       textColor={textColor}
       disabled={!!disabled}
+      onClick={onClick}
     >
       {label}
     </Button>
