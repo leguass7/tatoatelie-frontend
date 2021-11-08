@@ -12,7 +12,7 @@ const MaskAvatar = styled.div<{ size?: number }>`
   overflow: hidden;
   border-radius: 50%;
   border: 2px solid currentColor;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: ${({ theme }) => theme.colors.primary};
   img {
     display: block;
     margin: 0 auto;
@@ -27,8 +27,9 @@ interface AvatarProps {
 
 export const AvatarProfile: React.FC<AvatarProps> = ({ image, size = 38 }) => {
   const [session] = useSession()
+
   const src = useMemo(() => {
-    const img = (session && session?.user?.image) || null
+    const img = session && session?.user?.image
     return image || img || imgProfile
   }, [image, session])
 
