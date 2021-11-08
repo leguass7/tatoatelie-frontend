@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import type { FlexOneProps } from '~/styles/styledTypes'
+import type { FlexAlign, FlexJustify, FlexOneProps, SimpleTextProps } from '~/styles/styledTypes'
 
 type WebFlexProps = FlexOneProps & {
   colorText?: string
@@ -56,10 +56,57 @@ export const FlexOne = styled.div<WebFlexProps>`
       : null};
 `
 
-export const ContentLimit = styled.div<{ widthLimit?: number; horizontalPad?: number }>`
+export const ContentLimit = styled.div<{
+  widthLimit?: number
+  horizontalPad?: number
+  verticalPad?: number
+  horizontalSpaced?: boolean
+  verticalSpaced?: boolean
+  bgColor?: string
+}>`
+  position: relative;
   max-width: 100%;
   width: ${({ widthLimit = 900 }) => widthLimit}px;
   padding: 0;
   margin: 0 auto;
-  padding: 0 ${({ horizontalPad = 0 }) => horizontalPad}px;
+  background-color: ${({ bgColor = 'transparent' }) => bgColor};
+  padding: ${({ verticalSpaced, verticalPad = 0, theme }) => (verticalSpaced ? theme.spacing.l : verticalPad)}px
+    ${({ horizontalSpaced, horizontalPad = 0, theme }) => (horizontalSpaced ? theme.spacing.l : horizontalPad)}px;
+`
+
+export const Paragraph = styled.p<SimpleTextProps>`
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  text-align: ${({ align = 'left' }) => align};
+  color: ${({ textColor = 'inherit' }) => textColor};
+  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
+  padding-top: ${({ theme, topMargin = 0, verticalSpaced }) =>
+    verticalSpaced && !topMargin ? theme.spacing.l : topMargin}px;
+  padding-bottom: ${({ theme, bottomMargin = 0, verticalSpaced }) =>
+    verticalSpaced ? theme.spacing.l : bottomMargin}px;
+  padding-right: ${({ horizontalSpaced, theme, rightMargin = 0 }) =>
+    horizontalSpaced ? theme.spacing.l : rightMargin}px;
+  padding-left: ${({ horizontalSpaced, theme, leftMargin = 0 }) => (horizontalSpaced ? theme.spacing.l : leftMargin)}px;
+  a {
+    text-decoration: underline;
+  }
+`
+
+export const FlexRow = styled.div<{ justify?: FlexJustify; align?: FlexAlign; gap?: number } & SimpleTextProps>`
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0;
+  margin: 0 auto;
+  gap: ${({ gap = 0 }) => gap}px;
+  justify-content: ${({ justify = 'center' }) => justify};
+  align-items: ${({ align = 'center' }) => align};
+  padding-top: ${({ theme, topMargin = 0, verticalSpaced }) =>
+    verticalSpaced && !topMargin ? theme.spacing.l : topMargin}px;
+  padding-bottom: ${({ theme, bottomMargin = 0, verticalSpaced }) =>
+    verticalSpaced ? theme.spacing.l : bottomMargin}px;
+  padding-right: ${({ horizontalSpaced, theme, rightMargin = 0 }) =>
+    horizontalSpaced ? theme.spacing.l : rightMargin}px;
+  padding-left: ${({ horizontalSpaced, theme, leftMargin = 0 }) => (horizontalSpaced ? theme.spacing.l : leftMargin)}px;
 `
