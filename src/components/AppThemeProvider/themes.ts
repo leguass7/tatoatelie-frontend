@@ -11,6 +11,7 @@ const spacing: IThemeSpacing = {
 export const appThemeDark: IAppTheme = {
   colors: {
     primary: '#b07b80',
+    // primary: '#000',
     secondary: '#F7ABAF',
     contrast: '#FBE5CA',
     text: '#ffffff',
@@ -30,6 +31,7 @@ export const appThemeDark: IAppTheme = {
 export const appThemeLigth: IAppTheme = {
   colors: {
     primary: '#b07b80',
+    // primary: '#000',
     secondary: '#F7ABAF',
     contrast: '#FBE5CA',
     text: '#ffffff',

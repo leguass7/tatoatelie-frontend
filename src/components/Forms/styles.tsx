@@ -80,13 +80,13 @@ export const InputField = styled.input`
   border-width: 1px;
   border-style: solid;
   box-shadow: none;
-  border-color: ${({ theme }) => theme.colors.border};
+  border-color: ${({ theme }) => theme.colors.primary};
+  border-radius: ${({ theme }) => theme.rounded}px;
   margin: 0 auto;
   display: block;
   width: 100%;
   max-width: 100%;
   outline: none;
-
   padding: ${({ theme }) => `${theme.spacing.s}px ${theme.spacing.m}px`};
   font-family: 'Maiandra GD';
 `
