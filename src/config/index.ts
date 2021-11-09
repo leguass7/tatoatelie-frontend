@@ -1,3 +1,4 @@
+import pkg from '../../package.json'
 export const dev = process.env.NODE_ENV !== 'production'
 
 const virtualHost = `${process.env.NEXT_PUBLIC_VIRTUAL_HOST}` || ''
@@ -9,3 +10,6 @@ export const imageBase = dev ? `http://${host}` : `${host ? `https://${host}` : 
 export const imageBaseApi = 'https://server.tatoatelie.com.br/api'
 
 export const saltKey = process.env.SECRET
+
+export const appName = pkg.name
+export const appVersion = pkg.version

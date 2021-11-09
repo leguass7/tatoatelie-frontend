@@ -31,6 +31,7 @@
     "@emotion/styled": "^11.3.0",
     "@mui/material": "^5.0.6",
     "@prisma/client": "^3.1.1",
+    "@reduxjs/toolkit": "^1.6.2",
     "@unform/core": "^2.1.6",
     "@unform/web": "^2.1.6",
     "axios": "^0.21.4",
@@ -49,9 +50,12 @@
     "react-dom": "17.0.2",
     "react-html-parser": "^2.0.2",
     "react-icons": "^4.3.1",
+    "react-redux": "^7.2.6",
     "react-resize-detector": "^6.7.6",
     "react-toastify": "^8.0.3",
     "react-youtube": "^7.13.1",
+    "redux": "^4.1.2",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
