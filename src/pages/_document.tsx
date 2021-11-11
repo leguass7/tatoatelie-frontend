@@ -39,6 +39,7 @@ export default class MyDocument extends Document {
       <Html lang="pt-br">
         <Head>
           <link rel="icon" href={`${imageBase}${favicon}`} />
+          <link rel="manifest" href="manifest.json" />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
           <meta name="theme-color" content={appThemeDark.colors.primary} />
           <meta name="google-site-verification" content="ABCDEF" />
