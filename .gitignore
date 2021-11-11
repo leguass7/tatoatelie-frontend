@@ -39,3 +39,5 @@ yarn-error.log*
 *Cópia_*
 *Copy_*
 *client_*
+# public/workbox-*
+# public/*sw*
