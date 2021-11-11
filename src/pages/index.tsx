@@ -1,4 +1,5 @@
-import type { NextPage } from 'next'
+/* eslint-disable no-console */
+import type { GetServerSideProps, NextPage } from 'next'
 import styled from 'styled-components'
 
 import img1 from '~/assets/images/img1.png'
@@ -8,6 +9,7 @@ import { PageLayout } from '~/components/layouts/PageLayout'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { Video } from '~/components/Video'
+import { host } from '~/config'
 
 const ImgContainers = styled.div`
   display: flex;
@@ -33,7 +35,15 @@ const Img = styled.img`
   outline: none;
   margin-bottom: 10px;
 `
-const PageHome: NextPage = ({}) => {
+
+type PageIndexProps = {
+  vercelUrl?: string
+  host?: string
+}
+
+const PageHome: NextPage<PageIndexProps> = ({ host, vercelUrl }) => {
+  console.log('host', host)
+  console.log('vercelUrl', vercelUrl)
   return (
     <PageLayout pageTitle={'Tato Ateliê'} pageDescription={'Conheça nossa linha de produtos'}>
       <ContentLimit horizontalPad={10}>
@@ -52,3 +62,9 @@ const PageHome: NextPage = ({}) => {
 }
 
 export default PageHome
+
+export const getServerSideProps: GetServerSideProps<PageIndexProps> = async () => {
+  const vercelUrl = process.env.VERCEL_URL || ''
+
+  return { props: { vercelUrl, host } }
+}
