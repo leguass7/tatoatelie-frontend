@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { GetServerSideProps, NextPage } from 'next'
 import styled from 'styled-components'
 
