@@ -56,6 +56,15 @@ export const FlexOne = styled.div<WebFlexProps>`
       : null};
 `
 
+export const Divider = styled.hr<{ textColor?: string }>`
+  padding: 0;
+  margin: ${({ theme }) => theme.spacing.m}px auto;
+  height: 1px;
+  border: 0;
+  border-bottom: 1px solid ${({ theme, textColor }) => textColor || theme.colors.border};
+  color: ${({ textColor = 'inherit' }) => textColor};
+`
+
 export const ContentLimit = styled.div<{
   widthLimit?: number
   horizontalPad?: number
