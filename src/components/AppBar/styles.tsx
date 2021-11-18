@@ -33,6 +33,7 @@ export const ItemBadge = styled.span<{ showing?: boolean }>`
   margin: 0;
   border-radius: 7px;
   transition: all ease-in-out 0.3s;
+  transform: scale(${({ showing }) => (showing ? 1 : 0.5)});
 `
 
 export const ItemBar = styled.button`
