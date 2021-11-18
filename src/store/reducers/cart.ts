@@ -2,8 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface ICartProduct {
   id: number
+  quantity: number
+  price: number
 }
 export interface ICartAppState {
+  readonly open?: boolean
   readonly step?: number | null
   readonly loading: boolean
   readonly lastModification?: number
@@ -13,6 +16,7 @@ export interface ICartAppState {
 }
 
 const initialState: ICartAppState = {
+  open: false,
   loading: false,
   step: 0,
   products: [],
@@ -38,7 +42,11 @@ export const slice = createSlice({
     setStep: (state, { payload }: PayloadAction<ICartAppState['step']>) => {
       state.step = payload
     },
+    setOpen: (state, { payload }: PayloadAction<ICartAppState['open']>) => {
+      state.open = payload
+    },
     setProducts: (state, { payload }: PayloadAction<ICartAppState['products']>) => {
+      console.log('setProducts payload', payload)
       state.lastModification = new Date().getTime() / 1000
       state.products = payload
     },
@@ -48,5 +56,5 @@ export const slice = createSlice({
   }
 })
 
-export const { loadFailure, loadRequest, loadSuccess } = slice.actions
+export const { loadFailure, loadRequest, loadSuccess, setStep, setProducts, updateCart, setOpen } = slice.actions
 export default slice.reducer
