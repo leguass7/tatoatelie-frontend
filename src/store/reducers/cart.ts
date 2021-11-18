@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export interface ICartProduct {
+  id: number
+}
 export interface ICartAppState {
   readonly step?: number | null
   readonly loading: boolean
   readonly lastModification?: number
   readonly addrId?: number
   readonly purchaseId?: number | null
-  readonly products?: any[]
+  readonly products?: ICartProduct[]
 }
 
 const initialState: ICartAppState = {
