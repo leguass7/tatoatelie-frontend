@@ -2,8 +2,9 @@ import { useCallback, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { compareValues } from '~/helpers/array'
+import { IProduct } from '~/serverSide/repositories/types'
 import type { AppState } from '~/store'
-import { ICartAppState, ICartProduct, setProducts } from '~/store/reducers/cart'
+import { ICartAppState, ICartProduct, ICartProductDetail, setProducts } from '~/store/reducers/cart'
 
 export function useCartItems() {
   const dispatch = useDispatch()
@@ -17,9 +18,9 @@ export function useCartItems() {
   )
 
   const addCartProduct = useCallback(
-    ({ id, quantity, price }: ICartProduct) => {
-      const product: ICartProduct = { id, quantity, price }
-      const newProdList = [...products.filter(p => p.id !== id), product]
+    ({ productId, quantity, price, product }: ICartProduct) => {
+      const newProduct: ICartProduct = { productId, quantity, price, product }
+      const newProdList = [...products.filter(p => p.productId !== productId), newProduct]
       setCartProducts(newProdList.sort(compareValues('id')))
     },
     [products, setCartProducts]
@@ -53,4 +54,16 @@ export function useCartMenu() {
   // const count = useMemo(() => products.length, [products])
 
   return [isCartOpen]
+}
+
+export function productDetailDto(product: IProduct): ICartProductDetail {
+  const { name, size, slug, actived, imageUrl, kind } = product
+  return {
+    name,
+    size,
+    slug,
+    actived,
+    imageUrl,
+    kind: kind || null
+  }
 }

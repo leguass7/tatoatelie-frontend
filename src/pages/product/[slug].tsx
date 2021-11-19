@@ -18,7 +18,7 @@ const PageProduct: NextPage<PageSegmentProps> = ({ product }) => {
       <ContentLimit horizontalPad={10}>
         <Segments />
         <ProductPresentation product={product} />
-        <ActionBar productId={product.id} price={product.price} />
+        <ActionBar product={product} />
         <br />
       </ContentLimit>
     </PageLayout>

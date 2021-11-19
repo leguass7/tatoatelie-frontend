@@ -1,9 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export interface ICartProductDetail {
+  slug: string
+  name: string
+  size: number
+  actived?: boolean
+  imageUrl?: string
+  kind?: {
+    id: number
+    label?: string
+  }
+}
 export interface ICartProduct {
-  id: number
+  productId: number
   quantity: number
   price: number
+  product: ICartProductDetail
 }
 export interface ICartAppState {
   readonly open?: boolean
@@ -46,7 +58,6 @@ export const slice = createSlice({
       state.open = payload
     },
     setProducts: (state, { payload }: PayloadAction<ICartAppState['products']>) => {
-      console.log('setProducts payload', payload)
       state.lastModification = new Date().getTime() / 1000
       state.products = payload
     },
