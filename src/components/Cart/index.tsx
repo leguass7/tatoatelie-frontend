@@ -8,17 +8,14 @@ import { useCartItems } from '~/hooks/useCart'
 import { FormButton } from '../Forms/FormButton'
 import { CartItem } from './CartItem'
 import { EmptyCart } from './EmptyCart'
-import { CartContainer, CartTitle, CartButtonDone } from './styles'
+import { CartContainer, CartTitle } from './styles'
 
 export const Cart: React.FC = () => {
-  const { theme, matchingBackgroudText } = useAppTheme()
+  const { theme } = useAppTheme()
   const { products } = useCartItems()
 
   const total = products.reduce((acc, p) => (acc += p.price * p.quantity), 0)
-  const buttonProps = {
-    textColor: matchingBackgroudText('primary'),
-    bgColor: theme.colors.primary
-  }
+
   return (
     <>
       <CartContainer textColor={theme.colors.primary}>
