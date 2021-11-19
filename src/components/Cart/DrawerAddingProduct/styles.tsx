@@ -18,6 +18,7 @@ export const AddProductItemImageMask = styled.div<{ url: string; size?: number }
   background-image: url(${({ url }) => url});
   background-size: contain;
   background-position: center center;
+  background-repeat: no-repeat;
 `
 
 export const AddProductItemImage = styled.div`

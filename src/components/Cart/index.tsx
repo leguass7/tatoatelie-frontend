@@ -4,6 +4,7 @@ import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { Divider } from '~/components/styled'
 import { useCartItems } from '~/hooks/useCart'
 
+import { CartItem } from './CartItem'
 import { CartContainer, CartTitle } from './styles'
 
 export const Cart: React.FC = () => {
@@ -13,13 +14,9 @@ export const Cart: React.FC = () => {
     <>
       <CartContainer textColor={theme.colors.primary}>
         <CartTitle>CARRINHO</CartTitle>
-        <Divider />
-        {products.map(itemCart => {
-          return (
-            <>
-              <div>{itemCart.product.name}</div>
-            </>
-          )
+        <Divider textColor={theme.colors.secondary} />
+        {products.map(({ productId }) => {
+          return <CartItem key={`itemcart-${productId}`} productId={productId} />
         })}
       </CartContainer>
     </>
