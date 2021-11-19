@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { compareValues } from '~/helpers/array'
 import { IProduct } from '~/serverSide/repositories/types'
 import type { AppState } from '~/store'
-import { ICartAppState, ICartProduct, ICartProductDetail, setProducts } from '~/store/reducers/cart'
+import { ICartAppState, ICartProduct, ICartProductDetail, setAdding, setProducts } from '~/store/reducers/cart'
 
 export function useCartItems() {
   const dispatch = useDispatch()
@@ -66,4 +66,18 @@ export function productDetailDto(product: IProduct): ICartProductDetail {
     imageUrl,
     kind: kind || null
   }
+}
+
+export function useCartAddingProduct(): [ICartAppState['adding'], (_productId: number) => void] {
+  const dispatch = useDispatch()
+  const adding = useSelector<AppState, ICartAppState['adding']>(state => state.cart?.adding)
+
+  const setAddingOpen = useCallback(
+    (productId: number) => {
+      dispatch(setAdding(productId))
+    },
+    [dispatch]
+  )
+
+  return [adding, setAddingOpen]
 }

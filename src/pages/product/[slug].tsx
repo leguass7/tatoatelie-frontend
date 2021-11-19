@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 
+import { DrawerAddingProduct } from '~/components/Cart/DrawerAddingProduct'
 import { PageLayout } from '~/components/layouts/PageLayout'
 import { ActionBar } from '~/components/Product/ActionBar'
 import { ProductPresentation } from '~/components/Product/ProductPresentation'
@@ -21,6 +22,7 @@ const PageProduct: NextPage<PageSegmentProps> = ({ product }) => {
         <ActionBar product={product} />
         <br />
       </ContentLimit>
+      <DrawerAddingProduct />
     </PageLayout>
   )
 }

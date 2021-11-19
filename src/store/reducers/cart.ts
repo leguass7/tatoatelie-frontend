@@ -19,6 +19,7 @@ export interface ICartProduct {
 }
 export interface ICartAppState {
   readonly open?: boolean
+  readonly adding?: number | string
   readonly step?: number | null
   readonly loading: boolean
   readonly lastModification?: number
@@ -29,6 +30,7 @@ export interface ICartAppState {
 
 const initialState: ICartAppState = {
   open: false,
+  adding: null,
   loading: false,
   step: 0,
   products: [],
@@ -57,6 +59,9 @@ export const slice = createSlice({
     setOpen: (state, { payload }: PayloadAction<ICartAppState['open']>) => {
       state.open = payload
     },
+    setAdding: (state, { payload }: PayloadAction<ICartAppState['adding']>) => {
+      state.adding = payload
+    },
     setProducts: (state, { payload }: PayloadAction<ICartAppState['products']>) => {
       state.lastModification = new Date().getTime() / 1000
       state.products = payload
@@ -67,5 +72,6 @@ export const slice = createSlice({
   }
 })
 
-export const { loadFailure, loadRequest, loadSuccess, setStep, setProducts, updateCart, setOpen } = slice.actions
+export const { loadFailure, loadRequest, loadSuccess, setStep, setProducts, updateCart, setOpen, setAdding } =
+  slice.actions
 export default slice.reducer
