@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Maiandra GD';
     src: local("Maiandra GD"),
-      url('${maiandraGd.maiandraGdWOFF2}') format('woff2'),    
+      url('${maiandraGd.maiandraGdWOFF2}') format('woff2'),
       url('${maiandraGd.maiandraGdWOFF}') format('woff'),
       url('${maiandraGd.maiandraGdEOT}'),
       url('${maiandraGd.maiandraGdEOT}?#iefix') format('embedded-opentype'),
@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 300;
     font-style: normal;
   }
-  
+
   * {
      box-sizing: border-box;
   }
@@ -62,6 +62,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 
+  button{
+    font-family: 'Maiandra GD', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
 `
 
 export default memo(GlobalStyle)

@@ -1,19 +1,24 @@
 import React from 'react'
 
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
-import { Divider, Paragraph } from '~/components/styled'
+import { ContentLimit, Divider, FlexRow, Paragraph } from '~/components/styled'
 import { formatPrice } from '~/helpers'
 import { useCartItems } from '~/hooks/useCart'
 
+import { FormButton } from '../Forms/FormButton'
 import { CartItem } from './CartItem'
 import { EmptyCart } from './EmptyCart'
-import { CartContainer, CartTitle } from './styles'
+import { CartContainer, CartTitle, CartButtonDone } from './styles'
 
 export const Cart: React.FC = () => {
-  const { theme } = useAppTheme()
+  const { theme, matchingBackgroudText } = useAppTheme()
   const { products } = useCartItems()
 
   const total = products.reduce((acc, p) => (acc += p.price * p.quantity), 0)
+  const buttonProps = {
+    textColor: matchingBackgroudText('primary'),
+    bgColor: theme.colors.primary
+  }
   return (
     <>
       <CartContainer textColor={theme.colors.primary}>
@@ -27,6 +32,12 @@ export const Cart: React.FC = () => {
             <Paragraph verticalSpaced>
               Total: <strong>{formatPrice(total)}</strong>
             </Paragraph>
+            <Divider textColor={theme.colors.secondary} />
+            <ContentLimit widthLimit={290} verticalSpaced>
+              <FlexRow>
+                <FormButton label={'Finalizar compra'} type="button" bold />
+              </FlexRow>
+            </ContentLimit>
           </>
         ) : (
           <EmptyCart />
