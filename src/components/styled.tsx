@@ -1,6 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 import type { FlexAlign, FlexJustify, FlexOneProps, SimpleTextProps } from '~/styles/styledTypes'
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1
+  }
+  to {
+    opacity: 0
+  }
+`
 
 type WebFlexProps = FlexOneProps & {
   colorText?: string
@@ -81,6 +90,14 @@ export const ContentLimit = styled.div<{
   background-color: ${({ bgColor = 'transparent' }) => bgColor};
   padding: ${({ verticalSpaced, verticalPad = 0, theme }) => (verticalSpaced ? theme.spacing.l : verticalPad)}px
     ${({ horizontalSpaced, horizontalPad = 0, theme }) => (horizontalSpaced ? theme.spacing.l : horizontalPad)}px;
+
+  .fadeout {
+    animation: ${fadeOut} 0.5s ease-in-out;
+  }
+  .removing {
+    text-decoration: line-through;
+    filter: grayscale(100%);
+  }
 `
 
 export const Paragraph = styled.p<SimpleTextProps>`

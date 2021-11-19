@@ -34,13 +34,13 @@ export const ProductCounter: React.FC<Props> = ({ themeColor = 'primary', quanti
 
   return (
     <ProductCounterContainer strokeColor={lineColor} stroke={2} hoverColor={hoverColor}>
-      <ButtonCounter value={-1} disabled={amount <= 1} onClick={plus(-1)}>
+      <ButtonCounter type="button" value={-1} disabled={amount <= 1} onClick={plus(-1)}>
         <span>
           <AiOutlineMinus size={24} />
         </span>
       </ButtonCounter>
       <ProductCounterValue textSize={16}>{amount}</ProductCounterValue>
-      <ButtonCounter value={1} disabled={!!(maxQuantity && amount >= maxQuantity)} onClick={plus(1)}>
+      <ButtonCounter type="button" value={1} disabled={!!(maxQuantity && amount >= maxQuantity)} onClick={plus(1)}>
         <span>
           <AiOutlinePlus size={24} />
         </span>

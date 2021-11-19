@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { compareValues } from '~/helpers/array'
 import { IProduct } from '~/serverSide/repositories/types'
 import type { AppState } from '~/store'
-import { ICartAppState, ICartProduct, ICartProductDetail, setAdding, setProducts } from '~/store/reducers/cart'
+import { ICartAppState, ICartProduct, ICartProductDetail, setAdding, setOpen, setProducts } from '~/store/reducers/cart'
 
 export function useCartItems() {
   const dispatch = useDispatch()
@@ -12,18 +12,9 @@ export function useCartItems() {
 
   const setCartProducts = useCallback(
     (productList: ICartProduct[]) => {
-      dispatch(setProducts(productList.sort(compareValues('id'))))
+      dispatch(setProducts(productList.sort(compareValues('productId'))))
     },
     [dispatch]
-  )
-
-  const addCartProduct = useCallback(
-    ({ productId, quantity, price, product }: ICartProduct) => {
-      const newProduct: ICartProduct = { productId, quantity, price, product }
-      const newProdList = [...products.filter(p => p.productId !== productId), newProduct]
-      setCartProducts(newProdList)
-    },
-    [products, setCartProducts]
   )
 
   const setProductQuantity = useCallback(
@@ -37,34 +28,47 @@ export function useCartItems() {
     [products, setCartProducts]
   )
 
+  const addCartProduct = useCallback(
+    ({ productId, quantity, price, product }: ICartProduct) => {
+      const found = products.find(f => f.productId === productId)
+      if (found) {
+        setProductQuantity(productId, found.quantity + 1)
+      } else {
+        const newProduct: ICartProduct = { productId, quantity, price, product }
+        const newProdList = [...products.filter(p => p.productId !== productId), newProduct]
+        setCartProducts(newProdList)
+      }
+    },
+    [products, setCartProducts, setProductQuantity]
+  )
+
+  const removeCartProduct = useCallback(
+    (productId: number) => {
+      const newProdList = [...products.filter(p => p.productId !== productId)]
+      setCartProducts(newProdList)
+    },
+    [products, setCartProducts]
+  )
+
   const count = useMemo(() => products.length, [products])
 
-  return { products, count, addCartProduct, setProductQuantity }
+  return { products, count, addCartProduct, setProductQuantity, removeCartProduct }
 }
 
-export function useCartMenu() {
-  // const dispatch = useDispatch()
-  const isCartOpen = useSelector<AppState, ICartAppState['open']>(state => !!state.cart?.open)
+type SetCartOpen = (_open?: boolean) => boolean
+export function useCartMenu(): [boolean, (_open?: boolean | SetCartOpen) => void] {
+  const dispatch = useDispatch()
+  const cartOpen = useSelector<AppState, ICartAppState['open']>(state => !!state.cart?.open)
 
-  // const setCartProducts = useCallback(
-  //   (productList: ICartProduct[]) => {
-  //     dispatch(setProducts(productList))
-  //   },
-  //   [dispatch]
-  // )
+  const setCartMenuOpen = useCallback(
+    (openState?: boolean | SetCartOpen) => {
+      const cb = typeof openState === 'function' ? openState(cartOpen) : !!openState
+      dispatch(setOpen(cb))
+    },
+    [dispatch, cartOpen]
+  )
 
-  // const addCartProduct = useCallback(
-  //   ({ id, quantity, price }: ICartProduct) => {
-  //     const product: ICartProduct = { id, quantity, price }
-  //     const newProdList = [...products.filter(p => p.id !== id), product]
-  //     setCartProducts(newProdList.sort(compareValues('id')))
-  //   },
-  //   [products, setCartProducts]
-  // )
-
-  // const count = useMemo(() => products.length, [products])
-
-  return [isCartOpen]
+  return [cartOpen, setCartMenuOpen]
 }
 
 export function productDetailDto(product: IProduct): ICartProductDetail {

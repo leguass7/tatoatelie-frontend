@@ -33,6 +33,14 @@ export const getServerSideProps: GetServerSideProps<PageSegmentProps, { slug: st
   const slug = params?.slug
 
   const product = await productsFindOne(slug)
+  if (!product) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/'
+      }
+    }
+  }
 
   return { props: { product } }
 }

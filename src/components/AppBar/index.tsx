@@ -6,25 +6,28 @@ import { CartSvg } from '~/components/Images/CartSvg'
 import { MenuSvg } from '~/components/Images/MenuSvg'
 import { Menu } from '~/components/Menu'
 import type { ButtonItemMenuProps } from '~/components/Menu/ButtonItemMenu'
-import { useCartItems } from '~/hooks/useCart'
+import { useCartItems, useCartMenu } from '~/hooks/useCart'
 
 import { AppBarContainer, ItemBar, ItemBadge } from './styles'
 
 export const AppBar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [cartOpen, setCartOpen] = useState(false)
+  const [cartOpen, setCartOpen] = useCartMenu()
   const { count } = useCartItems()
 
   const toogleMenu = useCallback((_e?: any, _reason?: 'backdropClick' | 'escapeKeyDown') => {
     setMenuOpen(old => !old)
   }, [])
 
-  const toogleCart = useCallback((_e?: any, _reason?: 'backdropClick' | 'escapeKeyDown') => {
-    setCartOpen(old => !old)
-  }, [])
+  const toogleCart = useCallback(
+    (_e?: any, _reason?: 'backdropClick' | 'escapeKeyDown') => {
+      setCartOpen(old => !old)
+    },
+    [setCartOpen]
+  )
 
   const closeMenu = useCallback(() => setMenuOpen(false), [])
-  const closeCart = useCallback(() => setCartOpen(false), [])
+  const closeCart = useCallback(() => setCartOpen(false), [setCartOpen])
 
   const linksProps = useMemo(() => {
     const links: ButtonItemMenuProps[] = [
@@ -45,7 +48,7 @@ export const AppBar: React.FC = () => {
         </ItemBar>
         <ItemBar onClick={toogleCart}>
           <CartSvg />
-          <ItemBadge showing={true}>{count}</ItemBadge>
+          <ItemBadge showing={!!count}>{count}</ItemBadge>
         </ItemBar>
       </AppBarContainer>
       <Drawer anchor={'left'} open={menuOpen} onClose={closeMenu}>

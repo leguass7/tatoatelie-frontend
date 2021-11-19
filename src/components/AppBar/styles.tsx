@@ -26,7 +26,7 @@ export const ItemBadge = styled.span<{ showing?: boolean }>`
   overflow: hidden;
   text-align: center;
   top: -4px;
-  right: -14px;
+  right: -8px;
   background-color: ${({ theme }) => theme.colors.secondary};
   color: #fff;
   padding: 2px;

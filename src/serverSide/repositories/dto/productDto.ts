@@ -10,6 +10,7 @@ function imageMetaDto(data: Partial<IImageMeta>): IImageMeta {
 }
 
 export function productDto(product: ProductsListType | Product, listImages?: boolean): IProduct {
+  if (!product) return null
   const { images, ...rest } = serializedDto(product) as IProduct
 
   const mainImage = images && images.length ? images.find(f => !!f.main) || images[0] || null : null
