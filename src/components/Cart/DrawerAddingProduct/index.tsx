@@ -15,7 +15,7 @@ export const DrawerAddingProduct: React.FC<Props> = ({ anchor = 'top' }) => {
 
   return (
     <Drawer anchor={anchor} open={!!adding} onClose={close} onBackdropClick={close}>
-      <AddingProduct />
+      {adding ? <AddingProduct productId={adding} /> : null}
     </Drawer>
   )
 }

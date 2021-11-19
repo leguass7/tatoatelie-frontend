@@ -88,6 +88,7 @@ export const Paragraph = styled.p<SimpleTextProps>`
   max-width: 100%;
   margin: 0 auto;
   padding: 0;
+  font-size: ${({ size }) => size}px;
   text-align: ${({ align = 'left' }) => align};
   color: ${({ textColor = 'inherit' }) => textColor};
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};

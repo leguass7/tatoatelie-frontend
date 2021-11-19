@@ -19,7 +19,7 @@ export interface ICartProduct {
 }
 export interface ICartAppState {
   readonly open?: boolean
-  readonly adding?: number | string
+  readonly adding?: number
   readonly step?: number | null
   readonly loading: boolean
   readonly lastModification?: number

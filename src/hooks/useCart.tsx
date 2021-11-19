@@ -12,7 +12,7 @@ export function useCartItems() {
 
   const setCartProducts = useCallback(
     (productList: ICartProduct[]) => {
-      dispatch(setProducts(productList))
+      dispatch(setProducts(productList.sort(compareValues('id'))))
     },
     [dispatch]
   )
@@ -21,14 +21,25 @@ export function useCartItems() {
     ({ productId, quantity, price, product }: ICartProduct) => {
       const newProduct: ICartProduct = { productId, quantity, price, product }
       const newProdList = [...products.filter(p => p.productId !== productId), newProduct]
-      setCartProducts(newProdList.sort(compareValues('id')))
+      setCartProducts(newProdList)
+    },
+    [products, setCartProducts]
+  )
+
+  const setProductQuantity = useCallback(
+    (productId: number, quantity: number) => {
+      const found = products.find(f => f.productId === productId)
+      if (found) {
+        const newProdList = [...products.filter(p => p.productId !== productId), { ...found, quantity }]
+        setCartProducts(newProdList)
+      }
     },
     [products, setCartProducts]
   )
 
   const count = useMemo(() => products.length, [products])
 
-  return { products, count, addCartProduct }
+  return { products, count, addCartProduct, setProductQuantity }
 }
 
 export function useCartMenu() {
