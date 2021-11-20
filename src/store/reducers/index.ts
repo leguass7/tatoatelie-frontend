@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
-// import storage from 'redux-persist/lib/storage'
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 
 import { appName, appVersion } from '~/config'
 
 import cart from './cart'
 import user from './user'
+
+const isServer = typeof window === 'undefined'
 
 export const rootReducer = combineReducers({
   user,
@@ -26,11 +27,13 @@ function createNoopStorage() {
   }
 }
 
-const isServer = typeof window === 'undefined'
-const storage = isServer ? createNoopStorage() : createWebStorage('web')
+function createStorage() {
+  const storage = isServer ? createNoopStorage() : createWebStorage('local')
+  return storage
+}
 
 export const persistConfig = {
   key: `store-${appName}-${appVersion}`,
-  storage,
+  storage: createStorage(),
   whitelist: ['user', 'cart']
 }

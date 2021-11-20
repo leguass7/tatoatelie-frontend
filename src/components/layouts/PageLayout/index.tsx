@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
 import { getOpenGraph } from '~/helpers/openGraph'
+import { useCartStep } from '~/hooks/useCart'
 import { sendGTagPageView } from '~/services/gtag/conversion'
 import { register } from '~/serviceWorkerRegistration'
 
@@ -18,6 +19,7 @@ type Props = {
 export const PageLayout: React.FC<Props> = ({ children, pageTitle, pageDescription }) => {
   const { asPath } = useRouter()
   const [session] = useSession()
+  const { step, setCartStep } = useCartStep()
 
   useEffect(() => {
     sendGTagPageView(pageTitle, asPath)
@@ -26,6 +28,10 @@ export const PageLayout: React.FC<Props> = ({ children, pageTitle, pageDescripti
   useEffect(() => {
     if (session && session.user?.name) register()
   }, [session])
+
+  useEffect(() => {
+    if (step > 0 && asPath !== '/stepper') setCartStep(0)
+  }, [step, asPath, setCartStep])
 
   return (
     <>
