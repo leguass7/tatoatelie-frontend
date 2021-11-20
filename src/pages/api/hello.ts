@@ -2,9 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
 
 import { getHello } from '~/serverSide/controllers/hello'
+import { protect } from '~/serverSide/middlewares/protect'
 
 const handlerController = nc<NextApiRequest, NextApiResponse>()
-handlerController.get(getHello)
+
+handlerController.use(protect).get(getHello)
 
 // export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 //   res.status(200).json({ name: 'John Doe' })

@@ -1,5 +1,8 @@
 import { configureStore, ThunkAction, Action, Middleware } from '@reduxjs/toolkit'
+import { createWrapper } from 'next-redux-wrapper'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
+
+import { dev } from '~/config'
 
 import { persistConfig, rootReducer } from './reducers'
 
@@ -8,7 +11,7 @@ const ignoredActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export function makeStore() {
+function makeStore() {
   return configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
@@ -18,8 +21,11 @@ export function makeStore() {
       }).concat(...middlewares)
   })
 }
+
 const store = makeStore()
 const persistor = persistStore(store)
+
+export const wrapper = createWrapper(makeStore, { debug: !!dev })
 
 export type AppState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

@@ -6,7 +6,7 @@ type Props = {
   size?: number
   lineColor?: string
 }
-export const MenuSvg: React.FC<Props> = ({ size = 32, lineColor = '#B07B80' }) => {
+export const MenuSvg: React.FC<Props> = ({ size = 32, lineColor = 'currentColor' }) => {
   return (
     <svg {...svgProps} width={`${size}px`} height={`${size}px`} viewBox="0 0 60.79 60.79">
       <g id="_1960378971312">

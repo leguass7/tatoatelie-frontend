@@ -12,7 +12,7 @@ const callbacks = {
 
 export function callbackSignin(user: User, account: Account, profile: Profile) {
   const { provider } = account
-  console.log('user', user, account, profile)
+  // console.log('user', user, account, profile)
   if (callbacks[provider]) return callbacks[provider](user, account, profile)
   return true
 }

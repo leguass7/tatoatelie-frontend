@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next'
 
+import { DrawerAddingProduct } from '~/components/Cart/DrawerAddingProduct'
 import { PageLayout } from '~/components/layouts/PageLayout'
 import { ActionBar } from '~/components/Product/ActionBar'
 import { ProductPresentation } from '~/components/Product/ProductPresentation'
@@ -18,9 +19,10 @@ const PageProduct: NextPage<PageSegmentProps> = ({ product }) => {
       <ContentLimit horizontalPad={10}>
         <Segments />
         <ProductPresentation product={product} />
-        <ActionBar productId={product.id} price={product.price} />
+        <ActionBar product={product} />
         <br />
       </ContentLimit>
+      <DrawerAddingProduct />
     </PageLayout>
   )
 }
@@ -31,6 +33,14 @@ export const getServerSideProps: GetServerSideProps<PageSegmentProps, { slug: st
   const slug = params?.slug
 
   const product = await productsFindOne(slug)
+  if (!product) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/'
+      }
+    }
+  }
 
   return { props: { product } }
 }

@@ -13,6 +13,7 @@ export const Button = styled.button<{
   bold?: boolean
   textColor: string
   disabled?: boolean
+  textSize?: number
 }>`
   display: inline-block;
   border-radius: ${({ theme }) => theme.spacing.l}px;
@@ -21,6 +22,7 @@ export const Button = styled.button<{
   cursor: pointer;
   padding: ${({ theme }) => `${theme.spacing.m}px ${theme.spacing.l}px`};
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
+  font-size: ${({ textSize }) => textSize}px;
 
   font-family: 'Maiandra GD', '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;

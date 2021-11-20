@@ -1,17 +1,40 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export interface ICartProductDetail {
+  slug: string
+  name: string
+  size: number
+  actived?: boolean
+  imageUrl?: string
+  kind?: {
+    id: number
+    label?: string
+  }
+}
+export interface ICartProduct {
+  productId: number
+  quantity: number
+  price: number
+  product: ICartProductDetail
+}
 export interface ICartAppState {
+  readonly open?: boolean
+  readonly adding?: number
   readonly step?: number | null
+  readonly stepError?: boolean
   readonly loading: boolean
   readonly lastModification?: number
   readonly addrId?: number
   readonly purchaseId?: number | null
-  readonly products?: any[]
+  readonly products?: ICartProduct[]
 }
 
 const initialState: ICartAppState = {
+  open: false,
+  adding: null,
   loading: false,
   step: 0,
+  stepError: false,
   products: [],
   lastModification: 0,
   addrId: 0,
@@ -32,8 +55,15 @@ export const slice = createSlice({
     loadFailure: state => {
       state.loading = false
     },
-    setStep: (state, { payload }: PayloadAction<ICartAppState['step']>) => {
-      state.step = payload
+    setStep: (state, { payload }: PayloadAction<Pick<ICartAppState, 'step' | 'stepError'>>) => {
+      state.step = payload.step || 0
+      state.stepError = !!payload.stepError
+    },
+    setOpen: (state, { payload }: PayloadAction<ICartAppState['open']>) => {
+      state.open = payload
+    },
+    setAdding: (state, { payload }: PayloadAction<ICartAppState['adding']>) => {
+      state.adding = payload
     },
     setProducts: (state, { payload }: PayloadAction<ICartAppState['products']>) => {
       state.lastModification = new Date().getTime() / 1000
@@ -45,5 +75,6 @@ export const slice = createSlice({
   }
 })
 
-export const { loadFailure, loadRequest, loadSuccess } = slice.actions
+export const { loadFailure, loadRequest, loadSuccess, setStep, setProducts, updateCart, setOpen, setAdding } =
+  slice.actions
 export default slice.reducer
