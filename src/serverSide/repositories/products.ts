@@ -14,8 +14,8 @@ type ProductRequestFilter = {
   segment?: string
 }
 
-export async function productsFindAll() {
-  const products = await prisma.product.findMany({ where: { actived: true } })
+export async function productsFindAll(filter: Prisma.ProductWhereInput = {}) {
+  const products = await prisma.product.findMany({ where: { actived: true, ...filter } })
   return products.map(product => productDto(product))
 }
 
