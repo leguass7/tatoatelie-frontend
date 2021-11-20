@@ -21,6 +21,7 @@ export interface ICartAppState {
   readonly open?: boolean
   readonly adding?: number
   readonly step?: number | null
+  readonly stepError?: boolean
   readonly loading: boolean
   readonly lastModification?: number
   readonly addrId?: number
@@ -33,6 +34,7 @@ const initialState: ICartAppState = {
   adding: null,
   loading: false,
   step: 0,
+  stepError: false,
   products: [],
   lastModification: 0,
   addrId: 0,
@@ -53,8 +55,9 @@ export const slice = createSlice({
     loadFailure: state => {
       state.loading = false
     },
-    setStep: (state, { payload }: PayloadAction<ICartAppState['step']>) => {
-      state.step = payload
+    setStep: (state, { payload }: PayloadAction<Pick<ICartAppState, 'step' | 'stepError'>>) => {
+      state.step = payload.step || 0
+      state.stepError = !!payload.stepError
     },
     setOpen: (state, { payload }: PayloadAction<ICartAppState['open']>) => {
       state.open = payload

@@ -4,7 +4,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { compareValues } from '~/helpers/array'
 import { IProduct } from '~/serverSide/repositories/types'
 import type { AppState } from '~/store'
-import { ICartAppState, ICartProduct, ICartProductDetail, setAdding, setOpen, setProducts } from '~/store/reducers/cart'
+import {
+  ICartAppState,
+  ICartProduct,
+  ICartProductDetail,
+  setAdding,
+  setOpen,
+  setProducts,
+  setStep
+} from '~/store/reducers/cart'
 
 export function useCartItems() {
   const dispatch = useDispatch()
@@ -95,4 +103,18 @@ export function useCartAddingProduct(): [ICartAppState['adding'], (_productId: n
   )
 
   return [adding, setAddingOpen]
+}
+
+export function useCartStep() {
+  const dispatch = useDispatch()
+  const step = useSelector<AppState, ICartAppState['step']>(state => state.cart?.step)
+
+  const setCartStep = useCallback(
+    (step: number = 0, hasError?: boolean) => {
+      dispatch(setStep({ step, stepError: !!hasError }))
+    },
+    [dispatch]
+  )
+
+  return { step, setCartStep }
 }

@@ -6,13 +6,14 @@ import { CartSvg } from '~/components/Images/CartSvg'
 import { MenuSvg } from '~/components/Images/MenuSvg'
 import { Menu } from '~/components/Menu'
 import type { ButtonItemMenuProps } from '~/components/Menu/ButtonItemMenu'
-import { useCartItems, useCartMenu } from '~/hooks/useCart'
+import { useCartItems, useCartMenu, useCartStep } from '~/hooks/useCart'
 
 import { AppBarContainer, ItemBar, ItemBadge } from './styles'
 
 export const AppBar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useCartMenu()
+  const { step } = useCartStep()
   const { count } = useCartItems()
 
   const toogleMenu = useCallback((_e?: any, _reason?: 'backdropClick' | 'escapeKeyDown') => {
@@ -46,10 +47,12 @@ export const AppBar: React.FC = () => {
         <ItemBar onClick={toogleMenu}>
           <MenuSvg />
         </ItemBar>
-        <ItemBar onClick={toogleCart}>
-          <CartSvg />
-          <ItemBadge showing={!!count}>{count}</ItemBadge>
-        </ItemBar>
+        {!!(step <= 0) ? (
+          <ItemBar onClick={toogleCart}>
+            <CartSvg />
+            <ItemBadge showing={!!count}>{count}</ItemBadge>
+          </ItemBar>
+        ) : null}
       </AppBarContainer>
       <Drawer anchor={'left'} open={menuOpen} onClose={closeMenu}>
         <Menu links={linksProps} onToogleLogin={closeMenu} />
