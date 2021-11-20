@@ -1,6 +1,7 @@
 import type { SetStateAction, Dispatch } from 'react'
 
 export interface IThemeSpacing {
+  xs: number
   s: number
   m: number
   l: number
@@ -18,7 +19,10 @@ export interface ThemeColors {
   shadow: string
   textDark: string
   background: string
+  success: string
   errors: string
+  warning: string
+  info: string
 }
 export interface IAppTheme {
   colors: ThemeColors
