@@ -6,6 +6,7 @@ import { useCartStep } from '~/hooks/useCart'
 import { CheckDelivery } from './CheckDelivery'
 import { CheckPayment } from './CheckPayment'
 import { CheckPurchase } from './CheckPurchase'
+import { StepFinish } from './StepFinish'
 
 export const CartSteps: React.FC = () => {
   const { setCartStep } = useCartStep()
@@ -24,6 +25,9 @@ export const CartSteps: React.FC = () => {
       </Column>
       <Column>
         <CheckPayment />
+      </Column>
+      <Column>
+        <StepFinish />
       </Column>
     </RollColumn>
   )

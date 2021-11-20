@@ -38,16 +38,18 @@ const steps = [
   { label: 'Pagamento', icon: AiOutlineDollarCircle }
 ]
 
+const normalizeStep = (step: number) => {
+  let s = step - 1
+  if (s < 0) s = 0
+  if (s >= steps.length) s = steps.length
+  return s
+}
+
 export const CartStepper: React.FC = () => {
   const { step } = useCartStep()
-  const normalizeStep = () => {
-    let s = step - 1
-    if (s < 0) s = 0
-    if (s >= steps.length) s = steps.length - 1
-    return s
-  }
+
   return (
-    <Stepper alternativeLabel activeStep={normalizeStep()} connector={<QontoConnector />}>
+    <Stepper alternativeLabel activeStep={normalizeStep(step)} connector={<QontoConnector />}>
       {steps.map(({ label, icon }) => (
         <Step key={label}>
           <StepLabel StepIconComponent={withIconHOC(icon)}>{label}</StepLabel>

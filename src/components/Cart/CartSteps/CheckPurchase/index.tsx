@@ -13,7 +13,7 @@ export const CheckPurchase: React.FC = () => {
   return (
     <>
       <PageTitle title="Conferira o seu pedido" />
-      <div>CHECK PURCHASE</div>
+
       <button type="button" onClick={handleNext}>
         PRÓXIMO
       </button>
