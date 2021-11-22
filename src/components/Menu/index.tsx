@@ -33,8 +33,6 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
     signOut()
   }, [])
 
-  console.log('supported', supported())
-  console.log('isInstalled', isInstalled())
   return (
     <>
       <MenuContainer textColor={theme.colors.primary}>
@@ -61,9 +59,18 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
             <MenuItem>
               <FormButton type="button" onClick={handleLogOut} label={'Sair'} />
             </MenuItem>
-            <MenuItem>
-              <FormButton type="button" onClick={() => installPwa()} label={'Installar PWA'} />
-            </MenuItem>
+            {supported() && !isInstalled() ? (
+              <MenuItem>
+                <FormButton
+                  type="button"
+                  onClick={() => {
+                    register()
+                    installPwa()
+                  }}
+                  label={'Installar PWA'}
+                />
+              </MenuItem>
+            ) : null}
           </>
         ) : null}
       </MenuContainer>
