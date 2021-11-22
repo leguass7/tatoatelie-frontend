@@ -26,7 +26,7 @@ export const producIncludes: Pick<Prisma.ProductFindManyArgs, 'include'> = {
   }
 }
 
-export async function productsFindAll(where: Prisma.ProductWhereInput = {}, includes: boolean) {
+export async function productsFindAll(where: Prisma.ProductWhereInput = {}, includes?: boolean) {
   const query: Prisma.ProductFindManyArgs = { where: { actived: true, ...where } }
   if (includes) query.include = producIncludes.include
   const products = await prisma.product.findMany(query)
