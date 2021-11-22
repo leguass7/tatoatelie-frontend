@@ -14,7 +14,7 @@ import { CloseModal, MenuContainer, MenuItem, ModalContainer } from './styles'
 
 type Props = {
   links: ButtonItemMenuProps[]
-  onToogleLogin: () => void
+  onToogleLogin?: () => void
 }
 export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
   const { theme, matchingBackgroudText } = useAppTheme()
