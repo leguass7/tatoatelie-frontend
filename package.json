@@ -39,6 +39,7 @@
     "classnames": "^2.3.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.24.0",
+    "mobile-device-detect": "^0.4.3",
     "next": "11.1.2",
     "next-auth": "^3.29.0",
     "next-compose-plugins": "^2.2.1",
