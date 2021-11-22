@@ -1,9 +1,10 @@
 import React from 'react'
 
+import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
 import { PageTitle } from '~/components/PageTitle'
 import { useRollColumn } from '~/components/RollColumn'
 
-export const CheckPayment: React.FC = () => {
+export const CheckPayment: React.FC<StepContainerProps> = () => {
   const { goToColumn } = useRollColumn()
 
   const handleNext = () => {
@@ -15,7 +16,7 @@ export const CheckPayment: React.FC = () => {
   }
 
   return (
-    <>
+    <StepContainer>
       <PageTitle title="Método de pagamento" />
       <button type="button" onClick={handleBack}>
         VOLTAR
@@ -23,6 +24,6 @@ export const CheckPayment: React.FC = () => {
       <button type="button" onClick={handleNext}>
         FINALIZAR
       </button>
-    </>
+    </StepContainer>
   )
 }

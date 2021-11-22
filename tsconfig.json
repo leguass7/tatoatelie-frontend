@@ -24,7 +24,6 @@
     "next-env.d.ts",
     "package.json",
     "src",
-    "src/**/*",
     "./src/@types/additional.d.ts",
     "./src/@types/fonts.d.ts",
     "./src/@types/database.d.ts",

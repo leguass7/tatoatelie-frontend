@@ -59,8 +59,9 @@ export function useCartItems() {
   )
 
   const count = useMemo(() => products.length, [products])
+  const total = useMemo(() => products.reduce((acc, p) => (acc += p.price * p.quantity), 0), [products])
 
-  return { products, count, addCartProduct, setProductQuantity, removeCartProduct }
+  return { products, count, total, addCartProduct, setProductQuantity, removeCartProduct }
 }
 
 type SetCartOpen = (_open?: boolean) => boolean

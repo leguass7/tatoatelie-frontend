@@ -1,9 +1,10 @@
 import React from 'react'
 
+import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
 import { PageTitle } from '~/components/PageTitle'
 import { useRollColumn } from '~/components/RollColumn'
 
-export const CheckDelivery: React.FC = () => {
+export const CheckDelivery: React.FC<StepContainerProps> = () => {
   const { goToColumn } = useRollColumn()
 
   const handleNext = () => {
@@ -15,7 +16,7 @@ export const CheckDelivery: React.FC = () => {
   }
 
   return (
-    <>
+    <StepContainer>
       <PageTitle title="Endereço de entrega" />
       <button type="button" onClick={handleBack}>
         VOLTAR
@@ -23,6 +24,6 @@ export const CheckDelivery: React.FC = () => {
       <button type="button" onClick={handleNext}>
         PRÓXIMO
       </button>
-    </>
+    </StepContainer>
   )
 }

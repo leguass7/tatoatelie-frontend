@@ -34,7 +34,7 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
 
 const steps = [
   { label: 'Pedido', icon: AiOutlineCheckCircle },
-  { label: 'Endereço', icon: BiHomeCircle },
+  { label: 'Entrega', icon: BiHomeCircle },
   { label: 'Pagamento', icon: AiOutlineDollarCircle }
 ]
 
