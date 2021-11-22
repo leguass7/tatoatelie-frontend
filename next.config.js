@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     disableStaticImages: true, // para funcionar o plugin `next-fonts`
-    domains: ['next.tatoatelie.com.br', 'tatoatelie.com.br']
+    domains: ['next.tatoatelie.com.br', 'tatoatelie.com.br', 'www.tatoatelie.com.br']
   },
   api: {
     bodyParser: {
@@ -24,7 +24,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const withPWAConfig = {
   pwa: {
     dest: 'public',
-    disable: process.env.NODE_ENV === 'development',
+    // disable: !!(process.env.NODE_ENV === 'development'),
     register: false,
     runtimeCaching: [
       {
