@@ -52,7 +52,10 @@ export const CheckPurchase: React.FC<StepContainerProps> = ({ hidden }) => {
 
   return (
     <StepContainer hidden={!!hidden} textColor={theme.colors.primary}>
-      <PageTitle title="Conferira o seu pedido" description="Confira as informações do seu pedido" />
+      <PageTitle
+        title="Conferira o seu pedido"
+        description="Verifique se as informações do seu pedido estão corretas"
+      />
       <Divider textColor={theme.colors.secondary} />
       <br />
       {products.length ? (
