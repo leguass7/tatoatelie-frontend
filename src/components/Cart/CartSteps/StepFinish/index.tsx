@@ -3,9 +3,9 @@ import React from 'react'
 import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
 import { PageTitle } from '~/components/PageTitle'
 
-export const StepFinish: React.FC<StepContainerProps> = () => {
+export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
   return (
-    <StepContainer>
+    <StepContainer hidden={hidden}>
       <PageTitle title="Finalizado" />
     </StepContainer>
   )
