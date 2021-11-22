@@ -8,15 +8,18 @@ import { FormButton } from '~/components/Forms/FormButton'
 import { AvatarProfile } from '~/components/Signin/AvatarProfile'
 import { ContentRow } from '~/components/Signin/ContentRow'
 import { ContentLimit, Divider } from '~/components/styled'
+import { usePWA } from '~/hooks/usePWA'
+import { register } from '~/serviceWorkerRegistration'
 
 import { ButtonItemMenu, ButtonItemMenuProps } from './ButtonItemMenu'
 import { CloseModal, MenuContainer, MenuItem, ModalContainer } from './styles'
 
 type Props = {
   links: ButtonItemMenuProps[]
-  onToogleLogin: () => void
+  onToogleLogin?: () => void
 }
 export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
+  const { supported, isInstalled, installPwa } = usePWA({ enableLogging: true })
   const { theme, matchingBackgroudText } = useAppTheme()
   const [session] = useSession()
   const [loginOpen, setLoginOpen] = useState(false)
@@ -30,6 +33,8 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
     signOut()
   }, [])
 
+  console.log('supported', supported())
+  console.log('isInstalled', isInstalled())
   return (
     <>
       <MenuContainer textColor={theme.colors.primary}>
@@ -55,6 +60,9 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
             <Divider textColor={theme.colors.secondary} />
             <MenuItem>
               <FormButton type="button" onClick={handleLogOut} label={'Sair'} />
+            </MenuItem>
+            <MenuItem>
+              <FormButton type="button" onClick={() => installPwa()} label={'Installar PWA'} />
             </MenuItem>
           </>
         ) : null}

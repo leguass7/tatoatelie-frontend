@@ -55,7 +55,10 @@ export const AppBar: React.FC = () => {
         ) : null}
       </AppBarContainer>
       <Drawer anchor={'left'} open={menuOpen} onClose={closeMenu}>
-        <Menu links={linksProps} onToogleLogin={closeMenu} />
+        <Menu
+          links={linksProps}
+          // onToogleLogin={closeMenu}
+        />
       </Drawer>
       <Drawer anchor={'left'} open={cartOpen} onClose={closeCart}>
         <Cart />

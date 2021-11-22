@@ -24,11 +24,11 @@
     "next-env.d.ts",
     "package.json",
     "src",
-    "src/**/*",
     "./src/@types/additional.d.ts",
     "./src/@types/fonts.d.ts",
     "./src/@types/database.d.ts",
     "./src/@types/styles.d.ts",
+    "./src/@types/pwa.d.ts",
     "**/*.ts",
     "**/*.tsx"
   ],

@@ -14,9 +14,23 @@ type ProductRequestFilter = {
   segment?: string
 }
 
-export async function productsFindAll() {
-  const products = await prisma.product.findMany({ where: { actived: true } })
-  return products.map(product => productDto(product))
+export const producIncludes: Pick<Prisma.ProductFindManyArgs, 'include'> = {
+  include: {
+    images: {
+      select: { id: true, label: true, main: true, actived: true, path: true },
+      where: { actived: true }
+    },
+    kind: {
+      select: { id: true, label: true }
+    }
+  }
+}
+
+export async function productsFindAll(where: Prisma.ProductWhereInput = {}, includes?: boolean) {
+  const query: Prisma.ProductFindManyArgs = { where: { actived: true, ...where } }
+  if (includes) query.include = producIncludes.include
+  const products = await prisma.product.findMany(query)
+  return products.map(product => productDto(product, !!includes))
 }
 
 export async function productsFindOne(idOrSlug: number | string) {
@@ -27,15 +41,16 @@ export async function productsFindOne(idOrSlug: number | string) {
 
   const product = await prisma.product.findFirst({
     where,
-    include: {
-      images: {
-        select: { id: true, label: true, main: true, actived: true, path: true },
-        where: { actived: true }
-      },
-      kind: {
-        select: { id: true, label: true }
-      }
-    }
+    include: producIncludes.include
+    // include: {
+    //   images: {
+    //     select: { id: true, label: true, main: true, actived: true, path: true },
+    //     where: { actived: true }
+    //   },
+    //   kind: {
+    //     select: { id: true, label: true }
+    //   }
+    // }
   })
 
   return productDto(product, true)

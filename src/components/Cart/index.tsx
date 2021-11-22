@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useEffect } from 'react'
 
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
-import { ContentLimit, Divider, FlexRow, Paragraph } from '~/components/styled'
-import { formatPrice } from '~/helpers'
+import { ContentLimit, Divider, FlexRow } from '~/components/styled'
 import { useCartItems, useCartMenu } from '~/hooks/useCart'
 
 import { FormButton } from '../Forms/FormButton'
 import { CartItem } from './CartItem'
+import { CartSummaryFooter } from './CartSummaryFooter'
 import { EmptyCart } from './EmptyCart'
 import { CartContainer, CartTitle } from './styles'
 
@@ -16,8 +16,6 @@ export const Cart: React.FC = () => {
   const { prefetch, push } = useRouter()
   const { products } = useCartItems()
   const [, setCartMenuOpen] = useCartMenu()
-
-  const total = products.reduce((acc, p) => (acc += p.price * p.quantity), 0)
 
   const handleToStepper = useCallback(async () => {
     await push('/stepper')
@@ -36,11 +34,9 @@ export const Cart: React.FC = () => {
         {products.length ? (
           <>
             {products.map(({ productId }) => {
-              return <CartItem key={`itemcart-${productId}`} productId={productId} />
+              return <CartItem key={`itemcart-${productId}`} productId={productId} widthLimit={290} />
             })}
-            <Paragraph verticalSpaced>
-              Total: <strong>{formatPrice(total)}</strong>
-            </Paragraph>
+            <CartSummaryFooter />
             <Divider textColor={theme.colors.secondary} />
             <ContentLimit widthLimit={290} verticalSpaced>
               <FlexRow>
