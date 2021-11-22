@@ -14,8 +14,10 @@ import { useIsMounted } from '~/hooks/useIsMounted'
 import { CartItemContainer, CartItemDescription, CartBar, CartBarButton } from './styles'
 type Props = {
   productId: number
+  widthLimit?: number
+  thumbnail?: boolean
 }
-export const CartItem: React.FC<Props> = ({ productId }) => {
+export const CartItem: React.FC<Props> = ({ productId, widthLimit }) => {
   const isMounted = useIsMounted()
   const router = useRouter()
   const { theme } = useAppTheme()
@@ -60,7 +62,7 @@ export const CartItem: React.FC<Props> = ({ productId }) => {
   }, [product, router])
 
   return (
-    <ContentLimit widthLimit={290}>
+    <ContentLimit widthLimit={widthLimit}>
       <CartItemContainer className={cx({ fadeout: !!removing, removing })}>
         <Paragraph bold>{product?.name}</Paragraph>
         <CartItemDescription>

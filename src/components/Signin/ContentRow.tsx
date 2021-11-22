@@ -51,7 +51,7 @@ const RowContainer = styled.div`
   border: 0;
 `
 
-export const ContentRow: React.FC = () => {
+export const ContentRow: React.FC = ({ children }) => {
   const { theme } = useAppTheme()
   const [session] = useSession()
 
@@ -61,9 +61,11 @@ export const ContentRow: React.FC = () => {
   return (
     <RowContainer>
       <Div>
-        <LogoContainer>
-          <img src={logo} alt="Tato Ateliê" />
-        </LogoContainer>
+        {children || (
+          <LogoContainer>
+            <img src={logo} alt="Tato Ateliê" />
+          </LogoContainer>
+        )}
         {!session ? (
           <>
             <Paragraph align="center" textColor={theme.colors.primary} bold>

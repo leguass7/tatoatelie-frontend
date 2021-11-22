@@ -1,10 +1,12 @@
 import styled, { css } from 'styled-components'
 
 import { alpha, darken } from '~/helpers/colors'
+import { FlexJustify } from '~/styles/styledTypes'
 
-export const Group = styled.div`
+export const Group = styled.div<{ justify?: FlexJustify }>`
   display: flex;
   gap: ${({ theme }) => theme.spacing.m}px;
+  justify-content: ${({ justify = 'flex-start' }) => justify};
 `
 
 export const Button = styled.button<{
