@@ -11,7 +11,7 @@ export interface CheckListProps<T> {
   list?: T[]
   onChange?: (_idSelected: number[]) => void
   multiple?: boolean
-  centered?: boolean
+  defaultSelected?: number[]
 }
 
 interface Selected {
@@ -19,8 +19,14 @@ interface Selected {
   selected?: boolean
 }
 
-function normalizeList(list?: Selected[]): Selected[] {
-  const newList = list ? list.map(l => l && l.id && { id: l.id, selected: !!l.selected }).filter(l => !!l) : []
+function normalizeList(list: Selected[] = [], defaultSelected = []): Selected[] {
+  const newList = list
+    .filter(l => !!l)
+    .map(l => {
+      const selected = !!l?.selected || defaultSelected.includes(l?.id)
+      return { id: l.id, selected }
+    })
+    .filter(l => !!l)
   return newList
 }
 
@@ -29,8 +35,8 @@ function findId(list?: Selected[], id?: number): Selected {
 }
 
 export function withCheckList<T extends CheckListItemProps>(Component: FC<T>) {
-  const CheckList = ({ list, multiple, onChange, centered }: CheckListProps<T>) => {
-    const [selected, setSelected] = useState<Selected[]>(normalizeList(list))
+  const CheckList = ({ list = [], multiple, onChange, defaultSelected }: CheckListProps<T>) => {
+    const [selected, setSelected] = useState<Selected[]>(normalizeList(list, defaultSelected))
     const [toEmit, setToEmit] = useState(false)
 
     const handleItemClick: CheckListItemProps['onClick'] = useCallback(
@@ -64,19 +70,10 @@ export function withCheckList<T extends CheckListItemProps>(Component: FC<T>) {
 
     return (
       <>
-        {list &&
-          list.map(item => {
-            const found = findId(selected, item.id)
-            return (
-              <Component
-                center={!!centered}
-                key={item.id}
-                {...item}
-                selected={!!(found && found.selected)}
-                onClick={handleItemClick}
-              />
-            )
-          })}
+        {list.map(item => {
+          const found = findId(selected, item.id)
+          return <Component key={item.id} {...item} selected={!!(found && found.selected)} onClick={handleItemClick} />
+        })}
       </>
     )
   }

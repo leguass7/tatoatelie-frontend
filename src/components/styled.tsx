@@ -74,32 +74,6 @@ export const Divider = styled.hr<{ textColor?: string }>`
   color: ${({ textColor = 'inherit' }) => textColor};
 `
 
-export const ContentLimit = styled.div<{
-  widthLimit?: number
-  horizontalPad?: number
-  verticalPad?: number
-  horizontalSpaced?: boolean
-  verticalSpaced?: boolean
-  bgColor?: string
-}>`
-  position: relative;
-  max-width: 100%;
-  width: ${({ widthLimit = 900 }) => widthLimit}px;
-  padding: 0;
-  margin: 0 auto;
-  background-color: ${({ bgColor = 'transparent' }) => bgColor};
-  padding: ${({ verticalSpaced, verticalPad = 0, theme }) => (verticalSpaced ? theme.spacing.l : verticalPad)}px
-    ${({ horizontalSpaced, horizontalPad = 0, theme }) => (horizontalSpaced ? theme.spacing.l : horizontalPad)}px;
-
-  .fadeout {
-    animation: ${fadeOut} 0.5s ease-in-out;
-  }
-  .removing {
-    text-decoration: line-through;
-    filter: grayscale(100%);
-  }
-`
-
 export const Paragraph = styled.p<SimpleTextProps>`
   display: block;
   max-width: 100%;
@@ -136,4 +110,30 @@ export const FlexRow = styled.div<{ justify?: FlexJustify; align?: FlexAlign; ga
   padding-right: ${({ horizontalSpaced, theme, rightMargin = 0 }) =>
     horizontalSpaced ? theme.spacing.l : rightMargin}px;
   padding-left: ${({ horizontalSpaced, theme, leftMargin = 0 }) => (horizontalSpaced ? theme.spacing.l : leftMargin)}px;
+`
+
+export const ContentLimit = styled.div<{
+  widthLimit?: number
+  horizontalPad?: number
+  verticalPad?: number
+  horizontalSpaced?: boolean
+  verticalSpaced?: boolean
+  bgColor?: string
+}>`
+  position: relative;
+  max-width: 100%;
+  width: ${({ widthLimit = 900 }) => widthLimit}px;
+  padding: 0;
+  margin: 0 auto;
+  background-color: ${({ bgColor = 'transparent' }) => bgColor};
+  padding: ${({ verticalSpaced, verticalPad = 0, theme }) => (verticalSpaced ? theme.spacing.l : verticalPad)}px
+    ${({ horizontalSpaced, horizontalPad = 0, theme }) => (horizontalSpaced ? theme.spacing.l : horizontalPad)}px;
+
+  .fadeout {
+    animation: ${fadeOut} 0.5s ease-in-out;
+  }
+  .removing {
+    text-decoration: line-through;
+    filter: grayscale(100%);
+  }
 `

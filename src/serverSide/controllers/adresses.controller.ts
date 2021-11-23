@@ -4,7 +4,8 @@ import { AuthorizedApiRequest } from '../middlewares/protect'
 import { adressesFindAll } from '../repositories/adresses'
 
 export async function getAdressesController(req: AuthorizedApiRequest, res: NextApiResponse) {
-  const adresses = await adressesFindAll()
+  const { auth } = req
+  const adresses = await adressesFindAll({ userId: auth.userId })
 
   return res.status(200).json({
     success: true,

@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { AddressItem } from '~/components/AddressItem'
+import { AddressItem, AddressItemProps } from '~/components/AddressItem'
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
 import { FormButton } from '~/components/Forms/FormButton'
@@ -15,13 +15,20 @@ import { getUserAdresses } from '~/services/api/users.api'
 
 const ListItems = withCheckList(AddressItem)
 
+type ItemProps = AddressItemProps
+
+const yourself: ItemProps = {
+  id: -1,
+  label: 'Retirar na loja'
+}
+
 export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
   const isMounted = useIsMounted()
   const [addrId, setAddrId] = useCartAddress()
   const [loading, setLoading] = useState(false)
   const { theme } = useAppTheme()
   const { goToColumn } = useRollColumn()
-  const [addr, setAddr] = useState([])
+  const [addr, setAddr] = useState<AddressItemProps[]>([])
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -39,30 +46,30 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
     fetchData()
   }, [fetchData])
 
-  const handleNext = () => {
-    goToColumn(3)
-  }
-
-  const handleBack = () => {
-    goToColumn(1)
-  }
+  const handleNext = () => goToColumn(3)
+  const handleBack = () => goToColumn(1)
 
   const handleSelectAddress = useCallback(
     (ids: number[]) => {
       const [id = 0] = ids
-      console.log('id', id)
       setAddrId(id)
     },
     [setAddrId]
   )
 
+  const list = useMemo(() => [yourself, ...addr], [addr])
+
   const disableNext = !!(!addrId || loading)
-  console.log('addrId', addrId, loading)
 
   return (
     <StepContainer hidden={hidden}>
       <PageTitle title="Endereço de entrega" description="Informe o endereço de entrega ou retirar na loja." />
-      <ListItems list={addr} onChange={handleSelectAddress} />
+      <ListItems
+        key={`list-addr-${list.length}`}
+        list={list}
+        onChange={handleSelectAddress}
+        defaultSelected={[addrId]}
+      />
       <Divider textColor={theme.colors.secondary} />
       <br />
       <FormGroup justify="center">

@@ -21,12 +21,18 @@ export interface RollColumnProviderProps {
   onColumnChange?: ColumnChangeHandler
   /** milliseconds */
   duration?: number
+  defaultColumn?: number
 }
 
-const RollColumnProvider: React.FC<RollColumnProviderProps> = ({ children, onColumnChange, duration = 300 }) => {
+const RollColumnProvider: React.FC<RollColumnProviderProps> = ({
+  children,
+  onColumnChange,
+  duration = 300,
+  defaultColumn = 1
+}) => {
   const isMounted = useIsMounted()
   const [columns, setColumns] = useState<IColumn[]>([])
-  const [position, setPosition] = useState(1)
+  const [position, setPosition] = useState(defaultColumn)
 
   const initialColumnsCount = useMemo(() => {
     return filterChildrenElements(children, [Column]).length
