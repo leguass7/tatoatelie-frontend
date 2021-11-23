@@ -11,7 +11,8 @@ import {
   setAdding,
   setOpen,
   setProducts,
-  setStep
+  setStep,
+  updateCart
 } from '~/store/reducers/cart'
 
 export function useCartItems() {
@@ -118,4 +119,18 @@ export function useCartStep() {
   )
 
   return { step, setCartStep }
+}
+
+export function useCartAddress(): [ICartAppState['addrId'], (_addrId: number) => void] {
+  const dispatch = useDispatch()
+  const addrId = useSelector<AppState, ICartAppState['addrId']>(state => state.cart?.addrId)
+
+  const setCartAddrId = useCallback(
+    (addrId: number = 0) => {
+      dispatch(updateCart({ addrId }))
+    },
+    [dispatch]
+  )
+
+  return [addrId, setCartAddrId]
 }
