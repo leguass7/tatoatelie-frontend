@@ -48,7 +48,7 @@ export const CheckPurchase: React.FC<StepContainerProps> = ({ hidden }) => {
     fetchProducts()
   }, [fetchProducts])
 
-  const canNext = !!(!loading && products.length && session && session.user)
+  const canNext = !!(products.length && session && session.user)
 
   return (
     <StepContainer hidden={!!hidden} textColor={theme.colors.primary}>
@@ -72,7 +72,7 @@ export const CheckPurchase: React.FC<StepContainerProps> = ({ hidden }) => {
       <br />
       <FormGroup justify="center">
         <FormButton type="button" label="Continuar comprando" variant="text" onClick={() => back()} />
-        {canNext ? <FormButton type="button" label="Próximo" onClick={handleNext} /> : null}
+        {canNext ? <FormButton type="button" label="Próximo" onClick={handleNext} disabled={!!loading} /> : null}
       </FormGroup>
       <br />
     </StepContainer>

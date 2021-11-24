@@ -6,9 +6,22 @@ export interface PayloadAuthorize {
   password: string
 }
 
+export interface IResponseUserAdresses extends IApiResponse {
+  adresses?: any[]
+}
+
 export async function testAuthorization(data: PayloadAuthorize): Promise<IApiResponse> {
   try {
     const response = await Api.post(`/users/authorize`, data)
+    return response && response.data
+  } catch (error) {
+    return { success: false }
+  }
+}
+
+export async function getUserAdresses(): Promise<IResponseUserAdresses> {
+  try {
+    const response = await Api.get(`/users/adresses`)
     return response && response.data
   } catch (error) {
     return { success: false }

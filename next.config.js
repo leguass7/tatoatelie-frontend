@@ -24,9 +24,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const withPWAConfig = {
   pwa: {
     dest: 'public',
-    disable: false,
-    // disable: !!(process.env.NODE_ENV === 'development'),
-    register: true,
+    disable: !!(process.env.NODE_ENV === 'development'),
+    register: false,
     runtimeCaching: [
       {
         urlPattern: /.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,

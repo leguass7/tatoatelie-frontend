@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/client'
-import React from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 
 import { Column, ColumnChangeHandler, RollColumn } from '~/components/RollColumn'
 import { ContentRow } from '~/components/Signin/ContentRow'
@@ -12,17 +12,29 @@ import { CheckPurchase } from './CheckPurchase'
 import { StepFinish } from './StepFinish'
 
 export const CartSteps: React.FC = () => {
+  const start = useRef<boolean>(false)
   const [session] = useSession()
   const { setCartStep, step } = useCartStep()
 
-  const handleColumnChage: ColumnChangeHandler = column => {
-    setCartStep(column)
-  }
+  const handleColumnChage: ColumnChangeHandler = useCallback(
+    column => {
+      setCartStep(column)
+    },
+    [setCartStep]
+  )
+
+  useEffect(() => {
+    // força voltar para primeira etapa caso atualize a tela
+    if (!start.current) {
+      start.current = true
+      handleColumnChage(1)
+    }
+  }, [handleColumnChage])
 
   return (
     <>
       {session ? (
-        <RollColumn onColumnChange={handleColumnChage}>
+        <RollColumn key={`${session.user.name}`} onColumnChange={handleColumnChage}>
           <Column>
             <CheckPurchase hidden={step > 1} />
           </Column>
@@ -32,9 +44,7 @@ export const CartSteps: React.FC = () => {
           <Column>
             <CheckPayment hidden={step !== 3} />
           </Column>
-          <Column>
-            <StepFinish hidden={step !== 4} />
-          </Column>
+          <Column>{step === 4 ? <StepFinish hidden={step !== 4} /> : null}</Column>
         </RollColumn>
       ) : (
         <>
