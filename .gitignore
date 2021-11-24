@@ -43,3 +43,4 @@ public/workbox-*
 public/*sw*
 public/fallback-*
 debug.log
+task.md

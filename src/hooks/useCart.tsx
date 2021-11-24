@@ -11,7 +11,8 @@ import {
   setAdding,
   setOpen,
   setProducts,
-  setStep
+  setStep,
+  updateCart
 } from '~/store/reducers/cart'
 
 export function useCartItems() {
@@ -111,11 +112,40 @@ export function useCartStep() {
   const step = useSelector<AppState, ICartAppState['step']>(state => state.cart?.step)
 
   const setCartStep = useCallback(
-    (step: number = 0, hasError?: boolean) => {
+    (step = 0, hasError?: boolean) => {
       dispatch(setStep({ step, stepError: !!hasError }))
     },
     [dispatch]
   )
 
   return { step, setCartStep }
+}
+
+export function useCartAddress(): [ICartAppState['addrId'], (_addrId: number) => void] {
+  const dispatch = useDispatch()
+  const addrId = useSelector<AppState, ICartAppState['addrId']>(state => state.cart?.addrId)
+
+  const setCartAddrId = useCallback(
+    (addrId = 0) => {
+      dispatch(updateCart({ addrId }))
+    },
+    [dispatch]
+  )
+
+  return [addrId, setCartAddrId]
+}
+
+export function useCartPayment() {
+  const dispatch = useDispatch()
+  const payMode = useSelector<AppState, ICartAppState['payMode']>(state => state.cart?.payMode)
+  const payMethod = useSelector<AppState, ICartAppState['payMethod']>(state => state.cart?.payMethod)
+
+  const updateCartPayment = useCallback(
+    (cartData: Pick<ICartAppState, 'payMethod' | 'payMode'>) => {
+      dispatch(updateCart({ ...cartData }))
+    },
+    [dispatch]
+  )
+
+  return { payMode, payMethod, updateCartPayment }
 }
