@@ -44,9 +44,7 @@ export const CartSteps: React.FC = () => {
           <Column>
             <CheckPayment hidden={step !== 3} />
           </Column>
-          <Column>
-            <StepFinish hidden={step !== 4} />
-          </Column>
+          <Column>{step === 4 ? <StepFinish hidden={step !== 4} /> : null}</Column>
         </RollColumn>
       ) : (
         <>

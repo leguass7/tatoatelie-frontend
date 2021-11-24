@@ -10,12 +10,12 @@ export type PayModeItemProps = CheckListItemProps & {
   description?: string
 }
 
-export const PayMode: React.FC<PayModeItemProps> = ({ id, selected, onClick, label }) => {
+export const PayMode: React.FC<PayModeItemProps> = ({ id, selected, onClick, label, description }) => {
   return (
     <CheckItem id={id} selected={!!selected} onClick={onClick} themeColor="primary">
       <CheckItemDescription grow={1}>
         <CheckItemLine bold>{label}</CheckItemLine>
-        <Paragraph size={14}>teste de texto explicativo da modalidade</Paragraph>
+        <Paragraph size={14}>{description}</Paragraph>
       </CheckItemDescription>
     </CheckItem>
   )

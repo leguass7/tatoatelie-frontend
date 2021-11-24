@@ -7,6 +7,7 @@ import { imageBase } from '~/config'
 import { productsFindAll } from '~/serverSide/repositories/products'
 import { segmentsFindAll } from '~/serverSide/repositories/segment'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const Sitemap = () => {}
 
 export default Sitemap

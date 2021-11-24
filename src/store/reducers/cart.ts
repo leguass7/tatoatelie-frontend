@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { PayMethod, PayMode } from '~/services/api/payment.api'
+
 export interface ICartProductDetail {
   slug: string
   name: string
@@ -26,6 +28,8 @@ export interface ICartAppState {
   readonly lastModification?: number
   readonly addrId?: number
   readonly purchaseId?: number | null
+  readonly payMethod?: PayMethod
+  readonly payMode?: PayMode
   readonly products?: ICartProduct[]
 }
 
