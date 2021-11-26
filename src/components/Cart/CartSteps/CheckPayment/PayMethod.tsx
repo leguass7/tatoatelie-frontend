@@ -17,7 +17,7 @@ export const PayMethod: React.FC = () => {
         <br />
         Para outras formas de pagamento, por favor, entre em contato com conosco através do Whatsapp:
         <br />
-        <FaWhatsapp /> (85) 9999-9999
+        <FaWhatsapp /> (85) 9 8713-8347
       </Paragraph>
     </LogoPixContainer>
   )

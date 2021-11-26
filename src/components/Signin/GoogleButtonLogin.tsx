@@ -1,9 +1,6 @@
 import { useSession, signIn, signOut } from 'next-auth/client'
 import { useMemo } from 'react'
-import {
-  FaGoogle
-  //FaFacebookF
-} from 'react-icons/fa'
+import { FaGoogle } from 'react-icons/fa'
 import styled from 'styled-components'
 
 import { darken } from '~/helpers/colors'

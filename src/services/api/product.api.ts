@@ -1,11 +1,6 @@
-import { IProduct } from '~/serverSide/repositories/types'
+import { IResponseProducts } from '~/serverSide/controllers/product.types'
 
 import Api from './index'
-import { IApiResponse } from './types.api'
-
-export interface IResponseProducts extends IApiResponse {
-  products?: IProduct[]
-}
 
 export async function findProductsByIds(ids: number[]): Promise<IResponseProducts> {
   try {

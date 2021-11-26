@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { PayMethod, PayMode } from '~/services/api/payment.api'
+import type { PayMethod, PayMode } from '~/serverSide/controllers/payment.types'
 
 export interface ICartProductDetail {
   slug: string
@@ -54,7 +54,9 @@ export const slice = createSlice({
     },
     loadSuccess: (state, { payload }: PayloadAction<Partial<ICartAppState>>) => {
       state.loading = false
-      Object.assign(state, payload)
+      Object.keys(payload).forEach(k => {
+        state[k] = payload[k]
+      })
     },
     loadFailure: state => {
       state.loading = false
@@ -74,7 +76,10 @@ export const slice = createSlice({
       state.products = payload
     },
     updateCart: (state, { payload }: PayloadAction<Partial<ICartAppState>>) => {
-      Object.assign(state, payload)
+      Object.keys(payload).forEach(k => {
+        state[k] = payload[k]
+      })
+      // Object.assign(state, payload)
     }
   }
 })
