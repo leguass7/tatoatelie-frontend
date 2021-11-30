@@ -1,7 +1,8 @@
-import { Purchase } from '.prisma/client'
+import { Prisma, Purchase } from '.prisma/client'
 
 import prisma from '~/serverSide/database/prisma'
 
+import { IPurchaseItem, purchaseCreateItemDto } from './dto/purchase-item.dto'
 import { IPurchase } from './dto/purchase.dto'
 
 export async function createPurchase(data: IPurchase): Promise<Purchase> {
@@ -13,5 +14,16 @@ export async function createPurchase(data: IPurchase): Promise<Purchase> {
       createdBy: data.createdBy
     }
   })
+  return purchase
+}
+
+export async function createPurchaseItems(data: IPurchaseItem[]): Promise<number> {
+  const items = purchaseCreateItemDto(data)
+  const purchaseItems = await prisma.purchaseItem.createMany({ data: items })
+  return purchaseItems.count
+}
+
+export async function purchaseFindOne(query: Prisma.PurchaseFindFirstArgs): Promise<Purchase> {
+  const purchase = await prisma.purchase.findFirst(query)
   return purchase
 }

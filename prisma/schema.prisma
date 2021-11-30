@@ -206,27 +206,28 @@ model Adresses {
 //   @@index([stateId], map: "stateId")
 // }
 
-// model payments {
-//   id         Int       @id @default(autoincrement())
-//   uuid       String?   @unique(map: "uuid") @db.VarChar(40)
-//   purchaseId Int       @default(0) @db.UnsignedInt
-//   method     String    @db.VarChar(10)
-//   value      Float     @default(0.00)
-//   paid       Boolean   @default(false)
-//   payday     DateTime? @db.DateTime(0)
-//   txid       String?   @unique(map: "txid") @db.VarChar(35)
-//   overdue    DateTime? @db.Date
-//   createdBy  Int       @default(0)
-//   createdAt  DateTime? @default(now()) @db.Timestamp(0)
-//   updatedBy  Int       @default(0)
-//   updatedAt  DateTime? @db.DateTime(0)
-//   meta       String?   @db.LongText
-//   actived    Boolean   @default(true)
+model Payment {
+  id         Int       @id @default(autoincrement())
+  uuid       String?   @unique(map: "uuid") @db.VarChar(40)
+  purchaseId Int       @default(0) @db.UnsignedInt
+  method     String    @db.VarChar(10)
+  value      Float     @default(0.00)
+  paid       Boolean   @default(false)
+  payday     DateTime? @db.DateTime(0)
+  txid       String?   @unique(map: "txid") @db.VarChar(35)
+  overdue    DateTime? @db.Date
+  createdBy  Int       @default(0)
+  createdAt  DateTime? @default(now()) @db.Timestamp(0)
+  updatedBy  Int?      @default(0)
+  updatedAt  DateTime? @db.DateTime(0)
+  meta       String?   @db.LongText
+  actived    Boolean   @default(true)
 
-//   @@index([method], map: "method")
-//   @@index([paid], map: "paid")
-//   @@index([purchaseId], map: "purchaseId")
-// }
+  @@map("payments")
+  @@index([method], map: "method")
+  @@index([paid], map: "paid")
+  @@index([purchaseId], map: "purchaseId")
+}
 
 // model product_groups {
 //   id        Int       @id @default(autoincrement())
@@ -250,7 +251,7 @@ model PurchaseItem {
   quantity   Int
   meta       String?   @db.LongText
   actived    Boolean   @default(true)
-  updatedBy  Int       @default(0)
+  updatedBy  Int?      @default(0)
   updatedAt  DateTime? @updatedAt
 
   purchase   Purchase  @relation(fields: [purchaseId], references: [id])

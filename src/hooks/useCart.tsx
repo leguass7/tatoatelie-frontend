@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { compareValues, makeArray } from '~/helpers/array'
 import type { IPurchaseCreatePayload, IPurchaseItemCreate } from '~/serverSide/controllers/purchase.types'
 import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
+import { createPayment } from '~/services/api/payment.api'
 import { createPurchase } from '~/services/api/purchase.api'
 import type { AppState } from '~/store'
 import {
@@ -14,7 +15,8 @@ import {
   setOpen,
   setProducts,
   setStep,
-  updateCart
+  updateCart,
+  clearCart
 } from '~/store/reducers/cart'
 
 import { useIsMounted } from './useIsMounted'
@@ -114,6 +116,7 @@ export function useCartAddingProduct(): [ICartAppState['adding'], (_productId: n
 export function useCartStep() {
   const dispatch = useDispatch()
   const step = useSelector<AppState, ICartAppState['step']>(state => state.cart?.step)
+  const purchaseId = useSelector<AppState, ICartAppState['purchaseId']>(state => state.cart?.purchaseId)
 
   const setCartStep = useCallback(
     (step = 0, hasError?: boolean) => {
@@ -122,7 +125,7 @@ export function useCartStep() {
     [dispatch]
   )
 
-  return { step, setCartStep }
+  return { step, setCartStep, purchaseId }
 }
 
 export function useCartAddress(): [ICartAppState['addrId'], (_addrId: number) => void] {
@@ -203,5 +206,27 @@ export function useCartPurchase() {
     return !!response?.success
   }, [isMounted, cartState, updateCartData])
 
-  return { saving, savePurchase }
+  const generateCartPayment = useCallback(async () => {
+    setSaving(true)
+    const response = await createPayment({
+      purchaseId: cartState.purchaseId,
+      payMethod: cartState.payMethod,
+      payMode: cartState.payMode
+    })
+
+    if (isMounted.current) {
+      setSaving(false)
+      if (response && response.success) {
+        updateCartData({ paymentId: response.paymentId })
+        return response.paymentId
+      }
+    }
+    return !!response?.success
+  }, [isMounted, cartState, updateCartData])
+
+  const clearCartData = useCallback(() => {
+    dispatch(clearCart())
+  }, [dispatch])
+
+  return { saving, savePurchase, cartState, generateCartPayment, clearCartData }
 }
