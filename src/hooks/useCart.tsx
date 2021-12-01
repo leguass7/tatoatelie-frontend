@@ -28,6 +28,7 @@ export function useCartItems() {
   const setCartProducts = useCallback(
     (productList: ICartProduct[]) => {
       dispatch(setProducts(productList.sort(compareValues('productId'))))
+      dispatch(updateCart({ purchaseId: 0, paymentId: 0 }))
     },
     [dispatch]
   )
@@ -134,7 +135,7 @@ export function useCartAddress(): [ICartAppState['addrId'], (_addrId: number) =>
 
   const setCartAddrId = useCallback(
     (addrId = 0) => {
-      dispatch(updateCart({ addrId }))
+      dispatch(updateCart({ addrId, purchaseId: 0, paymentId: 0 }))
     },
     [dispatch]
   )
@@ -220,10 +221,9 @@ export function useCartPurchase() {
         setSaving(false)
         if (response && response.success) {
           updateCartData({ paymentId: response.paymentId })
-          return response
         }
       }
-      return null
+      return response
     },
     [isMounted, cartState, updateCartData]
   )

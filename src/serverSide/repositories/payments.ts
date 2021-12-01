@@ -11,3 +11,12 @@ export async function createPayment(data: IPayment): Promise<Payment> {
     return null
   }
 }
+
+export async function findOnePayment(id: number): Promise<Payment> {
+  try {
+    const payment = await prisma.payment.findUnique({ where: { id } })
+    return payment
+  } catch (_error) {
+    return null
+  }
+}

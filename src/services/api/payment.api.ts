@@ -13,5 +13,6 @@ export async function createPayment(data: IPaymentCreatePayload): Promise<IRespo
 }
 
 export async function storePayment({ paymentId, ...data }: IPaymentCreatePayload): Promise<IResponseCreatePayment> {
-  return paymentId ? getPayment(paymentId) : createPayment(data)
+  const response = paymentId ? await getPayment(paymentId) : await createPayment(data)
+  return response
 }

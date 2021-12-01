@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type { PayMethod, PayMode } from '~/serverSide/controllers/payment.types'
+import { PayMethod, PayMode } from '~/serverSide/repositories/dto/payment.dto'
 
 export interface ICartProductDetail {
   slug: string

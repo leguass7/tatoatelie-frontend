@@ -1,11 +1,5 @@
-import { IReponseApi } from './types'
-
-export type PayMethod = 'pix'
-
-export enum PayMode {
-  CASH = 1,
-  HALF = 2
-}
+import type { IPaymentPixData, PayMethod, PayMode } from '../repositories/dto/payment.dto'
+import type { IReponseApi } from './types'
 
 export interface IPaymentCreatePayload {
   paymentId?: number
@@ -17,8 +11,5 @@ export interface IPaymentCreatePayload {
 export interface IResponseCreatePayment extends IReponseApi {
   paymentId?: number
   txid: string
-  pix: {
-    stringQRCode: string
-    base64QRCode: string
-  }
+  pix: IPaymentPixData
 }

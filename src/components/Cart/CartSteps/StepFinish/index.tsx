@@ -5,10 +5,11 @@ import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
 import { CircleLoading } from '~/components/CircleLoading'
 import { FormButton } from '~/components/Forms/FormButton'
 import { FormGroup } from '~/components/Forms/FormGroup'
-import { PageTitle } from '~/components/PageTitle'
+import { PixCode } from '~/components/PixCode'
 import { ContentLimit, Paragraph } from '~/components/styled'
 import { useCartPurchase } from '~/hooks/useCart'
 import { useIsMounted } from '~/hooks/useIsMounted'
+import { IPaymentPixData } from '~/serverSide/repositories/dto/payment.dto'
 
 import { EmptyCart } from '../../EmptyCart'
 
@@ -18,11 +19,15 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
   const [generating, setGenerating] = useState(false)
   const { cartState, generateCartPayment, clearCartData } = useCartPurchase()
   const [hasError, setHasError] = useState(false)
-  const [pixData, setPixData] = useState<any>()
+  const [pixData, setPixData] = useState<IPaymentPixData>()
 
   const handleBack = useCallback(() => {
     replace('/').then(() => clearCartData())
   }, [replace, clearCartData])
+
+  const handleTryAgain = useCallback(() => {
+    setHasError(false)
+  }, [])
 
   const generatePayment = useCallback(async () => {
     if (cartState.purchaseId && !hasError && !pixData) {
@@ -31,8 +36,8 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
       const response = await generateCartPayment(cartState?.paymentId)
       if (isMounted.current) {
         setGenerating(false)
-        if (response.success) {
-          // ...
+        if (response && response.success) {
+          setPixData(response.pix)
         } else {
           setHasError(true)
         }
@@ -46,7 +51,7 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
 
   const renderButton = useCallback(() => {
     const label = hasError ? 'Tentar novamente' : 'Página principal'
-    const onClick = hasError ? generatePayment : handleBack
+    const onClick = hasError ? handleTryAgain : handleBack
     return (
       <>
         <br />
@@ -56,27 +61,33 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
         <br />
       </>
     )
-  }, [hasError, handleBack, generatePayment])
+  }, [hasError, handleBack, handleTryAgain])
 
   return (
     <StepContainer hidden={hidden}>
-      <PageTitle title="Finalizado" />
+      <br />
       <ContentLimit>
-        <Paragraph>
-          Numero do pedido: <strong>{cartState?.purchaseId || '--'}</strong>
-        </Paragraph>
+        {hasError ? (
+          <>
+            <Paragraph align="center">
+              Numero do pedido: <strong>{cartState?.purchaseId || '--'}</strong>
+            </Paragraph>
+            <EmptyCart
+              textSize={14}
+              message="Oh! Houve um erro ao gerar o PIX de pagamento. Por favor, entre em contato com loja."
+            />
+          </>
+        ) : (
+          <>
+            <PixCode
+              base64QRCode={pixData?.base64QRCode}
+              purchaseId={cartState?.purchaseId}
+              paymentId={cartState?.paymentId}
+            />
+          </>
+        )}
+        {renderButton()}
       </ContentLimit>
-      {hasError ? (
-        <EmptyCart
-          textSize={14}
-          message="Oh! Houve um erro ao gerar o PIX de pagamento. Por favor, entre em contato com loja."
-        />
-      ) : (
-        <>
-          <p>Mostrar dados do pagamento {cartState?.paymentId || '--'}</p>
-        </>
-      )}
-      {renderButton()}
       {generating ? <CircleLoading light description="Gerando pagamento" /> : null}
     </StepContainer>
   )

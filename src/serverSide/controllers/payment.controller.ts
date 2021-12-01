@@ -6,6 +6,7 @@ import * as PurchaseRepository from '~/serverSide/repositories/purchases'
 import ErrorApi from '../ErrorApi'
 import { httpGeneratePix } from '../http/http.service'
 import type { AuthorizedApiRequest } from '../middlewares/protect'
+import { prasePaymentMetaDto } from '../repositories/dto/payment.dto'
 import type { IPaymentCreatePayload, IResponseCreatePayment } from './payment.types'
 
 interface PaymentCreateApiRequest extends AuthorizedApiRequest {
@@ -17,11 +18,7 @@ export async function paymentByPurchase(
   res: NextApiResponse<IResponseCreatePayment>
 ): Promise<void> {
   const { body, auth } = req
-  const { payMethod, payMode, purchaseId, paymentId } = body
-
-  if (paymentId) {
-    // mostra pagamento existente
-  }
+  const { payMethod, payMode, purchaseId } = body
 
   const purchase = await PurchaseRepository.purchaseFindOne({ where: { id: purchaseId, userId: auth.userId } })
   if (!purchase) throw ErrorApi({ status: 403, message: 'pedido não encontrado' })
@@ -55,12 +52,20 @@ export async function paymentByPurchase(
   })
 }
 
-export async function getPaymentById(req: AuthorizedApiRequest, res: NextApiResponse<any>): Promise<void> {
-  const { auth, query } = req
+export async function getPaymentById(
+  req: AuthorizedApiRequest,
+  res: NextApiResponse<IResponseCreatePayment>
+): Promise<void> {
+  const { query } = req
   const paymentId = query?.paymentId ? parseInt(`${query?.paymentId}`, 10) || 0 : 0
 
   if (!paymentId) throw ErrorApi({ status: 405, message: 'pagamento não informado' })
 
-  console.log('paymentId', req)
-  return res.status(200).json({ success: true })
+  const payment = await PaymentRepository.findOnePayment(paymentId)
+  if (!payment) throw ErrorApi({ status: 404, message: 'pagamento não encontrado' })
+
+  const meta = prasePaymentMetaDto(payment?.meta)
+  if (!meta?.pix) throw ErrorApi({ status: 404, message: 'PIX não encontrado' })
+
+  return res.status(200).json({ success: true, txid: payment.txid, paymentId: payment.id, pix: meta?.pix })
 }
