@@ -60,15 +60,15 @@ export async function createPurchaseController(
     userId: auth.userId
   }
 
-  // newPurchase.displayValue = items.reduce((acc, item) => {
-  //   const calc = item.price * item.quantity
-  //   return acc + calc
-  // }, 0)
-
   const purchase = await PurchaseRepository.createPurchase(newPurchase)
   if (!purchase) throw ErrorApi('erro ao criar pedido')
 
-  items.forEach(item => (item.purchaseId = purchase.id))
+  items.forEach(item => {
+    item.purchaseId = purchase.id
+    item.updatedBy = auth.userId
+  })
+  const itemsCount = await PurchaseRepository.createPurchaseItems(items)
+  if (!itemsCount) throw ErrorApi('erro ao criar items do pedido')
 
   return res.status(201).json({
     success: true,

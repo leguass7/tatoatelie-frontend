@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type { PayMethod, PayMode } from '~/serverSide/controllers/payment.types'
+import { PayMethod, PayMode } from '~/serverSide/repositories/dto/payment.dto'
 
 export interface ICartProductDetail {
   slug: string
@@ -28,6 +28,7 @@ export interface ICartAppState {
   readonly lastModification?: number
   readonly addrId?: number
   readonly purchaseId?: number | null
+  readonly paymentId?: number | null
   readonly payMethod?: PayMethod
   readonly payMode?: PayMode
   readonly products?: ICartProduct[]
@@ -42,7 +43,8 @@ const initialState: ICartAppState = {
   products: [],
   lastModification: 0,
   addrId: 0,
-  purchaseId: 0
+  purchaseId: 0,
+  paymentId: 0
 }
 
 export const slice = createSlice({
@@ -80,10 +82,24 @@ export const slice = createSlice({
         state[k] = payload[k]
       })
       // Object.assign(state, payload)
+    },
+    clearCart: state => {
+      Object.keys(initialState).forEach(k => {
+        state[k] = initialState[k]
+      })
     }
   }
 })
 
-export const { loadFailure, loadRequest, loadSuccess, setStep, setProducts, updateCart, setOpen, setAdding } =
-  slice.actions
+export const {
+  loadFailure,
+  loadRequest,
+  loadSuccess,
+  setStep,
+  setProducts,
+  updateCart,
+  setOpen,
+  setAdding,
+  clearCart
+} = slice.actions
 export default slice.reducer

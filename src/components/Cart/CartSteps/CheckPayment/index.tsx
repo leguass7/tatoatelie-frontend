@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
@@ -10,8 +10,7 @@ import { useRollColumn } from '~/components/RollColumn'
 import { Divider } from '~/components/styled'
 import { withCheckList } from '~/components/withChecklist'
 import { useCartPayment, useCartPurchase } from '~/hooks/useCart'
-import { useIsMounted } from '~/hooks/useIsMounted'
-import { createPurchase } from '~/services/api/purchase.api'
+// import { useIsMounted } from '~/hooks/useIsMounted'
 
 import { PayMethod } from './PayMethod'
 import { PayMode, PayModeItemProps } from './PayMode'
@@ -29,14 +28,13 @@ const modeList: PayModeItemProps[] = [
 
 export const CheckPayment: React.FC<StepContainerProps> = ({ hidden }) => {
   const { theme } = useAppTheme()
-  const [loading, setLoading] = useState(false)
-  const isMounted = useIsMounted()
+  // const isMounted = useIsMounted()
   const { goToColumn } = useRollColumn()
   const { payMode, payMethod, updateCartPayment } = useCartPayment()
-  const { savePurchase, saving } = useCartPurchase()
+  const { savePurchase, saving, cartState } = useCartPurchase()
 
-  // const handleNext = () => goToColumn(4)
   const handleBack = () => goToColumn(2)
+  const handleNext = useCallback(() => goToColumn(4), [goToColumn])
 
   const handleSelectPayMode = useCallback(
     (id: number[]) => {
@@ -46,9 +44,14 @@ export const CheckPayment: React.FC<StepContainerProps> = ({ hidden }) => {
   )
 
   const fetchPurchase = useCallback(async () => {
-    const saved = await savePurchase()
-    console.log('saved', saved)
+    await savePurchase()
   }, [savePurchase])
+
+  useEffect(() => {
+    if (cartState.purchaseId) {
+      handleNext()
+    }
+  }, [cartState, handleNext])
 
   const disableNext = !payMode || !payMethod || !!saving
 

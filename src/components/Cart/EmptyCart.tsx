@@ -19,18 +19,32 @@ const Container = styled.div<{ color: string }>`
   }
 `
 
-const Message = styled.p`
+const Message = styled.p<{ textSize: number }>`
   text-align: center;
-  font-size: 22px;
+  font-size: ${({ textSize }) => textSize}px;
 `
-
-export const EmptyCart: React.FC = () => {
+type Props = {
+  message?: string | string[]
+  textSize?: number
+}
+export const EmptyCart: React.FC<Props> = ({ message = 'Oh! Seu carrinho está vazio.', textSize = 22 }) => {
   const { theme } = useAppTheme()
+
+  const renderMessage = () => {
+    return !Array.isArray(message)
+      ? message
+      : message.map(m => (
+          <>
+            {m}
+            <br />
+          </>
+        ))
+  }
   return (
     <Container color={theme.colors.textDark}>
       <div>
         <ServerEmptySvg width={180} />
-        <Message>Oh! Seu carrinho está vazio.</Message>
+        <Message textSize={textSize}>{renderMessage()}</Message>
       </div>
     </Container>
   )

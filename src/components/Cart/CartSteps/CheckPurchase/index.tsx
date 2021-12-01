@@ -19,7 +19,7 @@ import { EmptyCart } from '../../EmptyCart'
 
 export const CheckPurchase: React.FC<StepContainerProps> = ({ hidden }) => {
   const [session] = useSession()
-  const { back } = useRouter()
+  const { push } = useRouter()
   const { theme } = useAppTheme()
   const { goToColumn } = useRollColumn()
   const isMounted = useIsMounted()
@@ -28,8 +28,10 @@ export const CheckPurchase: React.FC<StepContainerProps> = ({ hidden }) => {
 
   const [, setServerProducts] = useState([])
 
-  const handleNext = () => {
-    goToColumn(2)
+  const handleNext = () => goToColumn(2)
+  const handleBack = () => {
+    // back()
+    push('/')
   }
 
   const fetchProducts = useCallback(async () => {
@@ -71,7 +73,7 @@ export const CheckPurchase: React.FC<StepContainerProps> = ({ hidden }) => {
       )}
       <br />
       <FormGroup justify="center">
-        <FormButton type="button" label="Continuar comprando" variant="text" onClick={() => back()} />
+        <FormButton type="button" label="Continuar comprando" variant="text" onClick={handleBack} />
         {canNext ? <FormButton type="button" label="Próximo" onClick={handleNext} disabled={!!loading} /> : null}
       </FormGroup>
       <br />
