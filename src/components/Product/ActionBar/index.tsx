@@ -5,7 +5,7 @@ import { formatPrice } from '~/helpers'
 import { darken } from '~/helpers/colors'
 import { productDetailDto, useCartItems } from '~/hooks/useCart'
 import { useCartAddingProduct } from '~/hooks/useCart'
-import { IProduct } from '~/serverSide/repositories/types'
+import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
 
 import { ActionDescription, Button, Container } from './styles'
 interface ActionProduct {

@@ -8,11 +8,11 @@ import { StencilList } from '~/components/ProductList/StencilList'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { Pagination } from '~/serverSide/database/prisma-paginate'
+import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
 import { serverSidePaginateDto } from '~/serverSide/repositories/dto/serverSidePaginateDto'
 import { productsPaginate } from '~/serverSide/repositories/products'
 import { segmentsFindOne } from '~/serverSide/repositories/segment'
 import type { ISegment } from '~/serverSide/repositories/segment'
-import type { IProduct } from '~/serverSide/repositories/types'
 
 type PageEstencilProps = {
   paginatedProducts: Pagination<IProduct>

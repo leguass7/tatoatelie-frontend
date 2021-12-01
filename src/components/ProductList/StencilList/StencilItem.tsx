@@ -5,7 +5,7 @@ import ndImage from '~/assets/images/nd-vertical.jpg'
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { ProductDescription } from '~/components/ProductList/ProductDescription'
 import { ProductLink } from '~/components/ProductList/styles'
-import type { IProduct } from '~/serverSide/repositories/types'
+import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
 
 import { MaskedStencilImage } from './MaskedStencilImage'
 import { StencilItemContainer } from './styles'

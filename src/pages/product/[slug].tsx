@@ -6,8 +6,8 @@ import { ActionBar } from '~/components/Product/ActionBar'
 import { ProductPresentation } from '~/components/Product/ProductPresentation'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
+import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
 import { productsFindOne } from '~/serverSide/repositories/products'
-import type { IProduct } from '~/serverSide/repositories/types'
 
 type PageSegmentProps = {
   product?: IProduct
