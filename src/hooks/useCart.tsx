@@ -218,10 +218,10 @@ export function useCartPurchase() {
       setSaving(false)
       if (response && response.success) {
         updateCartData({ paymentId: response.paymentId })
-        return response.paymentId
+        return response
       }
     }
-    return !!response?.success
+    return null
   }, [isMounted, cartState, updateCartData])
 
   const clearCartData = useCallback(() => {

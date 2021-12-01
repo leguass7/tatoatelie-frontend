@@ -19,15 +19,15 @@ export async function paymentByPurchase(
   const { body, auth } = req
   const { payMethod, payMode, purchaseId } = body
 
+  console.log('auth.userId', auth.userId)
   const purchase = await PurchaseRepository.purchaseFindOne({ where: { id: purchaseId, userId: auth.userId } })
   if (!purchase) throw ErrorApi({ status: 403, message: 'pedido não encontrado' })
 
-  const parts = Array(payMode || 1)
+  const parts = Array(payMode || 1).fill(0)
   const totalValue = parseFloat(`${purchase.displayValue}`)
 
-  const payments = await Promise.all(
+  const [payment] = await Promise.all(
     parts.map(async () => {
-      console.log('criando pq não printa isso')
       const pay = await PaymentRepository.createPayment({
         method: payMethod,
         createdBy: auth.userId,
@@ -40,15 +40,14 @@ export async function paymentByPurchase(
     })
   )
 
-  console.log('payments', payments)
-  if (!payments) throw ErrorApi('Erro ao criar pagamento')
+  if (!payment) throw ErrorApi('Erro ao criar pagamento')
 
-  const pix = await httpGeneratePix(payments[0].id)
-  console.log('pix', pix)
+  const pix = await httpGeneratePix(payment.id)
+  if (!pix) throw ErrorApi('Erro ao criar PIX de pagamento')
 
-  return res.status(200).json({
+  return res.status(201).json({
     success: true,
-    paymentId: payments[0].id,
-    pix
+    paymentId: payment.id,
+    ...pix
   })
 }

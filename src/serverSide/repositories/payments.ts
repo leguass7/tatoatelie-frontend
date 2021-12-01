@@ -4,7 +4,6 @@ import prisma from '../database/prisma'
 import { IPayment } from './dto/payment.dto'
 
 export async function createPayment(data: IPayment): Promise<Payment> {
-  console.log('createPayment data', data)
   try {
     const payment = await prisma.payment.create({ data })
     return payment

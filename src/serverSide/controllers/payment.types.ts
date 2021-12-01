@@ -15,5 +15,9 @@ export interface IPaymentCreatePayload {
 
 export interface IResponseCreatePayment extends IReponseApi {
   paymentId?: number
-  pix?: any
+  txid: string
+  pix: {
+    stringQRCode: string
+    base64QRCode: string
+  }
 }

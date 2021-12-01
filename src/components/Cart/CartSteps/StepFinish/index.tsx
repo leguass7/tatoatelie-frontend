@@ -22,7 +22,7 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
   }, [replace, clearCartData])
 
   const generatePayment = useCallback(async () => {
-    if (cartState.purchaseId) {
+    if (cartState.purchaseId && !cartState?.paymentId) {
       setGenerating(true)
       setHasError(false)
       const response = await generateCartPayment()
@@ -69,7 +69,7 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
         </>
       ) : (
         <>
-          <p>Mostrar dados do pagamento</p>
+          <p>Mostrar dados do pagamento {cartState?.paymentId || '--'}</p>
         </>
       )}
       {renderButton()}

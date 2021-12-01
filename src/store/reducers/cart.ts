@@ -43,7 +43,8 @@ const initialState: ICartAppState = {
   products: [],
   lastModification: 0,
   addrId: 0,
-  purchaseId: 0
+  purchaseId: 0,
+  paymentId: 0
 }
 
 export const slice = createSlice({
