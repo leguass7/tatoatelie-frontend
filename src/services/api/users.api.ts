@@ -1,16 +1,17 @@
+import { IReponseApi } from '~/serverSide/controllers/types'
+
 import Api from './index'
-import { IApiResponse } from './types.api'
 
 export interface PayloadAuthorize {
   email: string
   password: string
 }
 
-export interface IResponseUserAdresses extends IApiResponse {
+export interface IResponseUserAdresses extends IReponseApi {
   adresses?: any[]
 }
 
-export async function testAuthorization(data: PayloadAuthorize): Promise<IApiResponse> {
+export async function testAuthorization(data: PayloadAuthorize): Promise<IReponseApi> {
   try {
     const response = await Api.post(`/users/authorize`, data)
     return response && response.data

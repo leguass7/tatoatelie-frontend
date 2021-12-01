@@ -9,6 +9,9 @@ const MaskAvatar = styled.div<{ size?: number }>`
   margin: 0;
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
+  min-width: ${({ size }) => size}px;
+  min-height: ${({ size }) => size}px;
+
   overflow: hidden;
   border-radius: 50%;
   border: 2px solid currentColor;

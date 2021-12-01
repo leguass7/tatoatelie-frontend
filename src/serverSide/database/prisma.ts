@@ -8,7 +8,7 @@ import { PrismaClient } from '@prisma/client'
 
 // import withCache from './cache'
 
-declare var global: NodeJS.Global & typeof globalThis
+declare let global: NodeJS.Global & typeof globalThis
 
 let prisma: PrismaClient
 

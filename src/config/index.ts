@@ -10,6 +10,7 @@ export const imageBase = dev ? `http://${host}` : `${host ? `https://${host}` : 
 export const imageBaseApi = 'https://server.tatoatelie.com.br/api'
 
 export const saltKey = process.env.SECRET
+export const serverToken = process.env.SERVER_TOKEN
 
 export const appName = pkg.name
 export const appVersion = pkg.version

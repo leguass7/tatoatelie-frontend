@@ -1,9 +1,31 @@
-import { Product } from '.prisma/client'
+import { Image, Product, ProductKind } from '.prisma/client'
 
 import { imageBaseApi } from '~/config'
 import { serializedDto } from '~/helpers/database'
 
-import { IImageMeta, IProduct, ProductsListType } from '../types'
+export interface IImageMeta {
+  width?: number
+  height?: number
+  size?: number
+}
+
+export interface IProduct {
+  id: number
+  slug: string
+  name: string
+  description: string
+  price: number
+  size: number
+  updatedAt: string
+  createdAt: string
+  actived?: boolean
+  imageUrl?: string
+  imageMeta?: IImageMeta
+  images?: Image[]
+  kind?: ProductKind
+}
+
+export type ProductsListType = IProduct & { images: Image[] }
 
 function imageMetaDto(data: Partial<IImageMeta>): IImageMeta {
   return data ? { width: data?.width, height: data?.height, size: data?.size } : {}

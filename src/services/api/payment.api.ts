@@ -1,6 +1,18 @@
-export type PayMethod = 'pix'
+import type { IPaymentCreatePayload, IResponseCreatePayment } from '~/serverSide/controllers/payment.types'
 
-export enum PayMode {
-  CASH = 1,
-  HALF = 2
+import Api from './index'
+
+export async function getPayment(paymentId: number): Promise<IResponseCreatePayment> {
+  const response = await Api.get(`/users/payments/${paymentId}`)
+  return response && response?.data
+}
+
+export async function createPayment(data: IPaymentCreatePayload): Promise<IResponseCreatePayment> {
+  const response = await Api.post(`/users/payments`, data)
+  return response && response?.data
+}
+
+export async function storePayment({ paymentId, ...data }: IPaymentCreatePayload): Promise<IResponseCreatePayment> {
+  const response = paymentId ? await getPayment(paymentId) : await createPayment(data)
+  return response
 }

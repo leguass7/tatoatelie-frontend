@@ -3,8 +3,8 @@ import { Prisma } from '@prisma/client'
 import prisma from '~/serverSide/database/prisma'
 import { prismaPaginate, Pagination } from '~/serverSide/database/prisma-paginate'
 
-import { productDto } from './dto/productDto'
-import type { IProduct, ProductsListType, QueryPagination } from './types'
+import { IProduct, productDto, ProductsListType } from './dto/product.dto'
+import type { QueryPagination } from './types'
 
 type ProductInclude = Prisma.ProductInclude
 type ProductWhere = Prisma.ProductWhereInput

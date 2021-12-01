@@ -1,4 +1,4 @@
-export interface IApiResponse {
+export interface IReponseApi {
   success?: boolean
   message?: string | string[]
 }

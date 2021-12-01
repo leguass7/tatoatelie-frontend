@@ -24,4 +24,5 @@ export const StepContainer = styled.div<StepContainerProps>`
   color: ${({ textColor = 'inherit' }) => textColor};
   display: ${({ hidden }) => (hidden ? 'none' : 'block')};
   transition: all ease-in-out 0.3s;
+  position: relative;
 `
