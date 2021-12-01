@@ -10,32 +10,35 @@ import { ContentLimit, Paragraph } from '~/components/styled'
 import { useCartPurchase } from '~/hooks/useCart'
 import { useIsMounted } from '~/hooks/useIsMounted'
 
+import { EmptyCart } from '../../EmptyCart'
+
 export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
   const { replace } = useRouter()
   const isMounted = useIsMounted()
   const [generating, setGenerating] = useState(false)
   const { cartState, generateCartPayment, clearCartData } = useCartPurchase()
   const [hasError, setHasError] = useState(false)
+  const [pixData, setPixData] = useState<any>()
 
   const handleBack = useCallback(() => {
     replace('/').then(() => clearCartData())
   }, [replace, clearCartData])
 
   const generatePayment = useCallback(async () => {
-    if (cartState.purchaseId && !cartState?.paymentId) {
+    if (cartState.purchaseId && !hasError && !pixData) {
       setGenerating(true)
       setHasError(false)
-      const response = await generateCartPayment()
+      const response = await generateCartPayment(cartState?.paymentId)
       if (isMounted.current) {
         setGenerating(false)
-        if (response) {
+        if (response.success) {
           // ...
         } else {
           setHasError(true)
         }
       }
     }
-  }, [isMounted, cartState, generateCartPayment])
+  }, [isMounted, cartState, generateCartPayment, hasError, pixData])
 
   useEffect(() => {
     generatePayment()
@@ -64,9 +67,10 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
         </Paragraph>
       </ContentLimit>
       {hasError ? (
-        <>
-          <p>Mostrar ERROR</p>
-        </>
+        <EmptyCart
+          textSize={14}
+          message="Oh! Houve um erro ao gerar o PIX de pagamento. Por favor, entre em contato com loja."
+        />
       ) : (
         <>
           <p>Mostrar dados do pagamento {cartState?.paymentId || '--'}</p>

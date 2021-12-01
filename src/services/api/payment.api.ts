@@ -2,7 +2,16 @@ import type { IPaymentCreatePayload, IResponseCreatePayment } from '~/serverSide
 
 import Api from './index'
 
+export async function getPayment(paymentId: number): Promise<IResponseCreatePayment> {
+  const response = await Api.get(`/users/payments/${paymentId}`)
+  return response && response?.data
+}
+
 export async function createPayment(data: IPaymentCreatePayload): Promise<IResponseCreatePayment> {
   const response = await Api.post(`/users/payments`, data)
   return response && response?.data
+}
+
+export async function storePayment({ paymentId, ...data }: IPaymentCreatePayload): Promise<IResponseCreatePayment> {
+  return paymentId ? getPayment(paymentId) : createPayment(data)
 }

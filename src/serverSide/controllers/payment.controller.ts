@@ -17,9 +17,12 @@ export async function paymentByPurchase(
   res: NextApiResponse<IResponseCreatePayment>
 ): Promise<void> {
   const { body, auth } = req
-  const { payMethod, payMode, purchaseId } = body
+  const { payMethod, payMode, purchaseId, paymentId } = body
 
-  console.log('auth.userId', auth.userId)
+  if (paymentId) {
+    // mostra pagamento existente
+  }
+
   const purchase = await PurchaseRepository.purchaseFindOne({ where: { id: purchaseId, userId: auth.userId } })
   if (!purchase) throw ErrorApi({ status: 403, message: 'pedido não encontrado' })
 
@@ -50,4 +53,14 @@ export async function paymentByPurchase(
     paymentId: payment.id,
     ...pix
   })
+}
+
+export async function getPaymentById(req: AuthorizedApiRequest, res: NextApiResponse<any>): Promise<void> {
+  const { auth, query } = req
+  const paymentId = query?.paymentId ? parseInt(`${query?.paymentId}`, 10) || 0 : 0
+
+  if (!paymentId) throw ErrorApi({ status: 405, message: 'pagamento não informado' })
+
+  console.log('paymentId', req)
+  return res.status(200).json({ success: true })
 }

@@ -8,6 +8,7 @@ import { FormButton } from '~/components/Forms/FormButton'
 import { AvatarProfile } from '~/components/Signin/AvatarProfile'
 import { ContentRow } from '~/components/Signin/ContentRow'
 import { ContentLimit, Divider } from '~/components/styled'
+import { useCartPurchase } from '~/hooks/useCart'
 import { usePWA } from '~/hooks/usePWA'
 import { register } from '~/serviceWorkerRegistration'
 
@@ -23,15 +24,17 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
   const { theme, matchingBackgroudText } = useAppTheme()
   const [session] = useSession()
   const [loginOpen, setLoginOpen] = useState(false)
+  const { clearCartData } = useCartPurchase()
 
   const toogleLogin = useCallback(() => {
     if (onToogleLogin) onToogleLogin()
     setLoginOpen(old => !old)
   }, [onToogleLogin])
 
-  const handleLogOut = useCallback(() => {
-    signOut()
-  }, [])
+  const handleLogOut = useCallback(async () => {
+    clearCartData()
+    await signOut()
+  }, [clearCartData])
 
   return (
     <>

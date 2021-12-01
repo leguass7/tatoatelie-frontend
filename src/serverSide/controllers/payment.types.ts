@@ -8,6 +8,7 @@ export enum PayMode {
 }
 
 export interface IPaymentCreatePayload {
+  paymentId?: number
   purchaseId: number
   payMethod: PayMethod
   payMode: PayMode

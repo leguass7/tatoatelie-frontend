@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { compareValues, makeArray } from '~/helpers/array'
 import type { IPurchaseCreatePayload, IPurchaseItemCreate } from '~/serverSide/controllers/purchase.types'
 import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
-import { createPayment } from '~/services/api/payment.api'
+import { storePayment } from '~/services/api/payment.api'
 import { createPurchase } from '~/services/api/purchase.api'
 import type { AppState } from '~/store'
 import {
@@ -206,23 +206,27 @@ export function useCartPurchase() {
     return !!response?.success
   }, [isMounted, cartState, updateCartData])
 
-  const generateCartPayment = useCallback(async () => {
-    setSaving(true)
-    const response = await createPayment({
-      purchaseId: cartState.purchaseId,
-      payMethod: cartState.payMethod,
-      payMode: cartState.payMode
-    })
+  const generateCartPayment = useCallback(
+    async (paymentId?: number) => {
+      setSaving(true)
+      const response = await storePayment({
+        paymentId,
+        purchaseId: cartState.purchaseId,
+        payMethod: cartState.payMethod,
+        payMode: cartState.payMode
+      })
 
-    if (isMounted.current) {
-      setSaving(false)
-      if (response && response.success) {
-        updateCartData({ paymentId: response.paymentId })
-        return response
+      if (isMounted.current) {
+        setSaving(false)
+        if (response && response.success) {
+          updateCartData({ paymentId: response.paymentId })
+          return response
+        }
       }
-    }
-    return null
-  }, [isMounted, cartState, updateCartData])
+      return null
+    },
+    [isMounted, cartState, updateCartData]
+  )
 
   const clearCartData = useCallback(() => {
     dispatch(clearCart())
