@@ -1,6 +1,6 @@
-import { AuthorizedApiRequest } from '../middlewares/protect'
-import { PayMethod, PayMode } from './payment.types'
-import { IReponseApi } from './types'
+import type { AuthorizedApiRequest } from '../middlewares/protect'
+import { PayMethod, PayMode } from '../repositories/dto/payment.dto'
+import type { IReponseApi } from './types'
 
 export interface IPurchaseItemCreate {
   id?: number

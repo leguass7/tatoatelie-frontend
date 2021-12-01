@@ -2,7 +2,7 @@ import React from 'react'
 import ReactHtmlParser from 'react-html-parser'
 
 import ndImage from '~/assets/images/nd-vertical.jpg'
-import { IProduct } from '~/serverSide/repositories/types'
+import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
 
 import { PageTitle } from '../PageTitle'
 import { MaskedProductImage } from '../ProductList/MaskedProductImage'
