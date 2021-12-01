@@ -27,7 +27,7 @@ type Props = {
   message?: string | string[]
   textSize?: number
 }
-export const EmptyCart: React.FC<Props> = ({ message = 'Oh! Seu carrinho está vazio.', textSize = 22 }) => {
+export const EmptyCart: React.FC<Props> = ({ message = 'Oh! Seu carrinho está vazio.', textSize = 22, children }) => {
   const { theme } = useAppTheme()
 
   const renderMessage = () => {
@@ -44,7 +44,7 @@ export const EmptyCart: React.FC<Props> = ({ message = 'Oh! Seu carrinho está v
     <Container color={theme.colors.textDark}>
       <div>
         <ServerEmptySvg width={180} />
-        <Message textSize={textSize}>{renderMessage()}</Message>
+        <Message textSize={textSize}>{children || renderMessage()}</Message>
       </div>
     </Container>
   )
