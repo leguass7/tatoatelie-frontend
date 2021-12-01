@@ -14,3 +14,5 @@ export const serverToken = process.env.SERVER_TOKEN
 
 export const appName = pkg.name
 export const appVersion = pkg.version
+
+export const phone = '(85) 8713-8347'
