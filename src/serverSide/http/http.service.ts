@@ -15,9 +15,10 @@ HttpService.interceptors.request.use(req => {
 HttpService.interceptors.response.use(
   res => res,
   error => {
+    const message = error?.response?.data || error?.response || error.code || ''
     // eslint-disable-next-line no-console
-    console.error('HttpService.interceptors.response', error?.response?.data || error?.response || error)
-    Promise.resolve({ data: { success: false } })
+    console.error('HttpService.interceptors.response', message || error)
+    Promise.resolve({ data: { success: false, message } })
   }
 )
 

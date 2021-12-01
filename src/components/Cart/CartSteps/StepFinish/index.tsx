@@ -7,6 +7,7 @@ import { FormButton } from '~/components/Forms/FormButton'
 import { FormGroup } from '~/components/Forms/FormGroup'
 import { PixCode } from '~/components/PixCode'
 import { ContentLimit, Paragraph } from '~/components/styled'
+import { phone } from '~/config'
 import { useCartPurchase } from '~/hooks/useCart'
 import { useIsMounted } from '~/hooks/useIsMounted'
 import { IPaymentPixData } from '~/serverSide/repositories/dto/payment.dto'
@@ -72,10 +73,12 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
             <Paragraph align="center">
               Numero do pedido: <strong>{cartState?.purchaseId || '--'}</strong>
             </Paragraph>
-            <EmptyCart
-              textSize={14}
-              message="Oh! Houve um erro ao gerar o PIX de pagamento. Por favor, entre em contato com loja."
-            />
+            <EmptyCart textSize={14}>
+              <p>
+                Oh não! Tivemos um problema ao gerar o PIX de pagamento. Por favor, entre em contato com loja
+                <strong> {phone}</strong>.
+              </p>
+            </EmptyCart>
           </>
         ) : (
           <>
