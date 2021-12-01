@@ -7,10 +7,10 @@ import { GenericList } from '~/components/ProductList/GenericList'
 import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { Pagination } from '~/serverSide/database/prisma-paginate'
+import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
 import { serverSidePaginateDto } from '~/serverSide/repositories/dto/serverSidePaginateDto'
 import { productsPaginate } from '~/serverSide/repositories/products'
 import { ISegment, segmentsFindOne } from '~/serverSide/repositories/segment'
-import type { IProduct } from '~/serverSide/repositories/types'
 
 type PageSegmentProps = {
   paginatedProducts: Pagination<IProduct>
