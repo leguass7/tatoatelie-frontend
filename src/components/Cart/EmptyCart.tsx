@@ -44,7 +44,7 @@ export const EmptyCart: React.FC<Props> = ({ message = 'Oh! Seu carrinho está v
     <Container color={theme.colors.textDark}>
       <div>
         <ServerEmptySvg width={180} />
-        <Message textSize={textSize}>{children || renderMessage()}</Message>
+        {children || <Message textSize={textSize}>{renderMessage()}</Message>}
       </div>
     </Container>
   )
