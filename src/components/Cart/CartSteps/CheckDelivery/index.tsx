@@ -1,3 +1,4 @@
+import { Modal } from '@mui/material'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { AddressItem, AddressItemProps } from '~/components/AddressItem'
@@ -13,6 +14,8 @@ import { useCartAddress } from '~/hooks/useCart'
 import { useIsMounted } from '~/hooks/useIsMounted'
 import { getUserAdresses } from '~/services/api/users.api'
 
+import { ModalAddr } from './ModalAddr'
+
 const ListItems = withCheckList(AddressItem)
 
 type ItemProps = AddressItemProps
@@ -23,6 +26,7 @@ const yourself: ItemProps = {
 }
 
 export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
+  const [addrOpen, setAddrOpen] = useState(false)
   const isMounted = useIsMounted()
   const [addrId, setAddrId] = useCartAddress()
   const [loading, setLoading] = useState(false)
@@ -62,21 +66,29 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
   const disableNext = !!(!addrId || loading)
 
   return (
-    <StepContainer hidden={hidden}>
-      <PageTitle title="Endereço de entrega" description="Informe o endereço de entrega ou retirar na loja." />
-      <ListItems
-        key={`list-addr-${list.length}`}
-        list={list}
-        onChange={handleSelectAddress}
-        defaultSelected={[addrId]}
-      />
-      <Divider textColor={theme.colors.secondary} />
-      <br />
-      <FormGroup justify="center">
-        <FormButton type="button" label="Voltar" variant="text" onClick={handleBack} />
-        <FormButton type="button" label="Próximo" onClick={handleNext} disabled={disableNext} />
-      </FormGroup>
-      <br />
-    </StepContainer>
+    <>
+      <StepContainer hidden={hidden}>
+        <PageTitle title="Endereço de entrega" description="Informe o endereço de entrega ou retirar na loja." />
+        <button onClick={() => setAddrOpen(true)}>Clique aqui para adicionar endereço</button>
+        <ListItems
+          key={`list-addr-${list.length}`}
+          list={list}
+          onChange={handleSelectAddress}
+          defaultSelected={[addrId]}
+        />
+        <Divider textColor={theme.colors.secondary} />
+        <br />
+        <FormGroup justify="center">
+          <FormButton type="button" label="Voltar" variant="text" onClick={handleBack} />
+          <FormButton type="button" label="Próximo" onClick={handleNext} disabled={disableNext} />
+        </FormGroup>
+        <br />
+      </StepContainer>
+      <Modal open={addrOpen} onClose={() => setAddrOpen(false)}>
+        <div>
+          <ModalAddr />
+        </div>
+      </Modal>
+    </>
   )
 }
