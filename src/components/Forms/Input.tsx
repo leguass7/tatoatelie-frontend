@@ -3,13 +3,14 @@ import React, { useEffect, useRef } from 'react'
 
 import { VariantColorsTypes } from '../AppThemeProvider/types'
 import { useAppTheme } from '../AppThemeProvider/useAppTheme'
-import { InputContainer, InputContent, InputField, LabelField } from './styles'
+import { InputContainer, InputContent, InputField, LabelField, SpanError } from './styles'
 
 interface Props {
   name: string
   label?: string
   textSize?: number
   themeColor?: VariantColorsTypes
+  grow?: number
 }
 
 type InputProps = JSX.IntrinsicElements['input'] & Props
@@ -21,7 +22,8 @@ export const Input: React.FC<InputProps> = ({
   themeColor = 'primary',
   placeholder,
   type,
-  disabled
+  disabled,
+  grow
 }) => {
   const { theme } = useAppTheme()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -44,7 +46,7 @@ export const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField])
 
   return (
-    <InputContainer disabled={!!disabled}>
+    <InputContainer disabled={!!disabled} grow={grow}>
       <InputContent textSize={textSize} textColor={theme.colors[themeColor]}>
         {label && <LabelField htmlFor={fieldName}>{label}</LabelField>}
         <InputField
@@ -55,7 +57,7 @@ export const Input: React.FC<InputProps> = ({
           type={type}
           disabled={!!disabled}
         />
-        {error && <span>{error}</span>}
+        {error && <SpanError>{error}</SpanError>}
       </InputContent>
     </InputContainer>
   )

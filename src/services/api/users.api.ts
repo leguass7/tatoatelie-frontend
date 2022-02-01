@@ -1,4 +1,5 @@
 import { IReponseApi } from '~/serverSide/controllers/types'
+import { ICreateAddress, IAddress } from '~/serverSide/repositories/dto/adresses.dto'
 
 import Api from './index'
 
@@ -8,7 +9,11 @@ export interface PayloadAuthorize {
 }
 
 export interface IResponseUserAdresses extends IReponseApi {
-  adresses?: any[]
+  adresses?: IAddress[]
+}
+
+export interface IResponseUserAddress extends IReponseApi {
+  address?: IAddress
 }
 
 export async function testAuthorization(data: PayloadAuthorize): Promise<IReponseApi> {
@@ -23,6 +28,15 @@ export async function testAuthorization(data: PayloadAuthorize): Promise<IRepons
 export async function getUserAdresses(): Promise<IResponseUserAdresses> {
   try {
     const response = await Api.get(`/users/adresses`)
+    return response && response.data
+  } catch (error) {
+    return { success: false }
+  }
+}
+
+export async function addUserAddress(data: ICreateAddress): Promise<IResponseUserAddress> {
+  try {
+    const response = await Api.post(`/users/adresses`, data)
     return response && response.data
   } catch (error) {
     return { success: false }
