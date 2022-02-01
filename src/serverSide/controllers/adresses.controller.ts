@@ -24,7 +24,10 @@ export async function updateAdressesController(req: AuthorizedApiRequest, res: N
 export async function createAdressesController(req: AuthorizedApiRequest, res: NextApiResponse) {
   const { auth } = req
   const body = req.body as ICreateAddress
-  const address = await createAddress({ ...body, actived: true, userId: auth.userId })
+  const stateId = (body?.stateId && parseInt(`${body?.stateId}`, 10)) || 0
+  const cityId = (body?.cityId && parseInt(`${body?.cityId}`, 10)) || 0
+
+  const address = await createAddress({ ...body, actived: true, userId: auth.userId, cityId, stateId })
 
   return res.status(201).json({
     success: true,

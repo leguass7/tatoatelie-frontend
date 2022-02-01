@@ -1,14 +1,15 @@
 import React from 'react'
 
-import { FormAddress } from '~/components/FormAddress'
+import { FormAddress, FormAddressSuccessHandler } from '~/components/FormAddress'
 import { PageTitle } from '~/components/PageTitle'
 
 import { ModalAddrContainer, ModalAddrBox } from './styles'
 
 type Props = {
   onCancel?: () => void
+  onSuccess?: FormAddressSuccessHandler
 }
-export const ModalAddr: React.FC<Props> = ({ onCancel }) => {
+export const ModalAddr: React.FC<Props> = ({ onCancel, onSuccess }) => {
   return (
     <ModalAddrContainer>
       <ModalAddrBox>
@@ -16,7 +17,7 @@ export const ModalAddr: React.FC<Props> = ({ onCancel }) => {
         {/* <DeliveryAlert>
           <p>Importante: </p>
         </DeliveryAlert> */}
-        <FormAddress onCancel={onCancel} />
+        <FormAddress onCancel={onCancel} onSuccess={onSuccess} />
       </ModalAddrBox>
     </ModalAddrContainer>
   )

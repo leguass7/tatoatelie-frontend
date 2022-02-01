@@ -8,18 +8,21 @@ import { CircleLoading } from '~/components/CircleLoading'
 import { FormButton, ButtonClickHandler } from '~/components/Forms/FormButton'
 import { Input } from '~/components/Forms/Input'
 import { Select, SimpleOption } from '~/components/Forms/Select'
+import { tostifyErros } from '~/helpers/toastfy'
 import { validateFormData } from '~/helpers/validation'
 import { useIsMounted } from '~/hooks/useIsMounted'
 import type { IAddress, ICity, IState } from '~/serverSide/repositories/dto/adresses.dto'
 import { getCepStates, getCepCities } from '~/services/api/cep.api'
 import { addUserAddress } from '~/services/api/users.api'
 
+export type FormAddressSuccessHandler = (addressId: number) => void
 type FormData = IAddress & {}
 type Props = {
   onCancel?: ButtonClickHandler
+  onSuccess?: FormAddressSuccessHandler
   addressId?: number
 }
-export const FormAddress: React.FC<Props> = ({ onCancel, addressId = 0 }) => {
+export const FormAddress: React.FC<Props> = ({ onCancel, onSuccess, addressId = 0 }) => {
   const formRef = useRef<FormHandles>(null)
   const [loading, setLoading] = useState(false)
   const [ufSelected, setUfSelected] = useState(23)
@@ -60,14 +63,20 @@ export const FormAddress: React.FC<Props> = ({ onCancel, addressId = 0 }) => {
     [fetchCities]
   )
 
-  const handleSubmit = useCallback(async (formData: FormData) => {
-    const invalidData = await validateFormData(addressSchema, formData, formRef.current)
-    if (!invalidData) {
-      const response = await addUserAddress(formData)
-    }
-
-    console.log('submit', formData)
-  }, [])
+  const handleSubmit = useCallback(
+    async (formData: FormData) => {
+      const invalidData = await validateFormData(addressSchema, formData, formRef.current)
+      if (!invalidData) {
+        const response = await addUserAddress(formData)
+        if (response?.success) {
+          if (onSuccess) onSuccess(response?.address?.id)
+        } else if (response?.message) {
+          tostifyErros(response?.message)
+        }
+      }
+    },
+    [onSuccess]
+  )
 
   useEffect(() => {
     fetchUf()

@@ -57,6 +57,15 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
     setAddrOpen(false)
   }, [])
 
+  const handleModalSuccess = useCallback(
+    (id: number) => {
+      setAddrOpen(false)
+      if (id) setAddrId(id)
+      fetchData()
+    },
+    [fetchData, setAddrId]
+  )
+
   const handleSelectAddress = useCallback(
     (ids: number[]) => {
       const [id = 0] = ids
@@ -90,7 +99,7 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
       </StepContainer>
       <Modal open={addrOpen} onClose={handleModalClose}>
         <div>
-          <ModalAddr onCancel={handleModalClose} />
+          <ModalAddr onCancel={handleModalClose} onSuccess={handleModalSuccess} />
         </div>
       </Modal>
     </>
