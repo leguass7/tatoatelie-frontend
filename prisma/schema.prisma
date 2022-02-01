@@ -155,6 +155,7 @@ model Adresses {
   street      String    @db.VarChar(100)
   district    String    @db.VarChar(100)
   houseNumber String?   @db.VarChar(20)
+  complement  String?   @db.Text
   meta        String?   @db.LongText
   actived     Boolean?  @default(true)
   createdAt   DateTime? @default(now()) @db.Timestamp(0)
@@ -163,6 +164,8 @@ model Adresses {
 
   user        User      @relation(fields: [userId], references: [id])
   purchases   Purchase[]
+  uf          Uf        @relation(fields: [stateId], references: [id])
+  city        City      @relation(fields: [cityId], references: [id])
 
   @@map(name: "adresses")
   @@index([actived], map: "actived")
@@ -170,6 +173,34 @@ model Adresses {
   @@index([cityId], map: "cityId")
   @@index([stateId], map: "stateId")
   @@index([userId], map: "userId")
+}
+
+model Uf {
+  id       Int     @id @default(autoincrement())
+  name     String? @db.VarChar(90)
+  abbr     String  @db.VarChar(5)
+  actived  Boolean @default(false)
+  cities   City[]
+
+  adresses Adresses[]
+
+  @@map(name: "states")
+  @@index([actived], map: "actived")
+}
+
+model City {
+  id      Int      @id @default(autoincrement())
+  stateId Int      @default(23)
+  name    String?  @db.VarChar(90)
+  capital Boolean? @default(false)
+  actived Boolean  @default(false)
+
+  uf      Uf       @relation(fields: [stateId], references: [id])
+  adresses Adresses[]
+
+  @@map(name: "cities")
+  @@index([actived], map: "actived")
+  @@index([stateId], map: "stateId")
 }
 
 // model app_config {
@@ -193,17 +224,6 @@ model Adresses {
 //   hits        Int     @default(0) @db.UnsignedInt
 
 //   @@index([actived], map: "actived")
-// }
-
-// model cities {
-//   id      Int      @id @default(autoincrement())
-//   stateId Int?     @default(23)
-//   name    String?  @db.VarChar(90)
-//   capital Boolean? @default(false)
-//   actived Boolean  @default(false)
-
-//   @@index([actived], map: "actived")
-//   @@index([stateId], map: "stateId")
 // }
 
 model Payment {
@@ -291,14 +311,7 @@ model Purchase {
   @@index([userId], map: "userId")
 }
 
-// model states {
-//   id      Int     @id @default(autoincrement())
-//   name    String? @db.VarChar(90)
-//   abbr    String  @db.VarChar(5)
-//   actived Boolean @default(false)
 
-//   @@index([actived], map: "actived")
-// }
 
 // model user_files {
 //   id          Int       @id @default(autoincrement())

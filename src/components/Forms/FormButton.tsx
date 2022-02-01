@@ -3,6 +3,8 @@ import React from 'react'
 import { VariantColorsTypes } from '../AppThemeProvider/types'
 import { useAppTheme } from '../AppThemeProvider/useAppTheme'
 import { Button } from './styles'
+
+export type ButtonClickHandler = React.MouseEventHandler<HTMLButtonElement>
 type Props = {
   label: string
   variant?: 'text' | 'default'
@@ -10,7 +12,7 @@ type Props = {
   themeColor?: VariantColorsTypes
   bold?: boolean
   disabled?: boolean
-  onClick?: () => void
+  onClick?: ButtonClickHandler
   textSize?: number
 }
 export const FormButton: React.FC<Props> = ({

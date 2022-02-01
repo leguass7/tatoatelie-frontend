@@ -21,3 +21,12 @@ export const ModalAddrBox = styled.div`
   padding: ${({ theme }) => theme.spacing.l}px;
   border-radius: ${({ theme }) => theme.rounded}px;
 `
+
+export const DeliveryAlert = styled.div`
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  padding: ${({ theme }) => theme.spacing.l}px;
+  border-radius: ${({ theme }) => theme.rounded}px;
+`

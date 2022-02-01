@@ -1,9 +1,10 @@
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 
 import { querystring } from '~/helpers/string'
 import type { QueryPagination } from '~/serverSide/repositories/types'
+import { store } from '~/store'
 
-const Api = axios.create({ baseURL: '/api' })
+const Api = axios.create({ baseURL: '/api', withCredentials: true })
 
 Api.interceptors.response.use(
   res => res,
@@ -14,6 +15,17 @@ Api.interceptors.response.use(
     return response ? Promise.resolve(response) : Promise.resolve({ data })
   }
 )
+
+function getStoreToken() {
+  const { auth } = store.getState()
+  return auth?.token || ''
+}
+
+Api.interceptors.request.use((config: AxiosRequestConfig) => {
+  const token = getStoreToken()
+  if (token) config.headers.Authorization = `Bearer ${token}`
+  return config
+})
 
 export default Api
 

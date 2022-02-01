@@ -3,6 +3,7 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage'
 
 import { appName, appVersion } from '~/config'
 
+import auth from './auth'
 import cart from './cart'
 import user from './user'
 
@@ -10,7 +11,8 @@ const isServer = typeof window === 'undefined'
 
 export const rootReducer = combineReducers({
   user,
-  cart
+  cart,
+  auth
 })
 
 function createNoopStorage() {
@@ -35,5 +37,5 @@ function createStorage() {
 export const persistConfig = {
   key: `store-${appName}-${appVersion}`,
   storage: createStorage(),
-  whitelist: ['user', 'cart']
+  whitelist: ['user', 'cart', 'auth']
 }

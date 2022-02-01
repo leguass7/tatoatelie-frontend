@@ -53,6 +53,10 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
   const handleNext = () => goToColumn(3)
   const handleBack = () => goToColumn(1)
 
+  const handleModalClose = useCallback(() => {
+    setAddrOpen(false)
+  }, [])
+
   const handleSelectAddress = useCallback(
     (ids: number[]) => {
       const [id = 0] = ids
@@ -84,9 +88,9 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
         </FormGroup>
         <br />
       </StepContainer>
-      <Modal open={addrOpen} onClose={() => setAddrOpen(false)}>
+      <Modal open={addrOpen} onClose={handleModalClose}>
         <div>
-          <ModalAddr />
+          <ModalAddr onCancel={handleModalClose} />
         </div>
       </Modal>
     </>

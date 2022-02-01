@@ -13,14 +13,33 @@ export interface IAddress {
   street: string
   district: string
   houseNumber: string
+  complement?: string
   actived?: boolean
   createdAt: string
   updatedBy?: number
   updatedAt?: string
 }
 
+export type ICreateAddress = Omit<IAddress, 'id' | 'createdAt'>
+
 export function addressDto(address: Adresses): IAddress {
   if (!address) return null
   const result = serializedDto<any>(address) as IAddress
   return result
+}
+
+//
+export interface IState {
+  id: number
+  name: string
+  abbr: string
+  actived: boolean
+}
+
+export interface ICity {
+  id: number
+  stateId: number
+  name: string
+  capital: boolean
+  actived: boolean
 }
