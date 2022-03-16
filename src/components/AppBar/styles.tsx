@@ -2,19 +2,6 @@ import styled from 'styled-components'
 
 import { darken } from '~/helpers/colors'
 
-export const AppBarContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-self: center;
-  align-content: center;
-  margin: 0 auto;
-  min-height: 44px;
-
-  padding: ${({ theme }) => theme.spacing.l || 10}px;
-`
-
 export const ItemBadge = styled.span<{ showing?: boolean }>`
   visibility: ${({ showing }) => (showing ? 'visible' : 'hidden')};
   position: absolute;
@@ -48,4 +35,17 @@ export const ItemBar = styled.button`
   &:hover {
     color: ${({ theme }) => darken(theme.colors.primary, 0.8)};
   }
+`
+
+export const AppBarContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-self: center;
+  align-content: center;
+  margin: 0 auto;
+  min-height: 44px;
+
+  padding: ${({ theme }) => theme.spacing.l || 10}px;
 `
