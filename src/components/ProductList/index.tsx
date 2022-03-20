@@ -11,10 +11,12 @@ export type ProductListProps = {
 
 export const ProductList: React.FC<ProductListProps> = ({ list }) => {
   return (
-    <ProductsContainer>
-      {list.map(product => {
-        return <ProductItem key={`product-${product.id}`} {...product} />
-      })}
-    </ProductsContainer>
+    <>
+      <ProductsContainer>
+        {list.map(product => {
+          return <ProductItem key={`product-${product.id}`} {...product} />
+        })}
+      </ProductsContainer>
+    </>
   )
 }

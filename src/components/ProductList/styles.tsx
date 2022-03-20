@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { brighten, darken } from '~/helpers/colors'
+
 export const ProductLink = styled.a`
   margin: 0;
   padding: 0;
@@ -92,5 +94,26 @@ export const MaskContainer = styled.div`
     display: block;
     max-width: 100%;
     transition: all ease-in-out 0.2s;
+  }
+`
+
+export const ButtonAdd = styled.button<{ bgColor?: string }>`
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  left: 25px;
+  bottom: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: ${({ bgColor = '#FFFFFF' }) => bgColor};
+  border: 1px solid ${({ bgColor = '#FFFFFF' }) => darken(bgColor, 0.3)};
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all ease-in-out 0.25s;
+  &:hover {
+    transform: scale(1.1);
+
+    background-color: ${({ bgColor = '#FFFFFF' }) => darken(bgColor, 0.3)};
+    border-color: ${({ bgColor = '#FFFFFF' }) => brighten(bgColor, 0.2)};
   }
 `

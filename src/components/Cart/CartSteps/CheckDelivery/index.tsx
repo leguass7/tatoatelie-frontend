@@ -1,4 +1,4 @@
-import { Modal } from '@mui/material'
+import { Button, ButtonGroup, Modal } from '@mui/material'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { AddressItem, AddressItemProps } from '~/components/AddressItem'
@@ -82,7 +82,13 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
     <>
       <StepContainer hidden={hidden}>
         <PageTitle title="Endereço de entrega" description="Informe o endereço de entrega ou retirar na loja." />
-        <button onClick={() => setAddrOpen(true)}>Clique aqui para adicionar endereço</button>
+
+        <ButtonGroup>
+          <Button variant="outlined" onClick={() => setAddrOpen(true)}>
+            adicionar endereço
+          </Button>
+        </ButtonGroup>
+        <Divider />
         <ListItems
           key={`list-addr-${list.length}`}
           list={list}
