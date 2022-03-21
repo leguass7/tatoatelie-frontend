@@ -15,6 +15,7 @@ export interface IPurchaseCreatePayload {
   fileId?: number
   addrId: number
   payMethod: PayMethod
+  shippingValue: string | number
   payMode: PayMode
   items: IPurchaseItemCreate[]
 }
