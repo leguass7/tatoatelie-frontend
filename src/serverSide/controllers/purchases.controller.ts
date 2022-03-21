@@ -24,6 +24,8 @@ export async function createPurchaseController(
 ) {
   const { body, auth } = req
 
+  const shippingValue = body?.shippingValue ? Number(`${body?.shippingValue ?? 0}`) || 0 : 0
+
   const { items, total } = makeArray(body.items)
     .filter(f => !!f)
     .reduce(
@@ -53,7 +55,7 @@ export async function createPurchaseController(
     addrId: body.addrId,
     createdBy: auth.userId,
     discount: 0,
-    displayValue: total,
+    displayValue: total + shippingValue,
     fileId: body.fileId,
     status: 1,
     paid: false,
