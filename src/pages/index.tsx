@@ -46,8 +46,8 @@ const PageHome: NextPage<PageIndexProps> = ({ host, vercelUrl }) => {
   console.log('vercelUrl', vercelUrl)
   return (
     <PageLayout pageTitle={'Tato Ateliê'} pageDescription={'Conheça nossa linha de produtos'}>
-      <Segments know />
       <ContentLimit horizontalPad={10}>
+        <Segments know />
         <br />
         <Video videoId="3v-PTeM0Ksk" />
         <br />

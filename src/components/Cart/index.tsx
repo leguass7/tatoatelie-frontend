@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect } from 'react'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { ContentLimit, Divider, FlexRow } from '~/components/styled'
@@ -27,7 +28,7 @@ export const Cart: React.FC = () => {
   }, [prefetch])
 
   return (
-    <>
+    <PerfectScrollbar>
       <CartContainer textColor={theme.colors.primary}>
         <CartTitle>CARRINHO</CartTitle>
         <Divider textColor={theme.colors.secondary} />
@@ -48,6 +49,6 @@ export const Cart: React.FC = () => {
           <EmptyCart />
         )}
       </CartContainer>
-    </>
+    </PerfectScrollbar>
   )
 }
