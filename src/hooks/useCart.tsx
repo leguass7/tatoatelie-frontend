@@ -129,9 +129,17 @@ export function useCartStep() {
   return { step, setCartStep, purchaseId }
 }
 
-export function useCartAddress(): [ICartAppState['addrId'], (_addrId: number) => void] {
+interface ICartAddress {
+  addrId: ICartAppState['addrId']
+  setCartAddrId: (_addrId: number) => void
+  shippingValue: ICartAppState['shippingValue']
+  setShippingValue: (_shippingValue: number) => void
+}
+
+export function useCartAddress(): ICartAddress {
   const dispatch = useDispatch()
   const addrId = useSelector<AppState, ICartAppState['addrId']>(state => state.cart?.addrId)
+  const shippingValue = useSelector<AppState, ICartAppState['shippingValue']>(state => state.cart?.shippingValue)
 
   const setCartAddrId = useCallback(
     (addrId = 0) => {
@@ -140,7 +148,14 @@ export function useCartAddress(): [ICartAppState['addrId'], (_addrId: number) =>
     [dispatch]
   )
 
-  return [addrId, setCartAddrId]
+  const setShippingValue = useCallback(
+    (value = 0) => {
+      dispatch(updateCart({ shippingValue: value }))
+    },
+    [dispatch]
+  )
+
+  return { addrId, setCartAddrId, shippingValue, setShippingValue }
 }
 
 export function useCartPayment() {
@@ -177,7 +192,8 @@ export function createPurchaseCartDto(cart: ICartAppState): IPurchaseCreatePaylo
     payMethod: cart.payMethod,
     payMode: cart.payMode,
     fileId: null,
-    items: itemsDto(products)
+    items: itemsDto(products),
+    shippingValue: Number(`${cart?.shippingValue ?? 0}`) || 0
   }
 }
 
