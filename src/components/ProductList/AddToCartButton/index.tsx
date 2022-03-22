@@ -1,6 +1,7 @@
 import React, { useCallback, memo } from 'react'
 
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
+import { CartButtonSvg } from '~/components/Images/CartButtonSvg'
 
 import { ButtonAdd } from '../styles'
 
@@ -12,7 +13,11 @@ const Button: React.FC<Props> = ({ onClick }) => {
   const handleClick = useCallback(() => {
     if (onClick) onClick()
   }, [onClick])
-  return <ButtonAdd onClick={handleClick} bgColor={theme.colors.contrast} />
+  return (
+    <ButtonAdd onClick={handleClick} bgColor={theme.colors.contrast}>
+      <CartButtonSvg size={100} lineColor={theme.colors.primary} />
+    </ButtonAdd>
+  )
 }
 
 export const AddToCartButton = memo(Button)

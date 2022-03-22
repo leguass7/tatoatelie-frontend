@@ -139,7 +139,7 @@ interface ICartAddress {
 export function useCartAddress(): ICartAddress {
   const dispatch = useDispatch()
   const addrId = useSelector<AppState, ICartAppState['addrId']>(state => state.cart?.addrId)
-  const shippingValue = useSelector<AppState, ICartAppState['shippingValue']>(state => state.cart?.shippingValue)
+  const shippingValue = useSelector<AppState, ICartAppState['shippingValue']>(state => state.cart?.shippingValue || 0)
 
   const setCartAddrId = useCallback(
     (addrId = 0) => {

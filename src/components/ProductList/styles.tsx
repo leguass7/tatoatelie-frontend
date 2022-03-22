@@ -101,19 +101,29 @@ export const ButtonAdd = styled.button<{ bgColor?: string }>`
   width: 44px;
   height: 44px;
   position: absolute;
+  padding: 0;
   left: 25px;
   bottom: 50px;
   border-radius: 50%;
-  overflow: hidden;
+  /* overflow: hidden; */
   cursor: pointer;
   background-color: ${({ bgColor = '#FFFFFF' }) => bgColor};
   border: 1px solid ${({ bgColor = '#FFFFFF' }) => darken(bgColor, 0.3)};
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   transition: all ease-in-out 0.25s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   &:hover {
     transform: scale(1.1);
 
     background-color: ${({ bgColor = '#FFFFFF' }) => darken(bgColor, 0.3)};
     border-color: ${({ bgColor = '#FFFFFF' }) => brighten(bgColor, 0.2)};
+  }
+  svg {
+    display: block;
+    position: relative;
+    margin: 0 auto;
   }
 `
