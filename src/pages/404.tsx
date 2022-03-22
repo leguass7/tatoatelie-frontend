@@ -16,7 +16,7 @@ export default function Custom404() {
         justifyContent="center"
         alignItems="center"
       >
-        <Typography variant="h4">Página não encontrada</Typography>
+        <Typography variant="h4">Página temporariamente indisponível</Typography>
         <br />
         <Button onClick={() => replace('/')}>Voltar para o início</Button>
       </Box>
