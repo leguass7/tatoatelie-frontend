@@ -52,7 +52,8 @@ export async function segmentsFindAll() {
       actived: true,
       slug: true,
       image: true,
-      label: true
+      label: true,
+      description: true
     }
   })
 
