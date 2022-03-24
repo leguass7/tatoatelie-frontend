@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { Segment } from '@prisma/client'
 import type { GetServerSideProps, NextPage } from 'next'
 import styled from 'styled-components'
 
@@ -10,6 +11,7 @@ import { Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { Video } from '~/components/Video'
 import { host } from '~/config'
+import { ISegment, mergeSegments, segmentsFindAll } from '~/serverSide/repositories/segment'
 
 const ImgContainers = styled.div`
   display: flex;
@@ -39,15 +41,17 @@ const Img = styled.img`
 type PageIndexProps = {
   vercelUrl?: string
   host?: string
+  segments?: ISegment[]
 }
 
-const PageHome: NextPage<PageIndexProps> = ({ host, vercelUrl }) => {
+const PageHome: NextPage<PageIndexProps> = ({ host, vercelUrl, segments }) => {
   console.log('host', host)
   console.log('vercelUrl', vercelUrl)
+
   return (
     <PageLayout pageTitle={'Tato Ateliê'} pageDescription={'Conheça nossa linha de produtos'}>
       <ContentLimit horizontalPad={10}>
-        <Segments know />
+        <Segments list={segments} know />
         <br />
         <Video videoId="3v-PTeM0Ksk" />
         <br />
@@ -65,6 +69,7 @@ export default PageHome
 
 export const getServerSideProps: GetServerSideProps<PageIndexProps> = async () => {
   const vercelUrl = process.env.VERCEL_URL || ''
+  const segments = await segmentsFindAll()
 
-  return { props: { vercelUrl, host } }
+  return { props: { vercelUrl, host, segments: mergeSegments(segments) } }
 }

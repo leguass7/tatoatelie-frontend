@@ -25,7 +25,7 @@ const PageEstencil: NextPage<PageEstencilProps> = ({ paginatedProducts, segment 
       <ContentLimit horizontalPad={10}>
         <Segments />
         <PageTitle title={segment.label} />
-        {paginatedProducts?.data.length ? <StencilList list={paginatedProducts.data || []} /> : <NoProducts />}
+        {paginatedProducts?.data?.length ? <StencilList list={paginatedProducts?.data || []} /> : <NoProducts />}
         <br />
       </ContentLimit>
     </PageLayout>

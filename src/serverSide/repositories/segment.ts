@@ -1,3 +1,5 @@
+import { Segment } from '@prisma/client'
+
 import bandejasImg from '~/assets/icons/bandejas.png'
 import caixasImg from '~/assets/icons/caixas.png'
 import cakeboardsImg from '~/assets/icons/cakeboards.png'
@@ -7,15 +9,10 @@ import homeImg from '~/assets/icons/home.svg'
 import lockImg from '~/assets/icons/lock.svg'
 import personImg from '~/assets/icons/person.svg'
 import espatulaImg from '~/assets/icons/spatulas.png'
+import { mergeDeep, removeInvalidValues } from '~/helpers'
 
-export interface ISegment {
-  id: number
-  slug: string
-  label: string
-  description?: string
-  image?: string
+export interface ISegment extends Omit<Segment, 'createdAt' | 'updatedAt'> {
   customPage?: boolean
-  actived?: boolean
 }
 
 export const defaultCategories: ISegment[] = [
@@ -47,13 +44,34 @@ export const defaultUserActions: ISegment[] = [
   }
 ]
 
+export async function segmentsFindAll() {
+  // TEMP
+  const segments = await global?.prisma?.segment?.findMany?.({
+    select: {
+      id: true,
+      actived: true,
+      slug: true,
+      image: true,
+      label: true
+    }
+  })
+
+  return segments
+}
+
+export function mergeSegments(list: Segment[]) {
+  return list.map(s => {
+    let found = defaultCategories.find(c => c?.id === s?.id)
+    found = removeInvalidValues(found)
+
+    if (found) found = mergeDeep(found, s)
+    return found || s
+  })
+}
+
 interface SegmentFilter {
   id?: number
   slug?: string
-}
-
-export async function segmentsFindAll() {
-  return defaultCategories
 }
 
 export async function segmentsFindOne({ id, slug }: SegmentFilter): Promise<ISegment> {

@@ -15,7 +15,8 @@ type Props = {
 }
 
 export const Segments: React.FC<Props> = ({ list = defaultCategories, hideId, know }) => {
-  const listed = list.filter(f => f.actived && f.id !== hideId)
+  const listed = list.filter(f => f?.actived && f?.id !== hideId)
+
   const [mouse, setMouse] = useState(false)
   const targetRef = useRef<HTMLDivElement>(null)
 
