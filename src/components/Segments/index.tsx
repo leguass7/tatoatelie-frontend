@@ -12,12 +12,11 @@ export { defaultCategories, mergeSegments, segmentsFindOne }
 
 type Props = {
   list: ISegment[]
-  hideId?: number
   know?: boolean
 }
 
-export const Segments: React.FC<Props> = ({ list, hideId, know }) => {
-  const listed = list.filter(f => f?.actived && f?.id !== hideId)
+export const Segments: React.FC<Props> = ({ list, know }) => {
+  const listed = list.filter(f => f?.actived)
 
   const [mouse, setMouse] = useState(false)
   const targetRef = useRef<HTMLDivElement>(null)
