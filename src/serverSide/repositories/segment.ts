@@ -11,7 +11,7 @@ import personImg from '~/assets/icons/person.svg'
 import espatulaImg from '~/assets/icons/spatulas.png'
 import { mergeDeep, removeInvalidValues } from '~/helpers'
 
-export interface ISegment extends Omit<Segment, 'createdAt' | 'updatedAt'> {
+export interface ISegment extends Partial<Segment> {
   customPage?: boolean
 }
 
