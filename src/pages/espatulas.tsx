@@ -26,7 +26,7 @@ const PageEspatulas: NextPage<PageEspatulasProps> = ({ paginatedProducts, segmen
       {segment?.actived ? (
         <ContentLimit horizontalPad={10}>
           <Segments list={segments} />
-          <PageTitle title={segment.label} description="Estpatulas para decoração de bolos" />
+          <PageTitle title={segment.label} description="Espátulas para decoração de bolos" />
           {paginatedProducts?.data.length ? <ProductList list={paginatedProducts.data || []} /> : <NoProducts />}
           <br />
         </ContentLimit>

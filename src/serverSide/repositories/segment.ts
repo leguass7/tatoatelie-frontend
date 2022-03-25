@@ -2,9 +2,7 @@ import type { Segment } from '@prisma/client'
 
 import prisma from '~/serverSide/database/prisma'
 
-export interface ISegment extends Partial<Segment> {
-  customPage?: boolean
-}
+export interface ISegment extends Partial<Segment> {}
 
 export async function segmentsFindAll() {
   const segments = await prisma?.segment?.findMany?.({
@@ -14,7 +12,8 @@ export async function segmentsFindAll() {
       slug: true,
       image: true,
       label: true,
-      description: true
+      description: true,
+      customPage: true
     }
   })
 
