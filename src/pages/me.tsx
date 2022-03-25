@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import styled from 'styled-components'
@@ -8,12 +8,12 @@ import lockImg from '~/assets/icons/lock.svg'
 import personImg from '~/assets/icons/person.svg'
 import { PageLayout } from '~/components/layouts/PageLayout'
 import { PageTitle } from '~/components/PageTitle'
-import { Segments } from '~/components/Segments'
+import { mergeSegments, Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { ChangePassword } from '~/components/User/ChangePassword'
 import { UserAddresses } from '~/components/User/UserAddresses'
 import { UserForm } from '~/components/User/UserForm'
-import type { ISegment } from '~/serverSide/repositories/segment'
+import { ISegment, segmentsFindAll } from '~/serverSide/repositories/segment'
 
 export const defaultUserActions: ISegment[] = [
   { id: 1, actived: true, label: 'Dados do usuário', slug: 'me?type=data', image: personImg, customPage: true },
@@ -35,7 +35,11 @@ export const defaultUserActions: ISegment[] = [
   }
 ]
 
-const PageMe: NextPage = () => {
+interface Props {
+  segments?: ISegment[]
+}
+
+const PageMe: NextPage<Props> = ({ segments = [] }) => {
   const { query } = useRouter()
 
   const type = useMemo(() => query && query?.type, [query])
@@ -46,7 +50,7 @@ const PageMe: NextPage = () => {
   }, [type])
 
   return (
-    <PageLayout pageTitle={'Meus dados'}>
+    <PageLayout segments={segments} pageTitle={'Meus dados'}>
       <ContentLimit horizontalPad={10}>
         <Segments list={defaultUserActions} />
         <Container>
@@ -58,6 +62,12 @@ const PageMe: NextPage = () => {
       </ContentLimit>
     </PageLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const segments = await segmentsFindAll()
+
+  return { props: { segments: mergeSegments(segments) }, revalidate: 300 }
 }
 
 const Container = styled.div`

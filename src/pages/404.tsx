@@ -1,13 +1,20 @@
 import { Box, Button, Typography } from '@mui/material'
+import { GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 
 import { PageLayout } from '~/components/layouts/PageLayout'
+import { mergeSegments } from '~/components/Segments'
+import { ISegment, segmentsFindAll } from '~/serverSide/repositories/segment'
 
-export default function Custom404() {
+interface Props {
+  segments?: ISegment[]
+}
+
+export default function Custom404({ segments = [] }: Props) {
   const { replace } = useRouter()
 
   return (
-    <PageLayout pageTitle={'Tato Ateliê'}>
+    <PageLayout segments={segments} pageTitle={'Tato Ateliê'}>
       <Box
         height="100%"
         display="flex"
@@ -22,4 +29,10 @@ export default function Custom404() {
       </Box>
     </PageLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const segments = await segmentsFindAll()
+
+  return { props: { segments: mergeSegments(segments) }, revalidate: 300 }
 }

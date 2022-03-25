@@ -1,14 +1,19 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 
 import { CartStepper } from '~/components/Cart/CartStepper'
 import { CartSteps } from '~/components/Cart/CartSteps'
 import { PageLayout } from '~/components/layouts/PageLayout'
+import { mergeSegments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
-type PageStepperProps = {}
+import { ISegment, segmentsFindAll } from '~/serverSide/repositories/segment'
 
-const PageStepper: NextPage<PageStepperProps> = () => {
+type PageStepperProps = {
+  segments?: ISegment[]
+}
+
+const PageStepper: NextPage<PageStepperProps> = ({ segments = [] }) => {
   return (
-    <PageLayout pageTitle={'Stepper'}>
+    <PageLayout segments={segments} pageTitle={'Stepper'}>
       <ContentLimit horizontalPad={10}>
         <CartStepper />
         <CartSteps />
@@ -19,6 +24,12 @@ const PageStepper: NextPage<PageStepperProps> = () => {
       </ContentLimit> */}
     </PageLayout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const segments = await segmentsFindAll()
+
+  return { props: { segments: mergeSegments(segments) }, revalidate: 300 }
 }
 
 export default PageStepper
