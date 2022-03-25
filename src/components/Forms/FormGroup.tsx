@@ -6,7 +6,12 @@ import { Group } from './styles'
 
 type Props = {
   justify?: FlexJustify
+  topMargin?: number
 }
-export const FormGroup: React.FC<Props> = ({ children, justify }) => {
-  return <Group justify={justify}>{children}</Group>
+export const FormGroup: React.FC<Props> = ({ children, justify, topMargin }) => {
+  return (
+    <Group justify={justify} topMargin={topMargin}>
+      {children}
+    </Group>
+  )
 }
