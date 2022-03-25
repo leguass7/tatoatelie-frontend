@@ -26,6 +26,7 @@ export interface ICartAppState {
   readonly stepError?: boolean
   readonly loading: boolean
   readonly lastModification?: number
+  readonly shippingValue?: number
   readonly addrId?: number
   readonly purchaseId?: number | null
   readonly paymentId?: number | null

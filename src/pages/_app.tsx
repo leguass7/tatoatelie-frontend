@@ -1,3 +1,4 @@
+import 'react-perfect-scrollbar/dist/css/styles.css'
 import '~/styles/globals.css'
 import '~/services/gtag'
 import { Provider } from 'next-auth/client'

@@ -1,3 +1,4 @@
+import type { Adresses } from '@prisma/client'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -12,8 +13,9 @@ import { tostifyErros } from '~/helpers/toastfy'
 import { validateFormData } from '~/helpers/validation'
 import { useIsMounted } from '~/hooks/useIsMounted'
 import type { IAddress, ICity, IState } from '~/serverSide/repositories/dto/adresses.dto'
+import Api from '~/services/api'
 import { getCepStates, getCepCities } from '~/services/api/cep.api'
-import { addUserAddress } from '~/services/api/users.api'
+import { addUserAddress, updateUserAddress } from '~/services/api/users.api'
 
 export type FormAddressSuccessHandler = (addressId: number) => void
 type FormData = IAddress & {}
@@ -29,6 +31,7 @@ export const FormAddress: React.FC<Props> = ({ onCancel, onSuccess, addressId = 
   const isMounted = useIsMounted()
   const [ufList, setUfList] = useState<IState[]>([])
   const [cityList, setCityList] = useState<ICity[]>([])
+  const [address, setAddress] = useState<Partial<Adresses>>({})
 
   const fetchCities = useCallback(
     async (stateId: number) => {
@@ -63,11 +66,29 @@ export const FormAddress: React.FC<Props> = ({ onCancel, onSuccess, addressId = 
     [fetchCities]
   )
 
+  const fetchAdresses = useCallback(async () => {
+    if (addressId) {
+      setLoading(true)
+      const { data = {} } = await Api.get(`/adresses/${addressId}`)
+      if (isMounted?.current) {
+        setLoading(false)
+        if (data?.success) setAddress(data?.address ?? {})
+      }
+    }
+  }, [isMounted, addressId])
+
+  useEffect(() => {
+    fetchAdresses()
+  }, [fetchAdresses])
+
   const handleSubmit = useCallback(
     async (formData: FormData) => {
       const invalidData = await validateFormData(addressSchema, formData, formRef.current)
       if (!invalidData) {
-        const response = await addUserAddress(formData)
+        let response
+        if (addressId) response = await updateUserAddress({ ...formData, id: addressId })
+        else response = await addUserAddress(formData)
+
         if (response?.success) {
           if (onSuccess) onSuccess(response?.address?.id)
         } else if (response?.message) {
@@ -75,7 +96,7 @@ export const FormAddress: React.FC<Props> = ({ onCancel, onSuccess, addressId = 
         }
       }
     },
-    [onSuccess]
+    [onSuccess, addressId]
   )
 
   useEffect(() => {
@@ -104,7 +125,12 @@ export const FormAddress: React.FC<Props> = ({ onCancel, onSuccess, addressId = 
 
   return (
     <>
-      <Form ref={formRef} onSubmit={handleSubmit} initialData={{ stateId: ufSelected }} key={`form-addr-${addressId}`}>
+      <Form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        initialData={{ stateId: ufSelected, ...address }}
+        key={`form-addr-${addressId}`}
+      >
         {optionsUF?.length ? (
           <FormGroup justify="space-between">
             <Select

@@ -1,6 +1,6 @@
 import { Adresses } from '.prisma/client'
 
-import { serializedDto } from '~/helpers/database'
+import { serializedDto } from '~/serverSide/database/helpers'
 
 export interface IAddress {
   id: number
@@ -21,6 +21,7 @@ export interface IAddress {
 }
 
 export type ICreateAddress = Omit<IAddress, 'id' | 'createdAt'>
+export type IUpdateAddress = Omit<IAddress, 'updatedAt'>
 
 export function addressDto(address: Adresses): IAddress {
   if (!address) return null

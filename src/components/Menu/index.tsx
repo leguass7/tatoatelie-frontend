@@ -2,6 +2,7 @@ import { Modal } from '@mui/material'
 import { useSession, signOut } from 'next-auth/client'
 import React, { useCallback, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { FormButton } from '~/components/Forms/FormButton'
@@ -37,7 +38,7 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
   }, [clearCartData])
 
   return (
-    <>
+    <PerfectScrollbar>
       <MenuContainer textColor={theme.colors.primary}>
         <MenuItem>
           <>
@@ -91,6 +92,6 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
           </ContentLimit>
         </ModalContainer>
       </Modal>
-    </>
+    </PerfectScrollbar>
   )
 }

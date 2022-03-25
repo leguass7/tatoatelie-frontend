@@ -1,5 +1,6 @@
-import { Modal } from '@mui/material'
+import { Button, ButtonGroup, Modal } from '@mui/material'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { BiHomeCircle } from 'react-icons/bi'
 
 import { AddressItem, AddressItemProps } from '~/components/AddressItem'
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
@@ -10,6 +11,7 @@ import { PageTitle } from '~/components/PageTitle'
 import { useRollColumn } from '~/components/RollColumn'
 import { Divider } from '~/components/styled'
 import { withCheckList } from '~/components/withChecklist'
+import { formatPrice } from '~/helpers'
 import { useCartAddress } from '~/hooks/useCart'
 import { useIsMounted } from '~/hooks/useIsMounted'
 import { getUserAdresses } from '~/services/api/users.api'
@@ -28,7 +30,7 @@ const yourself: ItemProps = {
 export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
   const [addrOpen, setAddrOpen] = useState(false)
   const isMounted = useIsMounted()
-  const [addrId, setAddrId] = useCartAddress()
+  const { addrId, setCartAddrId: setAddrId, setShippingValue, shippingValue } = useCartAddress()
   const [loading, setLoading] = useState(false)
   const { theme } = useAppTheme()
   const { goToColumn } = useRollColumn()
@@ -69,9 +71,18 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
   const handleSelectAddress = useCallback(
     (ids: number[]) => {
       const [id = 0] = ids
+      const selectedAddress = addr?.find?.(adr => adr.id === id)
+
+      let value = 0
+      if (selectedAddress) {
+        value = 15
+        if (selectedAddress.cityId !== 2304400) value = 20
+      }
+
+      setShippingValue(value)
       setAddrId(id)
     },
-    [setAddrId]
+    [setAddrId, setShippingValue, addr]
   )
 
   const list = useMemo(() => [yourself, ...addr], [addr])
@@ -82,13 +93,23 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
     <>
       <StepContainer hidden={hidden}>
         <PageTitle title="Endereço de entrega" description="Informe o endereço de entrega ou retirar na loja." />
-        <button onClick={() => setAddrOpen(true)}>Clique aqui para adicionar endereço</button>
+        <ButtonGroup>
+          <Button variant="outlined" onClick={() => setAddrOpen(true)}>
+            adicionar endereço
+          </Button>
+        </ButtonGroup>
+        <Divider />
         <ListItems
           key={`list-addr-${list.length}`}
           list={list}
           onChange={handleSelectAddress}
           defaultSelected={[addrId]}
         />
+        <Divider textColor={theme.colors.secondary} />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <BiHomeCircle size={24} />
+          <span style={{ padding: '0 8px' }}>Valor do frete: {formatPrice(shippingValue)}</span>
+        </div>
         <Divider textColor={theme.colors.secondary} />
         <br />
         <FormGroup justify="center">

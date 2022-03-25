@@ -7,10 +7,15 @@ import { MenuSvg } from '~/components/Images/MenuSvg'
 import { Menu } from '~/components/Menu'
 import type { ButtonItemMenuProps } from '~/components/Menu/ButtonItemMenu'
 import { useCartItems, useCartMenu, useCartStep } from '~/hooks/useCart'
+import type { ISegment } from '~/serverSide/repositories/segment'
 
 import { AppBarContainer, ItemBar, ItemBadge } from './styles'
 
-export const AppBar: React.FC = () => {
+type Props = {
+  segments?: ISegment[]
+}
+
+export const AppBar: React.FC<Props> = ({ segments = [] }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useCartMenu()
   const { step } = useCartStep()
@@ -31,15 +36,17 @@ export const AppBar: React.FC = () => {
   const closeCart = useCallback(() => setCartOpen(false), [setCartOpen])
 
   const linksProps = useMemo(() => {
-    const links: ButtonItemMenuProps[] = [
-      { title: 'Espátulas', iconName: 'espatulas', path: '/espatulas' },
-      { title: 'Estêncil', iconName: 'estencil', path: '/estencil' },
-      { title: 'Organizadores', iconName: 'organizadores', path: '/segmentation/organizador' },
-      { title: 'Caixas', iconName: 'caixas', path: '/segmentation/caixas' },
-      { title: 'Bandejas', iconName: 'bandejas', path: '/segmentation/bandejas' }
-    ]
+    const links: ButtonItemMenuProps[] = segments
+      .filter(f => !!f.actived)
+      .map(s => {
+        return {
+          title: s.label,
+          iconName: s.slug as ButtonItemMenuProps['iconName'],
+          path: `/${s.slug}`
+        }
+      })
     return links.map(link => ({ ...link, onClick: closeMenu }))
-  }, [closeMenu])
+  }, [closeMenu, segments])
 
   return (
     <>
@@ -55,10 +62,7 @@ export const AppBar: React.FC = () => {
         ) : null}
       </AppBarContainer>
       <Drawer anchor={'left'} open={menuOpen} onClose={closeMenu}>
-        <Menu
-          links={linksProps}
-          // onToogleLogin={closeMenu}
-        />
+        <Menu links={linksProps} />
       </Drawer>
       <Drawer anchor={'left'} open={cartOpen} onClose={closeCart}>
         <Cart />

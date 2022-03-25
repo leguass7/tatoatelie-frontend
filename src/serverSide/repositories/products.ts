@@ -77,3 +77,16 @@ export async function productsPaginate(
 
   return { ...pag, data: data.map(d => productDto(d)) }
 }
+
+export async function getProductSegmentOptions(slug?: string): Promise<any[]> {
+  return [
+    { id: 1, slug: 'espatulas', title: 'Espátulas', actived: false },
+    { id: 2, slug: 'estencil', title: 'Estêncil', actived: true },
+    { id: 3, slug: 'organizador', title: 'Organizador', actived: false },
+    { id: 4, slug: 'caixas', title: 'Caixas', actived: false },
+    { id: 5, slug: 'bandejas', title: 'Bandejas', actived: false },
+    { id: 6, slug: 'cakeboards', title: 'Cakeboards', actived: false },
+    { id: 7, slug: 'topos', title: 'Topos', actived: false },
+    { id: 8, slug: 'acrilicos', title: 'Acrílicos', actived: false }
+  ]
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { DrawerAddingProduct } from '~/components/Cart/DrawerAddingProduct'
 import type { IProduct } from '~/serverSide/repositories/dto/product.dto'
 
 import { ProductsContainer } from '../styles'
@@ -11,10 +12,13 @@ export type StencilListProps = {
 
 export const StencilList: React.FC<StencilListProps> = ({ list }) => {
   return (
-    <ProductsContainer>
-      {list.map(product => {
-        return <StencilItem key={`product-${product.id}`} {...product} />
-      })}
-    </ProductsContainer>
+    <>
+      <ProductsContainer>
+        {list.map(product => {
+          return <StencilItem key={`product-${product.id}`} {...product} />
+        })}
+      </ProductsContainer>
+      <DrawerAddingProduct />
+    </>
   )
 }

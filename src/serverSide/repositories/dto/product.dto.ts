@@ -1,7 +1,7 @@
 import { Image, Product, ProductKind } from '.prisma/client'
 
 import { imageBaseApi } from '~/config'
-import { serializedDto } from '~/helpers/database'
+import { serializedDto } from '~/serverSide/database/helpers'
 
 export interface IImageMeta {
   width?: number

@@ -8,8 +8,10 @@ import { ModalAddrContainer, ModalAddrBox } from './styles'
 type Props = {
   onCancel?: () => void
   onSuccess?: FormAddressSuccessHandler
+  addressId?: number
 }
-export const ModalAddr: React.FC<Props> = ({ onCancel, onSuccess }) => {
+
+export const ModalAddr: React.FC<Props> = ({ onCancel, onSuccess, addressId }) => {
   return (
     <ModalAddrContainer>
       <ModalAddrBox>
@@ -17,7 +19,7 @@ export const ModalAddr: React.FC<Props> = ({ onCancel, onSuccess }) => {
         {/* <DeliveryAlert>
           <p>Importante: </p>
         </DeliveryAlert> */}
-        <FormAddress onCancel={onCancel} onSuccess={onSuccess} />
+        <FormAddress addressId={addressId} onCancel={onCancel} onSuccess={onSuccess} />
       </ModalAddrBox>
     </ModalAddrContainer>
   )
