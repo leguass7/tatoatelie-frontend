@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 
 import { getOpenGraph } from '~/helpers/openGraph'
 import { useCartStep } from '~/hooks/useCart'
+import type { ISegment } from '~/serverSide/repositories/segment'
 import { sendGTagPageView } from '~/services/gtag/conversion'
 import { register } from '~/serviceWorkerRegistration'
 
@@ -15,8 +16,9 @@ import { LayoutContainer, LayoutContent, LayoutFooter, LayoutHeader } from './st
 type Props = {
   pageTitle?: string
   pageDescription?: string
+  segments: ISegment[]
 }
-export const PageLayout: React.FC<Props> = ({ children, pageTitle, pageDescription }) => {
+export const PageLayout: React.FC<Props> = ({ children, pageTitle, pageDescription, segments }) => {
   const { asPath } = useRouter()
   const [session] = useSession()
   const { step, setCartStep } = useCartStep()
@@ -46,7 +48,7 @@ export const PageLayout: React.FC<Props> = ({ children, pageTitle, pageDescripti
       />
       <LayoutContainer>
         <LayoutHeader>
-          <Header />
+          <Header segments={segments} />
         </LayoutHeader>
         <LayoutContent>{children}</LayoutContent>
         <LayoutFooter>

@@ -1,17 +1,15 @@
-/* eslint-disable no-console */
-import { Segment } from '@prisma/client'
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import styled from 'styled-components'
 
 import img1 from '~/assets/images/img1.png'
 import img2 from '~/assets/images/img2.png'
 import img3 from '~/assets/images/img3.png'
 import { PageLayout } from '~/components/layouts/PageLayout'
-import { Segments } from '~/components/Segments'
+import { Segments, mergeSegments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
 import { Video } from '~/components/Video'
 import { host } from '~/config'
-import { ISegment, mergeSegments, segmentsFindAll } from '~/serverSide/repositories/segment'
+import { ISegment, segmentsFindAll } from '~/serverSide/repositories/segment'
 
 const ImgContainers = styled.div`
   display: flex;
@@ -44,12 +42,9 @@ type PageIndexProps = {
   segments?: ISegment[]
 }
 
-const PageHome: NextPage<PageIndexProps> = ({ host, vercelUrl, segments }) => {
-  console.log('host', host)
-  console.log('vercelUrl', vercelUrl)
-
+const PageHome: NextPage<PageIndexProps> = ({ segments }) => {
   return (
-    <PageLayout pageTitle={'Tato Ateliê'} pageDescription={'Conheça nossa linha de produtos'}>
+    <PageLayout pageTitle={'Tato Ateliê'} pageDescription={'Conheça nossa linha de produtos'} segments={segments}>
       <ContentLimit horizontalPad={10}>
         <Segments list={segments} know />
         <br />
@@ -67,9 +62,9 @@ const PageHome: NextPage<PageIndexProps> = ({ host, vercelUrl, segments }) => {
 
 export default PageHome
 
-export const getServerSideProps: GetServerSideProps<PageIndexProps> = async () => {
+export const getStaticProps: GetStaticProps<PageIndexProps> = async () => {
   const vercelUrl = process.env.VERCEL_URL || ''
   const segments = await segmentsFindAll()
 
-  return { props: { vercelUrl, host, segments: mergeSegments(segments) } }
+  return { props: { vercelUrl, host, segments: mergeSegments(segments) }, revalidate: 300 }
 }

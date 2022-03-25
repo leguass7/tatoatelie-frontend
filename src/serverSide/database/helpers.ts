@@ -10,6 +10,11 @@ export function serializedDto<T = unknown>(_d: any): any {
 
   return Object.keys(_d).reduce((acc, key) => {
     const prop = _d[key]
+    // if (prop instanceof Date) {
+    //   acc[key] = format(prop, 'yyyy-MM-dd HH:mm:ss')
+    // } else {
+    //   acc[key] = prop
+    // }
     if (prop instanceof Decimal) {
       acc[key] = Number(prop)
     } else if (prop instanceof Date) {

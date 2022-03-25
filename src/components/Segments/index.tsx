@@ -1,20 +1,22 @@
 import React, { useRef, useState } from 'react'
 
 import type { ISegment } from '~/serverSide/repositories/segment'
-import { defaultCategories } from '~/serverSide/repositories/segment'
 
 import { Disclosure } from '../Disclosure'
 import { KnowSvg } from '../Images/Know'
 import { SegmentItem } from './SegmentItem'
 import { SegmentsContainer, Container } from './styles'
+import { defaultCategories, mergeSegments, segmentsFindOne } from './utils'
+
+export { defaultCategories, mergeSegments, segmentsFindOne }
 
 type Props = {
-  list?: ISegment[]
+  list: ISegment[]
   hideId?: number
   know?: boolean
 }
 
-export const Segments: React.FC<Props> = ({ list = defaultCategories, hideId, know }) => {
+export const Segments: React.FC<Props> = ({ list, hideId, know }) => {
   const listed = list.filter(f => f?.actived && f?.id !== hideId)
 
   const [mouse, setMouse] = useState(false)

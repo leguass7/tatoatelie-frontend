@@ -6,14 +6,14 @@
 
 import { PrismaClient } from '@prisma/client'
 
-// import withCache from './cache'
+import { isServer, dev } from '~/config'
 
 declare let global: NodeJS.Global &
   typeof globalThis & {
     prisma: PrismaClient
   }
 
-let prisma: PrismaClient
+// let prisma: PrismaClient
 
 function createPrisma(): PrismaClient {
   const newPrisma = new PrismaClient({
@@ -32,13 +32,31 @@ function createPrisma(): PrismaClient {
   return newPrisma
 }
 
-if (process.env.NODE_ENV === 'production') {
-  prisma = createPrisma()
-} else {
-  if (!global.prisma) {
-    global.prisma = createPrisma()
+// if (process.env.NODE_ENV === 'production') {
+//   prisma = createPrisma()
+// } else {
+//   if (!global.prisma) {
+//     global.prisma = createPrisma()
+//   }
+//   prisma = global.prisma
+// }
+
+// export default prisma
+
+function factory() {
+  let prisma: PrismaClient
+  if (isServer) {
+    if (dev) {
+      if (!global.prisma) {
+        global.prisma = createPrisma()
+      }
+      prisma = global.prisma
+    } else {
+      prisma = createPrisma()
+    }
   }
-  prisma = global.prisma
+  // console.log('factory prisma', prisma)
+  return prisma
 }
 
-export default prisma
+export default factory()

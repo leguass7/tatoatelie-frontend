@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { User } from '@prisma/client'
+import type { User } from '@prisma/client'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import { useSession } from 'next-auth/client'

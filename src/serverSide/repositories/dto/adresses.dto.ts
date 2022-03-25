@@ -1,6 +1,6 @@
 import { Adresses } from '.prisma/client'
 
-import { serializedDto } from '~/helpers/database'
+import { serializedDto } from '~/serverSide/database/helpers'
 
 export interface IAddress {
   id: number

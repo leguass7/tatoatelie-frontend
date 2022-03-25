@@ -1,4 +1,4 @@
-import { Adresses } from '@prisma/client'
+import type { Adresses } from '@prisma/client'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'

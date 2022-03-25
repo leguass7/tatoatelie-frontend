@@ -5,15 +5,18 @@ import logo from '~/assets/images/logo-face.png'
 import { AppBar } from '~/components/AppBar'
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { ContentLimit } from '~/components/styled'
+import { ISegment } from '~/serverSide/repositories/segment'
 
 import { ImageContainer } from './styles'
-
-export const Header: React.FC = () => {
+type Props = {
+  segments: ISegment[]
+}
+export const Header: React.FC<Props> = ({ segments }) => {
   const { theme } = useAppTheme()
   return (
     <>
       <ContentLimit>
-        <AppBar />
+        <AppBar segments={segments} />
       </ContentLimit>
       <ImageContainer color={theme?.colors?.primary}>
         <Link href="/" passHref>
