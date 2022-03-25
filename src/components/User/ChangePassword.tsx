@@ -7,7 +7,8 @@ interface Props {}
 
 export const ChangePassword: React.FC<Props> = () => {
   const handleSubmit = async values => {
-    console.log(values)
+    // console.log(values)
+    return values
   }
 
   return (
