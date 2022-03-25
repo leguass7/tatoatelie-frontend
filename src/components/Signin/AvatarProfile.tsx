@@ -1,8 +1,11 @@
+import Avatar from '@mui/material/Avatar'
 import { useSession } from 'next-auth/client'
 import { useMemo } from 'react'
 import styled from 'styled-components'
 
 import imgProfile from '~/assets/icons/profile.svg'
+
+import { useAppTheme } from '../AppThemeProvider/useAppTheme'
 
 const MaskAvatar = styled.div<{ size?: number }>`
   display: block;
@@ -24,12 +27,14 @@ const MaskAvatar = styled.div<{ size?: number }>`
 `
 
 interface AvatarProps {
+  name?: string
   image?: string
   size?: number
 }
 
-export const AvatarProfile: React.FC<AvatarProps> = ({ image, size = 38 }) => {
+export const AvatarProfile: React.FC<AvatarProps> = ({ image, name, size = 38 }) => {
   const [session] = useSession()
+  const { theme } = useAppTheme()
 
   const src = useMemo(() => {
     const img = session && session?.user?.image
@@ -37,8 +42,11 @@ export const AvatarProfile: React.FC<AvatarProps> = ({ image, size = 38 }) => {
   }, [image, session])
 
   return (
-    <MaskAvatar size={size}>
-      <img src={src} alt="avatar" />
-    </MaskAvatar>
+    <>
+      <Avatar src={src} alt={name} sx={{ bgcolor: theme.colors.primary }} />
+      {/* <MaskAvatar size={size}>
+       <img src={src} alt="avatar" />
+     </MaskAvatar> */}
+    </>
   )
 }

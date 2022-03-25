@@ -18,12 +18,12 @@ import { PayMode, PayModeItemProps } from './PayMode'
 const ListItems = withCheckList(PayMode)
 
 const modeList: PayModeItemProps[] = [
-  { id: 1, label: 'À vista', description: 'Pagamento do valor total.' },
-  {
-    id: 2,
-    label: '50% mais 50%',
-    description: 'Pagamento de 50% para efetuar o pedido, e o restante do pagamento na entrega.'
-  }
+  { id: 1, label: 'À vista', description: 'Pagamento do valor total.' }
+  // {
+  //   id: 2,
+  //   label: '50% mais 50%',
+  //   description: 'Pagamento de 50% para efetuar o pedido, e o restante do pagamento na entrega.'
+  // }
 ]
 
 export const CheckPayment: React.FC<StepContainerProps> = ({ hidden }) => {
