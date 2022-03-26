@@ -17,6 +17,11 @@ export async function createPurchase(data: IPurchase): Promise<Purchase> {
   return purchase
 }
 
+export async function findUserPurchases(userId: number) {
+  const purchases = await prisma.purchase.findMany({ where: { userId } })
+  return purchases || []
+}
+
 export async function createPurchaseItems(data: IPurchaseItem[]): Promise<number> {
   const items = purchaseCreateItemDto(data)
   const purchaseItems = await prisma.purchaseItem.createMany({ data: items })
