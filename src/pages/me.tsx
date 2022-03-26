@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import homeImg from '~/assets/icons/home.svg'
 import lockImg from '~/assets/icons/lock.svg'
 import personImg from '~/assets/icons/person.svg'
+import ShoppingBagImg from '~/assets/icons/shopping_bag.svg'
 import { PageLayout } from '~/components/layouts/PageLayout'
 import { PageTitle } from '~/components/PageTitle'
 import { mergeSegments, Segments } from '~/components/Segments'
@@ -32,6 +33,14 @@ export const defaultUserActions: ISegment[] = [
     slug: 'me?type=address',
     image: homeImg,
     customPage: true
+  },
+  {
+    id: 4,
+    actived: true,
+    label: 'Pedidos',
+    slug: 'purchases',
+    customPage: true,
+    image: ShoppingBagImg
   }
 ]
 
@@ -50,7 +59,7 @@ const PageMe: NextPage<Props> = ({ segments = [] }) => {
   }, [type])
 
   return (
-    <PageLayout segments={segments} pageTitle={'Meus dados'}>
+    <PageLayout segments={segments} pageTitle="Meus dados">
       <ContentLimit horizontalPad={10}>
         <Segments list={defaultUserActions} />
         <Container>
