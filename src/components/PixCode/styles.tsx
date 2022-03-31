@@ -12,7 +12,8 @@ export const PixContainer = styled.div`
 export const QrcodeContainer = styled.div`
   display: block;
   max-width: 100%;
-  padding: ${({ theme }) => theme.spacing.l}px;
+  padding: ${({ theme }) => theme.spacing.s}px;
+  padding-bottom: ${({ theme }) => theme.spacing.l}px;
   background-color: ${({ theme }) => theme.colors.contrast};
   border-radius: ${({ theme }) => theme.rounded}px;
 `
@@ -20,4 +21,12 @@ export const QrcodeContainer = styled.div`
 export const QrcodeImage = styled.img`
   display: block;
   max-width: 100%;
+`
+
+export const QrCodeHeader = styled.div`
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
 `

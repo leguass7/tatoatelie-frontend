@@ -1,5 +1,7 @@
 import { Prisma, Purchase } from '.prisma/client'
 
+import { PurchaseWithItems } from '~/components/Purchases/PurchaseList'
+import { serializedDto } from '~/helpers/database'
 import prisma from '~/serverSide/database/prisma'
 
 import { IPurchaseItem, purchaseCreateItemDto } from './dto/purchase-item.dto'
@@ -17,9 +19,30 @@ export async function createPurchase(data: IPurchase): Promise<Purchase> {
   return purchase
 }
 
-export async function findUserPurchases(userId: number) {
-  const purchases = await prisma.purchase.findMany({ where: { userId } })
-  return purchases || []
+export async function findUserPurchases(userId: number): Promise<PurchaseWithItems[]> {
+  const purchases = await prisma.purchase.findMany({
+    where: { userId },
+    include: { items: true, payments: true, address: true }
+  })
+
+  // FIXME: fazer uma rotina para isso ou uma função mais genérica
+  purchases.forEach(purchase => {
+    if (purchase?.items?.length) {
+      purchase.items = purchase.items?.map(item => {
+        return serializedDto(item)
+      })
+    }
+
+    if (purchase?.address) purchase.address = serializedDto(purchase.address)
+
+    if (purchase?.payments?.length) {
+      purchase.payments = purchase.payments?.map(payment => {
+        return serializedDto(payment)
+      })
+    }
+  })
+
+  return serializedDto(purchases || []) as PurchaseWithItems[]
 }
 
 export async function createPurchaseItems(data: IPurchaseItem[]): Promise<number> {
@@ -29,6 +52,22 @@ export async function createPurchaseItems(data: IPurchaseItem[]): Promise<number
 }
 
 export async function purchaseFindOne(query: Prisma.PurchaseFindFirstArgs): Promise<Purchase> {
-  const purchase = await prisma.purchase.findFirst(query)
-  return purchase
+  const purchase = (await prisma.purchase.findFirst(query)) as PurchaseWithItems
+
+  if (purchase?.items?.length) {
+    // @ts-ignore
+    purchase.items = purchase.items?.map(item => {
+      return serializedDto(item)
+    })
+  }
+
+  if (purchase?.address) purchase.address = serializedDto(purchase.address)
+
+  if (purchase?.payments?.length) {
+    purchase.payments = purchase.payments?.map(payment => {
+      return serializedDto(payment)
+    })
+  }
+
+  return serializedDto(purchase)
 }

@@ -1,3 +1,5 @@
+import { format, isValid, parseISO } from 'date-fns'
+
 export function querystring(_str?: Record<string, any>): string
 export function querystring(_str?: string): Record<string, string>
 export function querystring(_str?: any): any {
@@ -37,4 +39,19 @@ export function toMask(mask: string, value: string | number): string {
 
 export function capitalize(string: string): string {
   return string.charAt(0).toUpperCase() + string.toLocaleLowerCase().slice(1)
+}
+
+export function validDate(date?: Date | string | number) {
+  if (date instanceof Date) return date
+  if (typeof date === 'string') {
+    const d = parseISO(date)
+    return isValid(d) ? d : null
+  }
+  return null
+}
+
+export function formatDate(date: Date | string | number, formatString: string) {
+  const valid = validDate(date)
+  if (valid) return format(valid, formatString)
+  return null
 }
