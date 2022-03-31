@@ -257,6 +257,8 @@ model Payment {
   meta       String?   @db.LongText
   actived    Boolean   @default(true)
 
+  purchase Purchase @relation(fields: [purchaseId], references: [id])
+
   @@index([method], map: "method")
   @@index([paid], map: "paid")
   @@index([purchaseId], map: "purchaseId")
@@ -312,9 +314,10 @@ model Purchase {
   updatedBy    Int?      @default(0)
   updatedAt    DateTime? @updatedAt
 
-  items   PurchaseItem[]
-  user    User           @relation(fields: [userId], references: [id])
-  address Adresses?      @relation(fields: [addrId], references: [id])
+  items    PurchaseItem[]
+  user     User           @relation(fields: [userId], references: [id])
+  address  Adresses?      @relation(fields: [addrId], references: [id])
+  payments Payment[]
 
 
   @@index([actived], map: "actived")
