@@ -58,12 +58,14 @@ export const PurchaseList: React.FC<Props> = ({ purchases }) => {
         })}
       </ListContainer>
       <Modal open={showCode && !saving} onClose={() => setShowCode(false)}>
-        <PixCode
-          onClose={() => setShowCode(false)}
-          base64QRCode={payment?.base64QRCode}
-          purchaseId={purchaseId}
-          paymentId={payment?.id}
-        />
+        <div>
+          <PixCode
+            onClose={() => setShowCode(false)}
+            base64QRCode={payment?.base64QRCode}
+            purchaseId={purchaseId}
+            paymentId={payment?.id}
+          />
+        </div>
       </Modal>
     </>
   )
