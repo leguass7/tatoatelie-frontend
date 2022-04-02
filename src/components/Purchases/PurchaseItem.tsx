@@ -112,7 +112,7 @@ const PurchaseItemComponent: React.FC<Props> = ({ onPayment, ...purchase }) => {
             <ButtonGroup>
               {payment?.id && !payment?.paid && (
                 <Button onClick={handleClick(payment.id)} variant="contained" sx={{ color: '#fff' }}>
-                  Pagar {payment?.meta ? '1' : '0'}
+                  Pagar
                 </Button>
               )}
             </ButtonGroup>
