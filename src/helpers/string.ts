@@ -37,6 +37,15 @@ export function toMask(mask: string, value: string | number): string {
   return r
 }
 
+export const cpfMask = (value: string): string => {
+  return value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1')
+}
+
 export function capitalize(string: string): string {
   return string.charAt(0).toUpperCase() + string.toLocaleLowerCase().slice(1)
 }

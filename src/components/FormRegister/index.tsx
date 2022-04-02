@@ -1,7 +1,8 @@
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { ChangeEventHandler, useCallback, useRef, useState } from 'react'
 
+import { cpfMask } from '~/helpers/string'
 import { tostifyErros } from '~/helpers/toastfy'
 import { validateFormData } from '~/helpers/validation'
 import { registerUserSchema } from '~/helpers/validation/register-user.validation'
@@ -42,11 +43,16 @@ export const FormRegister: React.FC<Props> = ({ onSuccess, onCancel }) => {
     [onSuccess]
   )
 
+  const maskCpf: ChangeEventHandler<HTMLInputElement> = useCallback(e => {
+    if (e?.target?.value) e.target.value = cpfMask(e.target.value)
+  }, [])
+
   return (
     <Form ref={formRef} onSubmit={handleSubmit}>
       <FormErrorChips errors={errors} />
       <Input name="name" type="text" label="Nome" placeholder="seu nome" disabled={!!loading} />
       <Input name="email" type="email" label="e-mail" placeholder="e-mail" disabled={!!loading} />
+      <Input name="cpf" label="CPF" onInput={maskCpf} placeholder="CPF" disabled={!!loading} />
       <Input name="cellPhone" type="tel" label="Telefone" placeholder="numero do whatsapp" disabled={!!loading} />
       <Divider textColor={theme.colors.secondary} />
       <Input
