@@ -38,7 +38,7 @@ export const defaultUserActions: ISegment[] = [
     id: 4,
     actived: true,
     label: 'Pedidos',
-    slug: 'purchases',
+    slug: 'purchase',
     customPage: true,
     image: ShoppingBagImg
   }

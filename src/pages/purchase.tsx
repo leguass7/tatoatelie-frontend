@@ -9,7 +9,7 @@ import { mergeSegments, Segments } from '~/components/Segments'
 import { findUserPurchases } from '~/serverSide/repositories/purchases'
 import { ISegment, segmentsFindAll } from '~/serverSide/repositories/segment'
 
-import { defaultUserActions } from '../me'
+import { defaultUserActions } from './me'
 
 interface Props {
   segments?: ISegment[]

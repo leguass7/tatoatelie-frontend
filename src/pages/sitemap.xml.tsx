@@ -33,7 +33,8 @@ export const getServerSideProps = async ({ res }) => {
         'sitemal.xml.js',
         'next',
         'segmentation',
-        'product'
+        'product',
+        'purchase'
       ].includes(staticPage)
     })
     .map(staticPagePath => {
