@@ -22,7 +22,10 @@ export async function createPurchase(data: IPurchase): Promise<Purchase> {
 export async function findUserPurchases(userId: number): Promise<PurchaseWithItems[]> {
   const purchases = await prisma.purchase.findMany({
     where: { userId },
-    include: { items: true, payments: true, address: true }
+    include: { items: true, payments: true, address: true },
+    orderBy: {
+      createdAt: 'desc'
+    }
   })
 
   // FIXME: fazer uma rotina para isso ou uma função mais genérica

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { useIsMounted } from '~/hooks/useIsMounted'
 import { IPaymentPixData } from '~/serverSide/repositories/dto/payment.dto'
-import { getPayment } from '~/services/api/payment.api'
+import { createPayment, getPayment } from '~/services/api/payment.api'
 
 import { PixCode } from '../PixCode'
 import { PurchaseItem } from './PurchaseItem'
@@ -32,7 +32,9 @@ export const PurchaseList: React.FC<Props> = ({ purchases }) => {
     async (paymentId: number, purchaseId: number) => {
       if (paymentId && purchaseId) {
         setSaving(true)
-        const response = await getPayment(paymentId)
+        let response = await getPayment(paymentId)
+
+        if (!response?.success) response = await createPayment({ payMethod: 'pix', purchaseId, paymentId, payMode: 1 })
 
         if (isMounted?.current) {
           setSaving(false)
