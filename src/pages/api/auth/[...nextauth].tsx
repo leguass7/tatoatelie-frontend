@@ -49,7 +49,7 @@ const options: NextAuthOptions = {
     signIn: callbackSignin,
     async session(session, token) {
       const { sub } = token
-      return { ...session, userId: parseInt(`${sub || 0}`) || 0 }
+      return Promise.resolve({ ...session, userId: parseInt(`${sub || 0}`) || 0 })
     }
   }
 }
