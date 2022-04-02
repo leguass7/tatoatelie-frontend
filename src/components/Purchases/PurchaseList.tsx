@@ -7,6 +7,7 @@ import { useIsMounted } from '~/hooks/useIsMounted'
 import { IPaymentPixData } from '~/serverSide/repositories/dto/payment.dto'
 import { createPayment, findOrGeneratePix, getPayment } from '~/services/api/payment.api'
 
+import { CircleLoading } from '../CircleLoading'
 import { PixCode } from '../PixCode'
 import { PurchaseItem } from './PurchaseItem'
 
@@ -25,17 +26,17 @@ export const PurchaseList: React.FC<Props> = ({ purchases }) => {
   const [showCode, setShowCode] = useState(false)
   const [purchaseId, setPurchaseId] = useState(0)
   const [payment, setPayment] = useState<IPaymentPixData & { id?: number }>({})
-  const [saving, setSaving] = useState(false)
+  const [loading, setLoading] = useState(false)
   const isMounted = useIsMounted()
 
   const handlePayment = useCallback(
     async (paymentId: number, purchaseId: number) => {
       if (paymentId && purchaseId) {
-        setSaving(true)
+        setLoading(true)
         const response = await findOrGeneratePix(paymentId)
 
         if (isMounted?.current) {
-          setSaving(false)
+          setLoading(false)
           if (response?.success) {
             setShowCode(true)
             setPayment({ ...response?.pix, id: paymentId })
@@ -55,16 +56,17 @@ export const PurchaseList: React.FC<Props> = ({ purchases }) => {
           return <PurchaseItem {...purchase} onPayment={handlePayment} key={`purchase-${purchase.id}`} />
         })}
       </ListContainer>
-      <Modal open={showCode && !saving} onClose={() => setShowCode(false)}>
-        <div>
+      <Modal open={showCode && !loading} onClose={() => setShowCode(false)}>
+        <ModalContainer>
           <PixCode
             onClose={() => setShowCode(false)}
             base64QRCode={payment?.base64QRCode}
             purchaseId={purchaseId}
             paymentId={payment?.id}
           />
-        </div>
+        </ModalContainer>
       </Modal>
+      {loading ? <CircleLoading parentRelativate light /> : null}
     </>
   )
 }
@@ -73,5 +75,12 @@ const ListContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  margin: 0 auto;
+  height: 100%;
+`
+
+const ModalContainer = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `

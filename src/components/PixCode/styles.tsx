@@ -7,6 +7,7 @@ export const PixContainer = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
+  max-width: 236px;
 `
 
 export const QrcodeContainer = styled.div`
