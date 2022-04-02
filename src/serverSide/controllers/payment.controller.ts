@@ -6,7 +6,7 @@ import * as PurchaseRepository from '~/serverSide/repositories/purchases'
 import ErrorApi from '../ErrorApi'
 import { httpGeneratePix } from '../http/http.service'
 import type { AuthorizedApiRequest } from '../middlewares/protect'
-import { prasePaymentMetaDto } from '../repositories/dto/payment.dto'
+import { parsePaymentMetaDto } from '../repositories/dto/payment.dto'
 import type { IPaymentCreatePayload, IResponseCreatePayment } from './payment.types'
 
 interface PaymentCreateApiRequest extends AuthorizedApiRequest {
@@ -52,6 +52,35 @@ export async function paymentByPurchase(
   })
 }
 
+export async function findOrGeneratePaymentPix(
+  req: AuthorizedApiRequest,
+  res: NextApiResponse<IResponseCreatePayment>
+) {
+  const { query } = req
+  const paymentId = query?.paymentId ? parseInt(`${query?.paymentId}`, 10) || 0 : 0
+
+  if (!paymentId) throw ErrorApi({ status: 405, message: 'pagamento não informado' })
+
+  const payment = await PaymentRepository.findOnePayment(paymentId)
+  if (!payment) throw ErrorApi({ status: 404, message: 'pagamento não encontrado' })
+
+  if (payment?.txid || payment?.meta) {
+    const meta = parsePaymentMetaDto(payment?.meta)
+    if (!meta?.pix) throw ErrorApi({ status: 404, message: 'PIX não encontrado' })
+
+    return res.status(200).json({ success: true, txid: payment.txid, paymentId: payment.id, pix: meta?.pix })
+  }
+
+  const pix = await httpGeneratePix(payment.id)
+  if (!pix) throw ErrorApi('Erro ao gerar o PIX do pagamento')
+
+  return res.status(201).json({
+    success: true,
+    paymentId: payment.id,
+    ...pix
+  })
+}
+
 export async function getPaymentById(
   req: AuthorizedApiRequest,
   res: NextApiResponse<IResponseCreatePayment>
@@ -64,7 +93,7 @@ export async function getPaymentById(
   const payment = await PaymentRepository.findOnePayment(paymentId)
   if (!payment) throw ErrorApi({ status: 404, message: 'pagamento não encontrado' })
 
-  const meta = prasePaymentMetaDto(payment?.meta)
+  const meta = parsePaymentMetaDto(payment?.meta)
   if (!meta?.pix) throw ErrorApi({ status: 404, message: 'PIX não encontrado' })
 
   return res.status(200).json({ success: true, txid: payment.txid, paymentId: payment.id, pix: meta?.pix })
