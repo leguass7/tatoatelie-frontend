@@ -2,10 +2,12 @@ import { Button } from '@mui/material'
 import type { User } from '@prisma/client'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
+import { cpf } from 'cpf-cnpj-validator'
 import { useSession } from 'next-auth/client'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { ChangeEventHandler, useCallback, useEffect, useRef, useState } from 'react'
 import * as Yup from 'yup'
 
+import { cpfMask } from '~/helpers/string'
 import { validateFormData } from '~/helpers/validation'
 import { useIsMounted } from '~/hooks/useIsMounted'
 import { getUserByEmail, updateUser } from '~/services/api/users.api'
@@ -19,7 +21,10 @@ interface Props {
 
 const schema = Yup.object().shape({
   email: Yup.string().required('E-mail é um campo obrigatório'),
-  name: Yup.string().required('Nome é um campo obrigatório')
+  name: Yup.string().required('Nome é um campo obrigatório'),
+  cpf: Yup.string().test('cpf', 'CPF inválido', value => {
+    return cpf.isValid(value)
+  })
 })
 
 export const UserForm: React.FC<Props> = ({ onSuccess }) => {
@@ -50,11 +55,12 @@ export const UserForm: React.FC<Props> = ({ onSuccess }) => {
   const handleSubmit = useCallback(
     async data => {
       const isInvalid = await validateFormData(schema, data, formRef.current)
+
       if (!isInvalid) {
         setLoading(true)
+        const response = await updateUser(data)
         if (isMounted.current) {
           setLoading(false)
-          const response = await updateUser(data)
           if (response?.success && onSuccess) onSuccess()
         }
       }
@@ -63,10 +69,15 @@ export const UserForm: React.FC<Props> = ({ onSuccess }) => {
     [isMounted, onSuccess]
   )
 
+  const maskCpf: ChangeEventHandler<HTMLInputElement> = useCallback(e => {
+    if (e?.target?.value) e.target.value = cpfMask(e.target.value)
+  }, [])
+
   return (
     <>
       <Form ref={formRef} onSubmit={handleSubmit} initialData={user}>
         <Input disabled={true} label="E-mail" name="email" />
+        <Input disabled={!editing} onInput={maskCpf} label="CPF" name="cpf" />
         <Input disabled={!editing} label="Nome" name="name" />
         {editing ? (
           <Button type="submit" variant="contained" color="primary">

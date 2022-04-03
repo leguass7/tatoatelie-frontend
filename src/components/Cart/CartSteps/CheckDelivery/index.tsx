@@ -5,6 +5,7 @@ import { BiHomeCircle } from 'react-icons/bi'
 import { AddressItem, AddressItemProps } from '~/components/AddressItem'
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
+import { CircleLoading } from '~/components/CircleLoading'
 import { FormButton } from '~/components/Forms/FormButton'
 import { FormGroup } from '~/components/Forms/FormGroup'
 import { PageTitle } from '~/components/PageTitle'
@@ -123,6 +124,7 @@ export const CheckDelivery: React.FC<StepContainerProps> = ({ hidden }) => {
           <ModalAddr onCancel={handleModalClose} onSuccess={handleModalSuccess} />
         </div>
       </Modal>
+      {loading ? <CircleLoading parentRelativate light /> : null}
     </>
   )
 }

@@ -81,13 +81,13 @@ export const StepFinish: React.FC<StepContainerProps> = ({ hidden }) => {
             </EmptyCart>
           </>
         ) : (
-          <>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
             <PixCode
               base64QRCode={pixData?.base64QRCode}
               purchaseId={cartState?.purchaseId}
               paymentId={cartState?.paymentId}
             />
-          </>
+          </div>
         )}
         {renderButton()}
       </ContentLimit>
