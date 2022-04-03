@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
+import { BiHomeCircle } from 'react-icons/bi'
 
 import { useAppTheme } from '~/components/AppThemeProvider/useAppTheme'
 import { StepContainer, StepContainerProps } from '~/components/Cart/styles'
@@ -8,9 +9,10 @@ import { FormGroup } from '~/components/Forms/FormGroup'
 import { PageTitle } from '~/components/PageTitle'
 import { useRollColumn } from '~/components/RollColumn'
 import { Divider } from '~/components/styled'
+import { CpfModal } from '~/components/User/CpfModal'
 import { withCheckList } from '~/components/withChecklist'
-import { useCartPayment, useCartPurchase } from '~/hooks/useCart'
-// import { useIsMounted } from '~/hooks/useIsMounted'
+import { formatPrice } from '~/helpers'
+import { useCartAddress, useCartPayment, useCartPurchase } from '~/hooks/useCart'
 
 import { PayMethod } from './PayMethod'
 import { PayMode, PayModeItemProps } from './PayMode'
@@ -28,10 +30,10 @@ const modeList: PayModeItemProps[] = [
 
 export const CheckPayment: React.FC<StepContainerProps> = ({ hidden }) => {
   const { theme } = useAppTheme()
-  // const isMounted = useIsMounted()
   const { goToColumn } = useRollColumn()
   const { payMode, payMethod, updateCartPayment } = useCartPayment()
   const { savePurchase, saving, cartState } = useCartPurchase()
+  const { shippingValue } = useCartAddress()
 
   const handleBack = () => goToColumn(2)
   const handleNext = useCallback(() => goToColumn(4), [goToColumn])
@@ -67,11 +69,18 @@ export const CheckPayment: React.FC<StepContainerProps> = ({ hidden }) => {
         onChange={handleSelectPayMode}
         defaultSelected={[payMode]}
       />
+      <Divider textColor={theme.colors.secondary} />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <BiHomeCircle size={24} />
+        <span style={{ padding: '0 8px' }}>Valor do frete: {formatPrice(shippingValue)}</span>
+      </div>
+      <Divider textColor={theme.colors.secondary} />
       <br />
       <FormGroup justify="center">
         <FormButton type="button" label="Voltar" variant="text" onClick={handleBack} />
         <FormButton type="button" label="Finalizar pedido" onClick={fetchPurchase} disabled={disableNext} />
       </FormGroup>
+      <CpfModal />
       <br />
       {saving ? <CircleLoading light /> : null}
     </StepContainer>
