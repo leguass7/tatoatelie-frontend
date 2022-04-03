@@ -2,6 +2,7 @@ import { Button } from '@mui/material'
 import type { User } from '@prisma/client'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
+import { cpf } from 'cpf-cnpj-validator'
 import { useSession } from 'next-auth/client'
 import { ChangeEventHandler, useCallback, useEffect, useRef, useState } from 'react'
 import * as Yup from 'yup'
@@ -21,7 +22,9 @@ interface Props {
 const schema = Yup.object().shape({
   email: Yup.string().required('E-mail é um campo obrigatório'),
   name: Yup.string().required('Nome é um campo obrigatório'),
-  cpf: Yup.string()
+  cpf: Yup.string().test('cpf', 'CPF inválido', value => {
+    return cpf.isValid(value)
+  })
 })
 
 export const UserForm: React.FC<Props> = ({ onSuccess }) => {
@@ -52,11 +55,12 @@ export const UserForm: React.FC<Props> = ({ onSuccess }) => {
   const handleSubmit = useCallback(
     async data => {
       const isInvalid = await validateFormData(schema, data, formRef.current)
+
       if (!isInvalid) {
         setLoading(true)
+        const response = await updateUser(data)
         if (isMounted.current) {
           setLoading(false)
-          const response = await updateUser(data)
           if (response?.success && onSuccess) onSuccess()
         }
       }
