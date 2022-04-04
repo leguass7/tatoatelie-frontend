@@ -46,7 +46,11 @@ const options: NextAuthOptions = {
   ],
 
   callbacks: {
-    signIn: callbackSignin
+    signIn: callbackSignin,
+    async session(session, token) {
+      const { sub } = token
+      return Promise.resolve({ ...session, userId: parseInt(`${sub || 0}`) || 0 })
+    }
   }
 }
 

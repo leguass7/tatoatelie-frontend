@@ -23,7 +23,8 @@ export const Input: React.FC<InputProps> = ({
   placeholder,
   type,
   disabled,
-  grow
+  grow,
+  ...props
 }) => {
   const { theme } = useAppTheme()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -56,6 +57,7 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           type={type}
           disabled={!!disabled}
+          {...props}
         />
         {error && <SpanError>{error}</SpanError>}
       </InputContent>

@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components'
 import { alpha, darken } from '~/helpers/colors'
 import { FlexJustify } from '~/styles/styledTypes'
 
-export const Group = styled.div<{ justify?: FlexJustify }>`
+export const Group = styled.div<{ justify?: FlexJustify; topMargin?: number }>`
   display: flex;
   gap: ${({ theme }) => theme.spacing.m}px;
   justify-content: ${({ justify = 'flex-start' }) => justify};
+  margin-top: ${({ topMargin = 0 }) => topMargin}px;
 `
 
 export const InputContainer = styled.div<{ disabled?: boolean; grow?: number }>`

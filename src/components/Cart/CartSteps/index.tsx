@@ -35,15 +35,9 @@ export const CartSteps: React.FC = () => {
     <>
       {session ? (
         <RollColumn key={`${session.user.name}`} onColumnChange={handleColumnChage}>
-          <Column>
-            <CheckPurchase hidden={step > 1} />
-          </Column>
-          <Column>
-            <CheckDelivery hidden={step !== 2} />
-          </Column>
-          <Column>
-            <CheckPayment hidden={step !== 3} />
-          </Column>
+          <Column>{step <= 1 ? <CheckPurchase hidden={step > 1} /> : null}</Column>
+          <Column>{step === 2 ? <CheckDelivery hidden={step !== 2} /> : null}</Column>
+          <Column>{step === 3 ? <CheckPayment hidden={step !== 3} /> : null}</Column>
           <Column>{step === 4 ? <StepFinish hidden={step !== 4} /> : null}</Column>
         </RollColumn>
       ) : (

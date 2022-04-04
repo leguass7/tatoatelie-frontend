@@ -30,10 +30,10 @@ export const getServerSideProps = async ({ res }) => {
         '_document.js',
         '_error.js',
         'sitemap.xml.js',
-        'sitemal.xml.js',
         'next',
         'segmentation',
-        'product'
+        'product',
+        'purchase'
       ].includes(staticPage)
     })
     .map(staticPagePath => {

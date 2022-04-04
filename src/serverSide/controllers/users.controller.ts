@@ -1,3 +1,4 @@
+import { User } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { AuthorizedApiRequest } from '../middlewares/protect'
@@ -31,4 +32,8 @@ export async function autorize(req: NextApiRequest, res: NextApiResponse): Promi
     return res.status(200).json({ success: true, userId: user?.id })
   }
   return res.status(401).json({ success: false, message: 'email/senha inválidos' })
+}
+
+export async function createUser(data: any): Promise<User> {
+  return null
 }

@@ -43,7 +43,7 @@ export interface IPaymentMetaData {
   bank?: IBankData
 }
 
-export function prasePaymentMetaDto(meta: string): Partial<IPaymentMetaData> {
+export function parsePaymentMetaDto(meta: string): Partial<IPaymentMetaData> {
   try {
     if (!meta) return {}
     return typeof meta === 'string' ? JSON.parse(meta) || {} : meta
