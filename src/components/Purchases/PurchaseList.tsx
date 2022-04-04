@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { useIsMounted } from '~/hooks/useIsMounted'
 import { IPaymentPixData } from '~/serverSide/repositories/dto/payment.dto'
-import { createPayment, findOrGeneratePix, getPayment } from '~/services/api/payment.api'
+import { findOrGeneratePix } from '~/services/api/payment.api'
 
 import { CircleLoading } from '../CircleLoading'
 import { PixCode } from '../PixCode'

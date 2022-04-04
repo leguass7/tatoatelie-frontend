@@ -13,7 +13,7 @@ interface Props {
   grow?: number
 }
 
-type InputProps = JSX.IntrinsicElements['input'] & Props
+type InputProps = React.HTMLProps<HTMLInputElement> & Props
 
 export const Input: React.FC<InputProps> = ({
   name,
@@ -23,8 +23,7 @@ export const Input: React.FC<InputProps> = ({
   placeholder,
   type,
   disabled,
-  grow,
-  ...props
+  grow
 }) => {
   const { theme } = useAppTheme()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -57,7 +56,6 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           type={type}
           disabled={!!disabled}
-          {...props}
         />
         {error && <SpanError>{error}</SpanError>}
       </InputContent>
