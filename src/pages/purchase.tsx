@@ -21,7 +21,7 @@ const Purchases: NextPage<Props> = ({ segments = [], purchases = [] }) => {
     <PageLayout segments={segments} pageTitle="Meus pedidos">
       <Segments list={defaultUserActions} />
       <Container>
-        <PageTitle title="Pedidos" />
+        <PageTitle title="Meus Pedidos" />
         <PurchaseList purchases={purchases} />
       </Container>
     </PageLayout>

@@ -1,5 +1,6 @@
 import { Modal } from '@mui/material'
 import { useSession, signOut } from 'next-auth/client'
+import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -21,6 +22,7 @@ type Props = {
   onToogleLogin?: () => void
 }
 export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
+  const { asPath } = useRouter()
   const { supported, isInstalled, installPwa } = usePWA({ enableLogging: true })
   const { theme, matchingBackgroudText } = useAppTheme()
   const [session] = useSession()
@@ -43,9 +45,11 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
         <MenuItem>
           <>
             {session ? (
-              <ButtonItemMenu title={session?.user?.name} path="/me">
-                <AvatarProfile />
-              </ButtonItemMenu>
+              <>
+                <ButtonItemMenu title={session?.user?.name} path="/me">
+                  <AvatarProfile />
+                </ButtonItemMenu>
+              </>
             ) : (
               <ButtonItemMenu title={'Login'} onClick={toogleLogin}>
                 <AvatarProfile />
@@ -53,7 +57,16 @@ export const Menu: React.FC<Props> = ({ links, onToogleLogin }) => {
             )}
           </>
         </MenuItem>
+        {session && !!(asPath !== '/purchase') && (
+          <>
+            <Divider textColor={theme.colors.secondary} />
+            <MenuItem>
+              <ButtonItemMenu key={`link-meus pedidos`} path="/purchase" title="Meus pedidos" />
+            </MenuItem>
+          </>
+        )}
         <Divider textColor={theme.colors.secondary} />
+
         {links.map(link => (
           <ButtonItemMenu key={`link-${link.path}`} {...link} />
         ))}
