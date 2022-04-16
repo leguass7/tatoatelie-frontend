@@ -4,28 +4,28 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 
 import homeImg from '~/assets/icons/home.svg'
-import lockImg from '~/assets/icons/lock.svg'
+// import lockImg from '~/assets/icons/lock.svg'
 import personImg from '~/assets/icons/person.svg'
 import ShoppingBagImg from '~/assets/icons/shopping_bag.svg'
 import { PageLayout } from '~/components/layouts/PageLayout'
 import { PageTitle } from '~/components/PageTitle'
 import { mergeSegments, Segments } from '~/components/Segments'
 import { ContentLimit } from '~/components/styled'
-import { ChangePassword } from '~/components/User/ChangePassword'
+// import { ChangePassword } from '~/components/User/ChangePassword'
 import { UserAddresses } from '~/components/User/UserAddresses'
 import { UserForm } from '~/components/User/UserForm'
 import { ISegment, segmentsFindAll } from '~/serverSide/repositories/segment'
 
 export const defaultUserActions: ISegment[] = [
   { id: 1, actived: true, label: 'Dados do usuário', slug: 'me?type=data', image: personImg, customPage: true },
-  {
-    id: 2,
-    actived: true,
-    label: 'Trocar senha',
-    slug: 'me?type=password',
-    image: lockImg,
-    customPage: true
-  },
+  // {
+  //   id: 2,
+  //   actived: true,
+  //   label: 'Trocar senha',
+  //   slug: 'me?type=password',
+  //   image: lockImg,
+  //   customPage: true
+  // },
   {
     id: 3,
     actived: true,
@@ -65,7 +65,7 @@ const PageMe: NextPage<Props> = ({ segments = [] }) => {
         <Container>
           <PageTitle title={title} />
           {!type || type === 'data' ? <UserForm /> : null}
-          {type === 'password' ? <ChangePassword /> : null}
+          {/* {type === 'password' ? <ChangePassword /> : null} */}
           {type === 'address' ? <UserAddresses /> : null}
         </Container>
       </ContentLimit>
