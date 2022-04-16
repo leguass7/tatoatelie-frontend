@@ -27,7 +27,7 @@ const statusEnum = ['Cancelado', 'Em espera', 'Pago', 'A caminho', 'Recebido']
 
 const PurchaseItemComponent: React.FC<Props> = ({ onPayment, ...purchase }) => {
   const { id, actived, status, displayValue = 0, paid, payments, createdAt } = purchase
-  const [{ name = 'Produto não encontrado' } = {}] = purchase?.items
+  // const [{ name = 'Produto não encontrado' } = {}] = purchase?.items
   const { label = null, street = null, district = null, cep = null } = purchase?.address || {}
 
   const [expanded, setExpanded] = useState(false)
@@ -69,7 +69,7 @@ const PurchaseItemComponent: React.FC<Props> = ({ onPayment, ...purchase }) => {
       <CardItem>
         <Grid container>
           <Grid sm={3} item px={2} pt={1} xs={6}>
-            <Typography variant="h5">{name}</Typography>
+            <Typography variant="h5">{`Pedido: ${id}`}</Typography>
             <CardHeader sx={{ padding: 0 }} subheader={formatDate(createdAt, 'dd/MM/yyyy HH:mm:ss')} />
           </Grid>
           <Grid sm={3} item xs={6} px={2} pt={1}>
@@ -123,19 +123,24 @@ const PurchaseItemComponent: React.FC<Props> = ({ onPayment, ...purchase }) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" mountOnEnter unmountOnExit>
           <CardContent>
-            <Typography variant="h5">Produtos comprados</Typography>
+            <Typography variant="h5">Items do pedido</Typography>
             <Grid container>
               {purchase?.items?.length
                 ? purchase.items.map(currentPurchase => {
-                    const { id, quantity, price = 0, size, name } = currentPurchase
+                    const { id, quantity = 0, price = 0, name, size } = currentPurchase
 
                     return (
                       <Fragment key={`item-${id}`}>
-                        <Grid item xs={6} md={4} borderBottom={1} p={1}>
-                          <Typography variant="h6">{name}</Typography>
-                          <CardHeader sx={{ padding: 0 }} subheader={`preço: ${formatPrice(price as number)}`} />
-                          {quantity ? <Typography variant="body1">quantidade: {quantity}</Typography> : null}
-                          {size ? <Typography variant="body2">tamanho: {size} cm</Typography> : null}
+                        <Grid item xs={6} md={4}>
+                          <ProductContainer>
+                            <Typography variant="h6">{name}</Typography>
+                            <CardHeader
+                              sx={{ padding: 0 }}
+                              subheader={`${quantity} x ${formatPrice(price as number)}`}
+                            />
+                            {/* {quantity ? <Typography variant="body1">quantidade: {quantity}</Typography> : null} */}
+                            {size ? <Typography variant="body2">tamanho: {size} cm</Typography> : null}
+                          </ProductContainer>
                         </Grid>
                       </Fragment>
                     )
@@ -154,6 +159,7 @@ export const PurchaseItem = memo(PurchaseItemComponent)
 const ItemContainer = styled.div`
   width: 100%;
   padding: 4px;
+  border: 0;
 `
 
 const AlignColumnText = styled.div`
@@ -165,4 +171,11 @@ const AlignColumnText = styled.div`
 const CardItem = styled(Card)`
   background-color: ${props => props.theme.colors.primary} !important;
   color: #f1f1f1 !important;
+  border: 0;
+`
+const ProductContainer = styled.div`
+  border: 0;
+  margin: ${({ theme }) => theme.spacing.s}px;
+  padding: ${({ theme }) => theme.spacing.m}px;
+  border-bottom: 1px solid #fff;
 `

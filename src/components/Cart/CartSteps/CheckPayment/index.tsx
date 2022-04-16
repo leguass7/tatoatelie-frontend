@@ -9,7 +9,6 @@ import { FormGroup } from '~/components/Forms/FormGroup'
 import { PageTitle } from '~/components/PageTitle'
 import { useRollColumn } from '~/components/RollColumn'
 import { Divider } from '~/components/styled'
-import { CpfModal } from '~/components/User/CpfModal'
 import { withCheckList } from '~/components/withChecklist'
 import { formatPrice } from '~/helpers'
 import { useCartAddress, useCartPayment, useCartPurchase } from '~/hooks/useCart'
@@ -80,7 +79,6 @@ export const CheckPayment: React.FC<StepContainerProps> = ({ hidden }) => {
         <FormButton type="button" label="Voltar" variant="text" onClick={handleBack} />
         <FormButton type="button" label="Finalizar pedido" onClick={fetchPurchase} disabled={disableNext} />
       </FormGroup>
-      <CpfModal />
       <br />
       {saving ? <CircleLoading light /> : null}
     </StepContainer>

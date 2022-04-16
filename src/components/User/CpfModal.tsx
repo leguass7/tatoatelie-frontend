@@ -1,10 +1,9 @@
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Modal, TextField } from '@mui/material'
+import { Button, Card, CardContent, CardHeader, Modal, Stack, TextField } from '@mui/material'
 import { cpf } from 'cpf-cnpj-validator'
 import { useSession } from 'next-auth/client'
 import { ChangeEventHandler, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { wait } from '~/helpers'
 import { cpfMask } from '~/helpers/string'
 import { useIsMounted } from '~/hooks/useIsMounted'
 import { getUserByEmail, updateUser } from '~/services/api/users.api'
@@ -26,6 +25,13 @@ export const CpfModal: React.FC<Props> = ({ onMatch }) => {
 
   const [session] = useSession()
 
+  const handleSave = useCallback(async () => {
+    if (cpf.isValid(value)) {
+      const { success } = await updateUser({ cpf: value })
+      if (success) setOpen(false)
+    }
+  }, [value])
+
   const fetchData = useCallback(async () => {
     if (session?.user?.email) {
       setLoading(true)
@@ -46,12 +52,14 @@ export const CpfModal: React.FC<Props> = ({ onMatch }) => {
       setValue(cpfMask(e.target.value))
 
       if (cpf.isValid(e.target.value)) {
-        if (onMatch) onMatch(e.target.value)
-        else {
-          await wait(1000).then(async () => {
-            const { success } = await updateUser({ cpf: e.target.value })
-            if (success) setOpen(false)
-          })
+        if (onMatch) {
+          onMatch(e.target.value)
+        } else {
+          // handleSave()
+          // await wait(1000).then(async () => {
+          //   const { success } = await updateUser({ cpf: e.target.value })
+          //   if (success) setOpen(false)
+          // })
         }
       } else {
         if (e?.target?.value?.length === 14) setShowError(true)
@@ -66,19 +74,27 @@ export const CpfModal: React.FC<Props> = ({ onMatch }) => {
       <Modal open={open}>
         <ModalContainer>
           <Card>
-            <CardHeader title="Precisamos de seu CPF para concluir o pedido" />
+            <CardHeader title="Seu CPF" subheader="Precisamos de seu CPF para concluir o pedido" />
             <CardContent>
-              <TextField value={value} placeholder="Digite aqui o seu CPF" onInput={maskCpf} />
+              <TextField value={value} placeholder="Digite aqui o seu CPF" onInput={maskCpf} fullWidth />
               <br />
               {showError ? <SpanError>CPF inválido</SpanError> : null}
             </CardContent>
-            <CardActions>
-              <Box justifyContent="center" alignItems="center">
+            {/* <CardActions> */}
+            <Stack direction={'row'} justifyContent="center" spacing={1} alignContent="center" p={2}>
+              {/* <Button color="primary" variant="outlined" onClick={() => setOpen(false)}>
+                  Cancelar
+                </Button> */}
+              <Button color="primary" variant="contained" onClick={handleSave} disabled={!cpf.isValid(value)}>
+                Salvar
+              </Button>
+            </Stack>
+            {/* <Box justifyContent="center" alignItems="center">
                 <Button color="primary" variant="outlined" onClick={() => setOpen(false)}>
                   Cancelar
                 </Button>
-              </Box>
-            </CardActions>
+              </Box> */}
+            {/* </CardActions> */}
           </Card>
         </ModalContainer>
       </Modal>
