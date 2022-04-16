@@ -1,6 +1,7 @@
 import { Modal } from '@mui/material'
 import { Payment, Purchase, PurchaseItem as PrismaPurchaseItem, Adresses } from '@prisma/client'
 import { useCallback, useState } from 'react'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
 import { useIsMounted } from '~/hooks/useIsMounted'
@@ -41,6 +42,8 @@ export const PurchaseList: React.FC<Props> = ({ purchases }) => {
             setShowCode(true)
             setPayment({ ...response?.pix, id: paymentId })
             setPurchaseId(purchaseId)
+          } else {
+            toast.error(response?.message || 'Erro inesperado')
           }
         }
         return response

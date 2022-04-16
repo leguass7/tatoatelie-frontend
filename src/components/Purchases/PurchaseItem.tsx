@@ -27,7 +27,7 @@ const statusEnum = ['Cancelado', 'Em espera', 'Pago', 'A caminho', 'Recebido']
 
 const PurchaseItemComponent: React.FC<Props> = ({ onPayment, ...purchase }) => {
   const { id, actived, status, displayValue = 0, paid, payments, createdAt } = purchase
-  const [{ name = 'Produto não encontrado' } = {}] = purchase?.items
+  // const [{ name = 'Produto não encontrado' } = {}] = purchase?.items
   const { label = null, street = null, district = null, cep = null } = purchase?.address || {}
 
   const [expanded, setExpanded] = useState(false)
@@ -69,7 +69,7 @@ const PurchaseItemComponent: React.FC<Props> = ({ onPayment, ...purchase }) => {
       <CardItem>
         <Grid container>
           <Grid sm={3} item px={2} pt={1} xs={6}>
-            <Typography variant="h5">{name}</Typography>
+            <Typography variant="h5">{`Pedido: ${id}`}</Typography>
             <CardHeader sx={{ padding: 0 }} subheader={formatDate(createdAt, 'dd/MM/yyyy HH:mm:ss')} />
           </Grid>
           <Grid sm={3} item xs={6} px={2} pt={1}>
@@ -127,7 +127,7 @@ const PurchaseItemComponent: React.FC<Props> = ({ onPayment, ...purchase }) => {
             <Grid container>
               {purchase?.items?.length
                 ? purchase.items.map(currentPurchase => {
-                    const { id, quantity = 0, price = 0, size, name } = currentPurchase
+                    const { id, quantity = 0, price = 0, name, size } = currentPurchase
 
                     return (
                       <Fragment key={`item-${id}`}>

@@ -30,7 +30,7 @@ export const PageLayout: React.FC<Props> = ({ children, pageTitle, pageDescripti
   useEffect(() => {
     if (session && session.user?.name) {
       // eslint-disable-next-line no-console
-      console.log('Useeffect register in layout')
+      // console.log('Useeffect register in layout')
       register()
     }
   }, [session])

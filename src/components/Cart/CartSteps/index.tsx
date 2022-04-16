@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import { Column, ColumnChangeHandler, RollColumn } from '~/components/RollColumn'
 import { ContentRow } from '~/components/Signin/ContentRow'
 import { Divider, Paragraph } from '~/components/styled'
+import { CpfModal } from '~/components/User/CpfModal'
 import { useCartStep } from '~/hooks/useCart'
 
 import { CheckDelivery } from './CheckDelivery'
@@ -34,12 +35,15 @@ export const CartSteps: React.FC = () => {
   return (
     <>
       {session ? (
-        <RollColumn key={`${session.user.name}`} onColumnChange={handleColumnChage}>
-          <Column>{step <= 1 ? <CheckPurchase hidden={step > 1} /> : null}</Column>
-          <Column>{step === 2 ? <CheckDelivery hidden={step !== 2} /> : null}</Column>
-          <Column>{step === 3 ? <CheckPayment hidden={step !== 3} /> : null}</Column>
-          <Column>{step === 4 ? <StepFinish hidden={step !== 4} /> : null}</Column>
-        </RollColumn>
+        <>
+          <RollColumn key={`${session.user.name}`} onColumnChange={handleColumnChage}>
+            <Column>{step <= 1 ? <CheckPurchase hidden={step > 1} /> : null}</Column>
+            <Column>{step === 2 ? <CheckDelivery hidden={step !== 2} /> : null}</Column>
+            <Column>{step === 3 ? <CheckPayment hidden={step !== 3} /> : null}</Column>
+            <Column>{step === 4 ? <StepFinish hidden={step !== 4} /> : null}</Column>
+          </RollColumn>
+          <CpfModal />
+        </>
       ) : (
         <>
           <br />
